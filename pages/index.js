@@ -19,7 +19,7 @@ const IndexPage = () => (
     <style jsx>{`
     .index-page {
       position: absolute;
-      display: flexl;
+      display: flex;
       justify-content: center;
       align-items: center;
       flex: 1;
