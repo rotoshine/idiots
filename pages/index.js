@@ -1,9 +1,28 @@
 import Head from 'next/head';
 
+const isDev = process.env.NODE_ENV !== 'production';
+
+const title = 'Band IDIOTS';
+const url = isDev ? 'http://localhost:3000' : 'https://idiots.band';
+const description = 'Band IDIOTS의 홈페이지 입니다.';
+const image = `${url}/static/images/logo.jpg`;
+
 const IndexPage = () => (
   <div className="app">
     <Head>
-      <title>IDIOTS</title>
+      <title>Band IDIOTS</title>
+      <link rel="canonical" href={url} />
+      <meta name="description" content={description} />
+      <meta property="og:title" content={title} />
+      <meta property="og:type" content="article" />
+      <meta property="og:url" content={url} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={image} />
+      <meta name="twitter:card" value="summary_large_image" />
+      <meta name="twitter:site" content="@winterwolf0412" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={image} />
     </Head>
     <div className="index-page">
       <div className="idiot-text">IDIOTS</div>
