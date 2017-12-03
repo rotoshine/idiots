@@ -31,6 +31,7 @@ const IndexPage = () => (
     }
 
     .idiot-text {
+      font-family: '굴림';
       justify-content: center;
       align-items: center;
       display: flex;
@@ -38,6 +39,25 @@ const IndexPage = () => (
       color: #ffffff;
       font-size: 10em;
       font-style: italic;
+      animation-name: spin;
+      animation-duration: 100ms;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      font-weight: 500;
+      letter-spacing: 5px;
+    }
+
+    @-moz-keyframes spin {
+      from { -moz-transform: rotate(0deg); }
+      to { -moz-transform: rotate(360deg); }
+    }
+    @-webkit-keyframes spin {
+        from { -webkit-transform: rotate(0deg); }
+        to { -webkit-transform: rotate(360deg); }
+    }
+    @keyframes spin {
+        from {transform:rotate(0deg);}
+        to {transform:rotate(360deg);}
     }
   `}</style>
   </div>
