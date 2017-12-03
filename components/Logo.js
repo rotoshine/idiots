@@ -20,6 +20,19 @@ const Logo = () => (
         font-size: 200px;
       }
 
+      @media only screen and (max-width: 1366px) {
+        .logo {
+          height: 150px;          
+        }
+        .logo-image {
+          width: 90px;
+          height: 90px;
+        }
+        .logo-text {
+          font-size: 90px;
+        }
+      }
+
       @media only screen and (max-width: 768px) {
         .logo {
           height: 100px;          
@@ -29,7 +42,6 @@ const Logo = () => (
           height: 60px;
         }
         .logo-text {
-          font-family: 'Slackey';
           font-size: 60px;
         }
       }
