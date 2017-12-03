@@ -9,7 +9,7 @@ Punk Rock Band Idiots.
 Vocal/Guitar 최효근 | 
 Vocal/Guitar 문주나 |
 Bass 김태희 |
-Keyboard 박미연 |
+Keyboard 박시영 |
 Drum 박태용 
 `;
 const image = `${url}/static/images/logo.jpg`;
