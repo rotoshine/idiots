@@ -8,6 +8,10 @@ export default class ContactPage extends Component {
       <Layout>
         <div className="container">
           <div>
+            <i className="icon ion-social-facebook-outline"/>facebook: 
+            <a href="https://www.facebook.com/bandidiots/" target="_blank">https://www.facebook.com/bandidiots/</a>
+          </div>   
+          <div>
             <i className="icon ion-social-twitter-outline"/>TWITTER: 
             <a href="https://twitter.com/bullwoostar" target="_blank">@bullwoostar</a>
           </div>

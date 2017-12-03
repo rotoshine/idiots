@@ -72,6 +72,7 @@ export default class Layout extends Component {
         <Head>
           <title>{title}</title>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />         
+          <link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css?family=Slackey" rel="stylesheet" />          
           <link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.0.0-7/css/ionicons.min.css" rel="stylesheet" />
