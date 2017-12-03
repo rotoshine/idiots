@@ -4,7 +4,14 @@ const isDev = process.env.NODE_ENV !== 'production';
 
 const title = 'Band IDIOTS';
 const url = isDev ? 'http://localhost:3000' : 'https://idiots.band';
-const description = 'Band IDIOTS의 홈페이지 입니다.';
+const description = [
+  'Punk Rock Band Idiots.',
+  'Vocal / Guitar 최효근',
+  'Vocal / Guitar 문주나',
+  'Bass 김태희',
+  'Keyboard 박미연',
+  'Drum 박태용'
+].join('\r\n');
 const image = `${url}/static/images/logo.jpg`;
 
 const IndexPage = () => (
