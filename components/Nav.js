@@ -1,97 +1,88 @@
-import Link from 'next/link';
-import Router from 'next/router';
+import Link from 'next/link'
+import Router from 'next/router'
+import classNames from 'classnames'
 
 const menus = [
   {
-    name: 'HOME',
+    name: 'home',
     path: '/'
   },
   {
-    name: 'LIVE SCHEDULE',
+    name: 'live',
     path: '/live'
   },
   {
-    name: 'DISCOGRAPHY',
+    name: 'discography',
     path: '/discography'
   },
   {
-    name: 'PHOTOS',
+    name: 'photos',
     path: '/photos'
   },
   {
-    name: 'MOVIE',
+    name: 'movies',
     path: '/movie'
   },
   {
-    name: 'CONTACT',
+    name: 'contact',
     path: '/contact'
-  },
-  {
-    name: 'SPIN?',
-    path: '/logo-spin'
-  }  
+  }
 ]
 const Nav = () => (
   <nav className="nav">
-    {menus.map((menu, i) => {      
+    {menus.map((menu, i) => {
       const selected = (typeof window === 'object') && (Router.asPath === menu.path);
       
       return (
         <Link key={i} href={menu.path}>
-          <a className={`menu ${selected && 'selected'}`}>{menu.name}</a>
+          <a className={classNames('menu', {
+            selected,
+          })}>{menu.name}</a>
         </Link> 
       );   
     })}    
     <style jsx>{`
       .nav {
-        margin: 0 auto;
-        height: 100px;
-        display: flex;
-        flex: 1;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        font-family: 'Rock Salt', cursive;
+        font-family: 'AHDN', cursive;
+        text-align: center;
+        background-color: #eee;
+        padding: 1rem;
       }
 
       .menu {  
-        font-size: 2em;
+        font-size: 4.5rem;
         text-decoration: none;
-        padding-left: 20px;
-        padding-right: 20px;
-        color: #000;
-        font-weight: 700;    
-        text-underline-position: under;    
+        padding-left: 2rem;
+        padding-right: 2rem;
+        color: #999;
+        font-weight: 700;  
       }
       
       .menu.selected {
-        text-decoration: underline;
+        color: #000;
       }
 
       .menu:visit {
-        color: #000;
+        color: #999;
       }
+
       .menu:hover {
         text-decoration: underline;
         color: #000;
       }
 
       @media only screen and (max-width: 1366px) {
-        .nav {
-          height: 200px;
-        }
         .menu {
-          font-size: 1.2em;
+          font-size: 1.5em;
         }
       }
 
       @media only screen and (max-width: 768px) {
-        .nav {
-          height: 300px;
-        }
         .menu {
           font-size: 1.2em;
-        }
+          padding-left: .8rem;
+          padding-right: .8rem
+        }        
       }
     `}</style>
   </nav>
