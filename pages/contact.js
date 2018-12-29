@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import Layout from '../components/Layout';
+import Layout from '../components/Layout'
 
 export default class ContactPage extends Component {
   render() {
@@ -20,7 +20,12 @@ export default class ContactPage extends Component {
             <a href="https://twitter.com/winterwolf0412" target="_blank">@winterwolf0412</a>
           </div>          
         </div>
+        <style jsx>{`
+          .container {
+            line-height: 1.5rem;            
+          }
+        `}</style>
       </Layout>      
-    );
+    )
   }
 }

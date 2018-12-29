@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import Layout from '../components/Layout';
+import Layout from '../components/Layout'
 
 export default class MoviePage extends Component {
   render() {
@@ -10,6 +10,6 @@ export default class MoviePage extends Component {
           coming soon...  
         </div>
       </Layout>      
-    );
+    )
   }
 }
