@@ -98,7 +98,7 @@ export default class Layout extends Component {
         </header>
         {children}
         <style jsx global>{`
-          @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+          @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
           @font-face {
             font-family: 'xtryme';
