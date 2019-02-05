@@ -1,8 +1,8 @@
 [
   {
-    "id": 1,
+    "liveId": 1,
     "title": "멍청이쑈 - 1st ep 발매 공연",
-    "posterUrl": "/static/images/posters/1.jpg",
+    "posterUrl": "/images/posters/1.jpg",
     "place": "Club Sharp",
     "teams": [
       "Dead Buttons",

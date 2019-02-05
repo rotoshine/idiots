@@ -1,0 +1,34 @@
+.Nav {
+  font-family: 'AHDN', cursive;
+  text-align: center;
+  background-color: #eee;
+  padding: 1rem;
+
+  .Nav__menu {
+    font-size: 4.5rem;
+    text-decoration: none;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    color: #999;
+    font-weight: 700; 
+
+    &:visited {
+      color: #999;
+    }
+
+    &:hover {
+      text-decoration: underline;
+      color: #000;
+    }
+
+    @media only screen and (max-width: 1366px) {
+      font-size: 1.5em;
+    }
+    
+    @media only screen and (max-width: 768px) {
+      font-size: 1.2em;
+      padding-left: .8rem;
+      padding-right: .8rem    
+    }
+  }
+}
