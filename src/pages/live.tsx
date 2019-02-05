@@ -71,7 +71,6 @@ export default () => (
               </ul>
             </Panel>
           </div>
-          )}
         </Container>
       </Layout>
     )}
