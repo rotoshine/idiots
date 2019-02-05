@@ -1,0 +1,20 @@
+.panels {
+  margin-top: 1rem;
+  flex-direction: row;
+  display: flex;
+}
+
+.newsList {
+  padding: 0;
+  list-style: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .panels {
+    flex-direction: column;
+  }
+
+  .panels {
+    margin-bottom: 1rem;
+  }
+}

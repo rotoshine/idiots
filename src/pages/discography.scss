@@ -1,0 +1,33 @@
+.Discography {
+  .Discography__list {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .Discography__album {
+    width: 25%;
+    padding: 1.5rem;
+    box-sizing: border-box;
+  }
+
+  .Discography__albumImage {
+    background-position: center;
+    background-size: cover;            
+    width: 100%;
+    transition: all .2s ease-in-out;
+    
+    &:after {
+      display: block;
+      content: "";
+      padding-bottom: 100%;
+    }
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.02);            
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+  }
+}
