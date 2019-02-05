@@ -12,13 +12,14 @@ export default () => (
   <StaticQuery
     query={graphql`
       {
-        allAlbumJson {
+        allMarkdownRemark(filter: {frontmatter: {type: {eq: "album"}}}) {
           edges {
             node {
-              albumId
-              title
-              imageUrl
-              releaseYear
+              id
+              frontmatter {
+                title
+                imageUrl
+              }
             }
           }
         }
@@ -29,9 +30,9 @@ export default () => (
         <Container>
           <Panel title="Discography">
             <div className="Discography__list">
-              {data.allAlbumJson.edges.map(({ node } : { node: Album }) => (
-                <div className="Discography__album" key={node.albumId}>
-                  <div className="Discography__albumImage" style={{ backgroundImage: `url('${node.imageUrl}')` }}>
+              {data.allMarkdownRemark.edges.map(({ node } : any) => (
+                <div className="Discography__album" key={node.id}>
+                  <div className="Discography__albumImage" style={{ backgroundImage: `url('${node.frontmatter.imageUrl}')` }}>
                   </div>
                 </div>
               ))}

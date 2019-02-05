@@ -1,27 +1,49 @@
-import React, { Component } from 'react'
-import { StaticQuery, graphql } from 'gatsby'
+import React from 'react'
+import { StaticQuery, Link, graphql } from 'gatsby'
 
 import Layout from '../components/Layout'
 import Container from '../components/Container'
-import Panel from '../components/Panel'
+import LiveList from '../components/LiveList'
 
 import { Live } from '../types/models'
 
 import './live.scss'
 
+interface LiveListEdge {
+  node: {
+    id: string
+    frontmatter: Live
+    fields: {
+      slug: string
+    }
+  }
+}
+
+const edgesToLives = (edges: LiveListEdge[]) => (
+  edges.map((edge: LiveListEdge) => (
+    {
+      id: edge.node.id,
+      date: edge.node.frontmatter.date,
+      title: edge.node.frontmatter.title,
+      slug: edge.node.fields.slug,
+    }
+  ))
+) 
 export default () => (
   <StaticQuery
     query={graphql`
       {
-        allLiveJson {
+        allMarkdownRemark(filter: {frontmatter: {type: {eq: "live"}}}) {
           edges {
             node {
-              liveId
-              title
-              posterUrl
-              place
-              teams
-              eventLink
+              id
+              frontmatter {
+                date
+                title
+              }
+              fields {
+                slug
+              }
             }
           }
         }
@@ -31,45 +53,7 @@ export default () => (
       <Layout>
         <Container>
           <div className="live-wrapper">
-            <Panel title="Live">
-              <ul>
-                {data.allLiveJson.edges.map(({ node }: { node: Live }) => (
-                  <li key={node.liveId} className="live">
-                    <div className="poster">
-                      <img src={node.posterUrl} />
-                    </div>
-                    <div className="live-contents">
-                      <div className="description">
-                        <div className="label">공연명</div>
-                        <div className="text">{node.title}</div>
-                      </div>
-                      <div className="description">
-                        <div className="label">장소</div>
-                        <div className="text">{node.place}</div>
-                      </div>
-                      <div className="description">
-                        <div className="label">출연진</div>
-                        <div className="text">
-                          <ul>
-                            {node.teams.map((team) => (
-                              <li key={team} className="team">{team}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                      {node.eventLink && (
-                        <div className="description">
-                          <div className="label">INFO</div>
-                          <div className="text">
-                            <a href={node.eventLink} target="_blank">{node.eventLink}</a>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </Panel>
+            <LiveList lives={edgesToLives(data.allMarkdownRemark.edges)} />
           </div>
         </Container>
       </Layout>
