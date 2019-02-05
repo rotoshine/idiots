@@ -10,11 +10,12 @@ module.exports = {
         implementation: require("sass"),
       },
     },
-    `gatsby-transformer-json`,
+    `gatsby-transformer-remark`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `./src/data/`,
+        name: 'src',
+        path: `${__dirname}/src/`,
       },
     },
     `gatsby-plugin-react-helmet`,

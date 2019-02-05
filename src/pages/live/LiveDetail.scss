@@ -1,0 +1,42 @@
+.LiveDetail {
+  display: flex;
+  flex-direction: column;
+
+  .LiveDetail__poster {
+    width: 100%;
+
+    img { 
+      width: 100%;
+    }
+  }
+  
+  .LiveDetail__contents {
+    font-size: 2rem;
+  }
+
+  .LiveDetail__description {
+    padding-left: 2rem;
+    margin-bottom: 2rem;
+    min-height: 4.5rem;
+
+    .LiveDetail__label {
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: #999;
+    }
+
+    .LiveDetail__text {
+      word-break: break-all; 
+    }
+  }
+
+  .LiveDetail__team {
+    margin-bottom: .8rem;
+  }
+
+  .LiveDetail__footer {
+    text-align: right;
+    font-size: 2rem;
+    padding: 1rem;
+  }
+}

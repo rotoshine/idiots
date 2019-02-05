@@ -1,6 +1,5 @@
 import * as Sentry from '@sentry/browser'
 import React, { Component, Fragment } from 'react'
-import ReactGA from 'react-ga'
 import { Helmet } from 'react-helmet'
 
 import Logo from './Logo'
@@ -8,7 +7,7 @@ import Nav from './Nav'
 
 import './Layout.scss'
 
-const { NODE_ENV, GATSBY_SENTRY_DSN, GATSBY_GA } = process.env
+const { NODE_ENV } = process.env
 
 const isDev = NODE_ENV !== 'production'
 

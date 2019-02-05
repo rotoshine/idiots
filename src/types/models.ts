@@ -1,14 +1,16 @@
 export interface Live {
-  liveId: number,
-  title: string,
-  posterUrl: string,
-  place: string,
-  teams: string[],
-  eventLink: string,
+  id: string
+  title: string
+  posterUrl?: string
+  place?: string
+  teams?: string[]
+  eventLink?: string
+  date: string
+  slug: string
 }
 
 export interface Album {
-  albumId: number,
+  id: string,
   title: string,
   imageUrl: string,
   releaseYear: string,
