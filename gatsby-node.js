@@ -19,7 +19,7 @@ exports.createPages = ({ graphql, actions }) => {
   // see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise for more info
   return graphql(`
     {
-      allMarkdownRemark {
+      allMarkdownRemark(filter: {frontmatter: {type: {eq: "live"}}}) {
         edges {
           node {
             fields {
@@ -34,7 +34,7 @@ exports.createPages = ({ graphql, actions }) => {
     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
       createPage({
         path: node.fields.slug,
-        component: path.resolve(`./src/pages/live/LiveDetail.tsx`),
+        component: path.resolve(`./src/components/LiveDetail.tsx`),
         context: {
           slug: node.fields.slug,
         },
