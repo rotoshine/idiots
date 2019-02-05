@@ -58,10 +58,11 @@ export default class Layout extends Component<Props> {
         <meta property="og:image:width" content={imageWidth} />
         <meta property="og:image:height" content={imageHeight} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@winterwolf0412" />
+        <meta name="twitter:site" content="@band_idiots" />
+        <meta name="twitter:creator" content="@winterwolf0412" />
         <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={imageUrl} />
+        <meta name="twitter:description" content={description} />
       </Helmet>
     )
   }
