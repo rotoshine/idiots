@@ -8,7 +8,7 @@ import Nav from './Nav'
 
 import './Layout.scss'
 
-const { NODE_ENV } = process.env
+const { NODE_ENV, GATSBY_SENTRY_DSN, GATSBY_GA } = process.env
 
 const isDev = NODE_ENV !== 'production'
 
@@ -31,29 +31,20 @@ interface Props {
 }
 
 export default class Layout extends Component<Props> {
-  /*
   componentDidMount() {
-    if (!isDev && !window.SENTRY_INITIALIZED && GATSBY_SENTRY_DSN) {
+    if (GATSBY_SENTRY_DSN) {
       Sentry.init({
         dsn: GATSBY_SENTRY_DSN,
         environment: isDev ? 'dev' : 'prod'
       })
-      console.log(`Sentry Init: ${SENTRY_DSN}`)
-      window.SENTRY_INITIALIZED = true
+      console.log(`Sentry Init: ${GATSBY_SENTRY_DSN}`)
     }
 
-    if (!window.GA_INITIALIZED && GATSBY_GA) {
+    if (GATSBY_GA) {
       ReactGA.initialize(GATSBY_GA)
       console.log(`GA Init: ${GATSBY_GA}`)
-      window.GA_INITIALIZED = true
     }
-    const { pathname } = window.location
-
-    if (window.GA_INITIALIZED) {
-      ReactGA.set({ page: pathname })
-      ReactGA.pageview(pathname)
-    }
-  }*/
+  }
 
   renderHead() {
     const { meta = {} } = this.props

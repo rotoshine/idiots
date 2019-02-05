@@ -17,5 +17,6 @@ module.exports = {
         path: `./src/data/`,
       },
     },
+    `gatsby-plugin-react-helmet`,
   ],
 }
