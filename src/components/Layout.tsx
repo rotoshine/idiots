@@ -31,21 +31,6 @@ interface Props {
 }
 
 export default class Layout extends Component<Props> {
-  componentDidMount() {
-    if (GATSBY_SENTRY_DSN) {
-      Sentry.init({
-        dsn: GATSBY_SENTRY_DSN,
-        environment: isDev ? 'dev' : 'prod'
-      })
-      console.log(`Sentry Init: ${GATSBY_SENTRY_DSN}`)
-    }
-
-    if (GATSBY_GA) {
-      ReactGA.initialize(GATSBY_GA)
-      console.log(`GA Init: ${GATSBY_GA}`)
-    }
-  }
-
   renderHead() {
     const { meta = {} } = this.props
     const {
