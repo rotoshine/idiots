@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react'
 import { Link, graphql } from 'gatsby'
 
-import Layout from '../../components/Layout'
-import Container from '../../components/Container'
-import Panel from '../../components/Panel'
+import Layout from './Layout'
+import Container from './Container'
+import Panel from './Panel'
 
 import { Live } from 'types/models'
 
