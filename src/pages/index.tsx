@@ -1,10 +1,11 @@
-import { graphql, StaticQuery, Link } from 'gatsby'
+import { graphql, StaticQuery } from 'gatsby'
 import React from 'react'
 
 import Layout from '../components/Layout'
 import Container from '../components/Container'
 import Panel from '../components/Panel'
 import LiveList from '../components/LiveList'
+import TwitterTimeline from '../components/TwitterTimeline'
 
 import { edgesToLives } from '../utils/dataConverter'
 
@@ -31,16 +32,19 @@ export default () => (
       }
     `}
     render={data => (
-      <Layout>
+      <Layout className="IndexPage">
         <img className="cover-image" src="/images/main.jpeg" width="100%" />
         <Container>
-          <div className="panels">
-            <Panel title="News">
-              <ul className="newsList">
-                <li>이디어츠 홈페이지가 개설되었습니다.</li>
-              </ul>
-            </Panel>
-            <LiveList lives={edgesToLives(data.allMarkdownRemark.edges)} />
+          <div className="IndexPage__contents">
+            <div className="IndexPage__panels">
+              <Panel title="News">
+                <ul className="IndexPage__newsList">
+                  <li>이디어츠 홈페이지가 개설되었습니다.</li>
+                </ul>
+              </Panel>
+              <LiveList lives={edgesToLives(data.allMarkdownRemark.edges)} />            
+            </div>
+            <TwitterTimeline className="IndexPage__twitterTimelineWrapper" />
           </div>
         </Container>
       </Layout>
