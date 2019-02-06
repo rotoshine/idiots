@@ -6,30 +6,9 @@ import Container from '../components/Container'
 import Panel from '../components/Panel'
 import LiveList from '../components/LiveList'
 
-import { Live } from '../types/models'
+import { edgesToLives } from '../utils/dataConverter'
 
 import './index.scss'
-
-interface LiveListEdge {
-  node: {
-    id: string
-    frontmatter: Live
-    fields: {
-      slug: string
-    }
-  }
-}
-
-const edgesToLives = (edges: LiveListEdge[]) => (
-  edges.map((edge: LiveListEdge) => (
-    {
-      id: edge.node.id,
-      date: edge.node.frontmatter.date,
-      title: edge.node.frontmatter.title,
-      slug: edge.node.fields.slug,
-    }
-  ))
-) 
 
 export default () => (
   <StaticQuery

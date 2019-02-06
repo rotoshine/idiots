@@ -1,13 +1,11 @@
-import React, { ReactNode } from 'react'
-import { Link, graphql } from 'gatsby'
-
-import Layout from './Layout'
-import Container from './Container'
-import Panel from './Panel'
-
-import { Live } from 'types/models'
-
-import './LiveDetail.scss'
+import { graphql, Link } from 'gatsby';
+import React, { ReactNode } from 'react';
+import { markdownRemarkToLive } from '../utils/dataConverter';
+import Container from './Container';
+import Layout from './Layout';
+import './LiveDetail.scss';
+import Meta from './Meta';
+import Panel from './Panel';
 
 interface LiveRowProps {
   label: string,
@@ -21,9 +19,17 @@ const Description = ({ label, text }: LiveRowProps) => (
 )
 
 export default ({ data }: any) => {
-  const live: Live = data.markdownRemark.frontmatter
+  const live = markdownRemarkToLive(data)
+
+  const { teams = [] } = live
+
   return (
     <Layout className="LiveDetail">
+      <Meta
+        imageUrl={live.posterUrl}
+        description={`장소: ${live.place} ${teams.length > 0 ? ` | 출연진: ${teams.join(',')}` : ''}`}
+        path={live.slug}
+      />
       <Container>
         <Panel title="Live">
           <div className="LiveDetail__poster">
@@ -64,6 +70,9 @@ export const query = graphql`
         place
         teams
         eventLink
+      }
+      fields {
+        slug
       }
     }
   }

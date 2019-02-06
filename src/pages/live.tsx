@@ -1,34 +1,15 @@
 import React from 'react'
-import { StaticQuery, Link, graphql } from 'gatsby'
+import { StaticQuery, graphql } from 'gatsby'
 
+import Meta from '../components/Meta'
 import Layout from '../components/Layout'
 import Container from '../components/Container'
 import LiveList from '../components/LiveList'
 
-import { Live } from '../types/models'
+import { edgesToLives } from '../utils/dataConverter' 
 
 import './live.scss'
 
-interface LiveListEdge {
-  node: {
-    id: string
-    frontmatter: Live
-    fields: {
-      slug: string
-    }
-  }
-}
-
-const edgesToLives = (edges: LiveListEdge[]) => (
-  edges.map((edge: LiveListEdge) => (
-    {
-      id: edge.node.id,
-      date: edge.node.frontmatter.date,
-      title: edge.node.frontmatter.title,
-      slug: edge.node.fields.slug,
-    }
-  ))
-) 
 export default () => (
   <StaticQuery
     query={graphql`
@@ -51,6 +32,11 @@ export default () => (
     `}
     render={data => (
       <Layout>
+        <Meta
+          title="Idts의 공연 일정"
+          path="live"
+          description="Band Idiots의 공연 일정을 볼 수 있습니다."
+        />
         <Container>
           <div className="live-wrapper">
             <LiveList lives={edgesToLives(data.allMarkdownRemark.edges)} />

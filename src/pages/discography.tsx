@@ -1,10 +1,10 @@
 import React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 
+import Meta from '../components/Meta'
 import Layout from '../components/Layout'
 import Container from '../components/Container'
 import Panel from '../components/Panel';
-import { Album } from 'types/models';
 
 import './discography.scss'
 
@@ -27,6 +27,9 @@ export default () => (
     `}
     render={data => (
       <Layout className="Discography">
+        <Meta
+          title="Band Idiots의 음반 발매 목록"
+        />
         <Container>
           <Panel title="Discography">
             <div className="Discography__list">
