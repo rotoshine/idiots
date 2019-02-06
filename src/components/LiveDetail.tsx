@@ -26,6 +26,7 @@ export default ({ data }: any) => {
   return (
     <Layout className="LiveDetail">
       <Meta
+        title={`Band Idiots - ${live.title}`}
         imageUrl={live.posterUrl}
         description={`장소: ${live.place} ${teams.length > 0 ? ` | 출연진: ${teams.join(',')}` : ''}`}
         path={live.slug}
