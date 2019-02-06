@@ -32,7 +32,7 @@ export default ({ data }: any) => {
         path={live.slug}
       />
       <Container>
-        <Panel title="Live">
+        <Panel title="Live" noBorder>
           <div className="LiveDetail__poster">
             <img src={live.posterUrl} />
           </div>

@@ -4,7 +4,12 @@
   border: 1px solid #ccc;
   margin-right: 1rem;
   margin-left: 1rem;
-}  
+
+  &.Panel__noBorder {
+    border: none;
+  }
+}
+
 .PanelTitle {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -12,6 +17,7 @@
   border-bottom: 1px solid #ccc;
   font-weight: 500;
 }
+
 .PanelContents {
-  font-size: 1.5rem;
+  font-size: 2rem;
 }

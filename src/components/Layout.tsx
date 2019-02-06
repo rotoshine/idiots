@@ -13,13 +13,13 @@ interface Props {
   children: string | ReactNode,
 }
 
-export const Layout = ({ title, meta = {}, className = '', children }: Props) => {  
+export const Layout = ({ title, meta = {}, className = '', children }: Props) => {
   return (
     <div className="App">
       <Meta
         title={title}
         {...meta}
-      />        
+      />
       <header>
         <Logo />
         <Nav />

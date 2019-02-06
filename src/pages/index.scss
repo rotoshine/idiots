@@ -1,20 +1,37 @@
-.panels {
-  margin-top: 1rem;
-  flex-direction: row;
-  display: flex;
-}
-
-.newsList {
-  padding: 0;
-  list-style: none;
-}
-
-@media only screen and (max-width: 768px) {
-  .panels {
+.IndexPage {  
+  .IndexPage__contents {
+    display: flex;
     flex-direction: column;
   }
 
-  .panels {
-    margin-bottom: 1rem;
+  .IndexPage__panels {
+    margin-top: 1rem;
+    flex-direction: row;
+    display: flex;
+  }
+
+  .IndexPage__newsList {
+    padding: 0;
+    list-style: none;
+  }
+
+  .IndexPage__twitterTimelineWrapper {
+    padding: 1rem;
+    flex: 1;
+    display: center;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .IndexPage__panels {
+      flex-direction: column;
+      
+      .Panel:first-child {
+        margin-bottom: 1rem;
+      }
+    }
+
+    .IndexPage__contents {
+      margin-bottom: 1rem;
+    }
   }
 }
