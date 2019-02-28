@@ -1,11 +1,11 @@
-import { graphql, Link } from 'gatsby';
-import React, { ReactNode } from 'react';
-import { markdownRemarkToLive } from '../utils/dataConverter';
-import Container from './Container';
-import Layout from './Layout';
-import './LiveDetail.scss';
-import Meta from './Meta';
-import Panel from './Panel';
+import { graphql, Link } from 'gatsby'
+import React, { ReactNode } from 'react'
+import { markdownRemarkToLive } from '../utils/dataConverter'
+import Container from './Container'
+import Layout from './Layout'
+import './LiveDetail.scss'
+import Meta from './Meta'
+import Panel from './Panel'
 
 interface LiveRowProps {
   label: string,
