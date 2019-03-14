@@ -4,7 +4,7 @@ import './Panel.scss';
 
 
 interface Props {
-  title: string,
+  title?: string,
   noBorder?: boolean,
   children: string | React.ReactNode,
 }

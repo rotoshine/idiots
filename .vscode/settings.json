@@ -1,3 +1,9 @@
 {
-  "python.linting.pylintEnabled": true
+  "python.linting.pylintEnabled": true,
+  "prettier.semi": false,
+  "tslint.alwaysShowRuleFailuresAsWarnings": true,
+  "tslint.configFile": "tslint.json",
+  "tslint.run": "onSave",
+  "tslint.autoFixOnSave": true,
+  "prettier.tslintIntegration": true,
 }
