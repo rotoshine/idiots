@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    siteName: `Band Idiots`,
+    siteName: `이디어츠 - Idiots`,
     siteUrl: `https://idiots.band`
   },
   plugins: [

@@ -7,14 +7,7 @@ const isDev = NODE_ENV !== 'production'
 
 const DEFAULT_TITLE = 'Band Idiots'
 const DEFAULT_URL = isDev ? 'http://localhost:8000' : 'https://idiots.band'
-const DEFAULT_DESCRIPTION = `
-We are Punk Rock Band Idiots.
-Vocal/Guitar 최효근 |
-Vocal/Guitar 문주나 |
-Bass 김태희 |
-Keyboard 박시영 |
-Drum 박태용
-`
+const DEFAULT_DESCRIPTION = `펑크락 밴드 이디어츠(Idiots)의 홈페이지입니다.`
 const DEFAULT_IMAGE_URL = `${DEFAULT_URL}/images/main.jpeg`
 const DEFAULT_IMAGE_WIDTH = 1370
 const DEFAULT_IMAGE_HEIGHT = 635
