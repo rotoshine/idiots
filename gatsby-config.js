@@ -26,6 +26,7 @@ module.exports = {
         trackingId: "UA-49604777-10",
       },
     },
-    `gatsby-plugin-sitemap`
+    `gatsby-plugin-sitemap`,
+    'gatsby-plugin-robots-txt'
   ],
 }
