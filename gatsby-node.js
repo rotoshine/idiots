@@ -13,13 +13,12 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   }
 }
 
-exports.createPages = ({ graphql, actions }) => {
-  const { createPage } = actions
+const createPagesByType = async (graphql, createPage, type, componentPath) => {
   // **Note:** The graphql function call returns a Promise
   // see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise for more info
-  return graphql(`
+  const result = await graphql(`
     {
-      allMarkdownRemark(filter: {frontmatter: {type: {eq: "live"}}}) {
+      allMarkdownRemark(filter: {frontmatter: {type: {eq: "${type}"}}}) {
         edges {
           node {
             fields {
@@ -29,16 +28,21 @@ exports.createPages = ({ graphql, actions }) => {
         }
       }
     }
-  `
-  ).then(result => {
-    result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-      createPage({
-        path: node.fields.slug,
-        component: path.resolve(`./src/components/LiveDetail.tsx`),
-        context: {
-          slug: node.fields.slug,
-        },
-      })
+  `)
+  result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+    createPage({
+      path: node.fields.slug,
+      component: path.resolve(componentPath),
+      context: {
+        slug: node.fields.slug,
+      },
     })
+    console.log(`[${type}] ${node.fields.slug} created,`)
   })
+}
+
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions
+  await createPagesByType(graphql, createPage, `live`, `./src/components/LiveDetail.tsx`)
+  await createPagesByType(graphql, createPage, `album`, `./src/components/AlbumDetail.tsx`)
 }

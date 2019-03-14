@@ -1,5 +1,5 @@
 import React from 'react'
-import { StaticQuery, graphql } from 'gatsby'
+import { Link, StaticQuery, graphql } from 'gatsby'
 
 import Meta from '../components/Meta'
 import Layout from '../components/Layout'
@@ -17,8 +17,10 @@ export default () => (
             node {
               id
               frontmatter {
-                title
                 imageUrl
+              }
+              fields {
+                slug
               }
             }
           }
@@ -28,16 +30,18 @@ export default () => (
     render={data => (
       <Layout className="Discography">
         <Meta
-          title="Band Idiots의 음반 발매 목록"
+          title="음반 발매 목록"
         />
         <Container>
           <Panel title="Discography">
             <div className="Discography__list">
               {data.allMarkdownRemark.edges.map(({ node } : any) => (
-                <div className="Discography__album" key={node.id}>
-                  <div className="Discography__albumImage" style={{ backgroundImage: `url('${node.frontmatter.imageUrl}')` }}>
+                <Link to={node.fields.slug} key={node.id}>
+                  <div className="Discography__album">
+                    <div className="Discography__albumImage" style={{ backgroundImage: `url('${node.frontmatter.imageUrl}')` }}>
+                    </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </Panel>

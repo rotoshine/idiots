@@ -14,10 +14,10 @@
 
   .Discography__albumImage {
     background-position: center;
-    background-size: cover;            
+    background-size: cover;
     width: 100%;
     transition: all .2s ease-in-out;
-    
+
     &:after {
       display: block;
       content: "";
@@ -26,8 +26,13 @@
 
     &:hover {
       cursor: pointer;
-      transform: scale(1.02);            
+      transform: scale(1.02);
       background-color: rgba(0, 0, 0, 0.7);
     }
+  }
+
+  a {
+    width: 100%;
+    height: 100%;
   }
 }

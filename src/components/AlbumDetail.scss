@@ -1,0 +1,41 @@
+.AlbumDetail {
+  .AlbumDetail__content {
+    display: flex;
+    flex-direction: row;
+
+    .AlbumDetail__poster {
+      width: 50%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      &:after {
+        display: block;
+        content: "";
+        padding-bottom: 100%;
+      }
+    }
+
+    .AlbumDetail__descriptions {
+      position: relative;
+      padding: 3rem;
+      line-height: 25px;
+
+      .AlbumDetail__description {
+        margin: 0;
+        margin-bottom: 2rem;
+
+        h3 {
+          font-weight: 700;
+        }
+        ol {
+          padding-left: 2rem;
+
+          li {
+            list-style-type: decimal;
+          }
+        }
+      }
+    }
+  }
+}
