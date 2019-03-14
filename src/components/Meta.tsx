@@ -9,11 +9,11 @@ const DEFAULT_TITLE = 'Band Idiots'
 const DEFAULT_URL = isDev ? 'http://localhost:8000' : 'https://idiots.band'
 const DEFAULT_DESCRIPTION = `
 We are Punk Rock Band Idiots.
-Vocal/Guitar 최효근 | 
+Vocal/Guitar 최효근 |
 Vocal/Guitar 문주나 |
 Bass 김태희 |
 Keyboard 박시영 |
-Drum 박태용 
+Drum 박태용
 `
 const DEFAULT_IMAGE_URL = `${DEFAULT_URL}/images/main.jpeg`
 const DEFAULT_IMAGE_WIDTH = 1370
@@ -30,14 +30,14 @@ interface Props {
 
 export const Meta = ({
   title = DEFAULT_TITLE,
-  path = '', 
+  path = '',
   description = DEFAULT_DESCRIPTION,
   imageUrl = DEFAULT_IMAGE_URL,
   imageWidth = !imageUrl ? DEFAULT_IMAGE_WIDTH : null,
   imageHeight = !imageUrl ? DEFAULT_IMAGE_HEIGHT : null,
 }: Props) => {
 
-  const url = `${DEFAULT_URL}/${path.indexOf('/') === 0 ? path.substr(1) : path}`  
+  const url = `${DEFAULT_URL}/${path.indexOf('/') === 0 ? path.substr(1) : path}`
   const fullImageUrl = /^(https?:\/\/)/.test(imageUrl) ? imageUrl : `${DEFAULT_URL}${imageUrl}`
 
   return (
@@ -45,6 +45,7 @@ export const Meta = ({
       <title>{title}</title>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <link rel="canonical" href={url} />
+      <meta name="google-site-verification" content="U3sjUaSWzxwiO1hfB1qC9ghlGOM2fuXxaBKcUZzLj1M" />
       <meta name="description" content={description} />
       <meta property="og:title" content={title} />
       <meta property="og:type" content="article" />
@@ -55,7 +56,7 @@ export const Meta = ({
         <meta property="og:image:width" content={imageWidth + ''} />
       )}
       { imageHeight && (
-        <meta property="og:image:height" content={imageHeight + ''} />      
+        <meta property="og:image:height" content={imageHeight + ''} />
       )}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@band_idiots" />
