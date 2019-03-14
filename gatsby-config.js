@@ -1,6 +1,7 @@
 module.exports = {
   siteMetadata: {
     siteName: `Band Idiots`,
+    siteUrl: `https://idiots.band`
   },
   plugins: [
     `gatsby-plugin-typescript`,
@@ -25,5 +26,6 @@ module.exports = {
         trackingId: "UA-49604777-10",
       },
     },
+    `gatsby-plugin-sitemap`
   ],
 }
