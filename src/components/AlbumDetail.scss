@@ -1,13 +1,24 @@
+@import '~include-media/dist/include-media';
+
 .AlbumDetail {
   .AlbumDetail__content {
     display: flex;
     flex-direction: row;
+
+    @include media("<desktop") {
+      flex-direction: column;
+    }
 
     .AlbumDetail__poster {
       width: 50%;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+
+      @include media("<desktop") {
+        width: 100%;
+      }
+
 
       &:after {
         display: block;
@@ -30,10 +41,6 @@
         }
         ol {
           padding-left: 2rem;
-
-          li {
-            list-style-type: decimal;
-          }
         }
       }
     }

@@ -1,3 +1,5 @@
+@import '~include-media/dist/include-media';
+
 .Nav {
   font-family: 'AHDN', cursive;
   text-align: center;
@@ -10,7 +12,7 @@
     padding-left: 2rem;
     padding-right: 2rem;
     color: #999;
-    font-weight: 700; 
+    font-weight: 700;
 
     &:visited {
       color: #999;
@@ -21,14 +23,14 @@
       color: #000;
     }
 
-    @media only screen and (max-width: 1366px) {
-      font-size: 1.5em;
+    @include media(">=tablet", "<desktop") {
+      font-size: 2.5rem;
     }
-    
-    @media only screen and (max-width: 768px) {
+
+    @include media(">=phone", "<tablet") {
       font-size: 1.2em;
       padding-left: .8rem;
-      padding-right: .8rem    
+      padding-right: .8rem
     }
   }
 }

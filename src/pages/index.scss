@@ -1,4 +1,6 @@
-.IndexPage {  
+@import '~include-media/dist/include-media';
+
+.IndexPage {
   .IndexPage__contents {
     display: flex;
     flex-direction: column;
@@ -21,10 +23,11 @@
     display: center;
   }
 
-  @media only screen and (max-width: 768px) {
+
+  @include media("<=tablet") {
     .IndexPage__panels {
       flex-direction: column;
-      
+
       .Panel:first-child {
         margin-bottom: 1rem;
       }

@@ -1,3 +1,5 @@
+@import '~include-media/dist/include-media';
+
 .Discography {
   .Discography__list {
     display: flex;
@@ -10,7 +12,16 @@
     width: 25%;
     padding: 1.5rem;
     box-sizing: border-box;
+
+    @include media(">=tablet", "<desktop") {
+      width: 50%;
+    }
+
+    @include media(">=phone", "<tablet") {
+      width: 100%;
+    }
   }
+
 
   .Discography__albumImage {
     background-position: center;

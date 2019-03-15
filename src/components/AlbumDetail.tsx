@@ -35,9 +35,9 @@ export default ({ data }: any) => {
               <div className="AlbumDetail__description">
                 <h3>수록곡</h3>
                 <ol>
-                  {songs.map((song: string) => (
+                  {songs.map((song: string, index: number) => (
                     <li key={song}>
-                      {song}
+                      {index+1}. {song}
                     </li>
                   ))}
                 </ol>
