@@ -9,7 +9,7 @@ import './AlbumDetail.scss'
 
 export default ({ data }: any) => {
   const { markdownRemark } = data
-  const { frontmatter, html } = markdownRemark
+  const { frontmatter, html, fields } = markdownRemark
   const { title, imageUrl, releaseYear, songs } = frontmatter
 
   const description = `${releaseYear}년 발매. 수록곡: ${songs.map((song: string, i: number) => `${i + 1}. ${song}`).join(' ')}`
@@ -19,6 +19,7 @@ export default ({ data }: any) => {
         title={`이디어츠(Idiots)의 앨범 - ${title}`}
         imageUrl={imageUrl}
         description={description}
+        path={fields.slug}
       />
       <Container>
         <Panel noBorder>
