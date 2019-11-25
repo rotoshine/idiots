@@ -6,7 +6,7 @@ import Layout from '../components/Layout'
 import Container from '../components/Container'
 import LiveList from '../components/LiveList'
 
-import { edgesToLives } from '../utils/dataConverter' 
+import { edgesToLives } from '../utils/dataConverter'
 
 import './live.scss'
 
@@ -14,7 +14,10 @@ export default () => (
   <StaticQuery
     query={graphql`
       {
-        allMarkdownRemark(filter: {frontmatter: {type: {eq: "live"}}}) {
+        allMarkdownRemark(
+          filter: {frontmatter: { type: {eq: "live"} }},
+          sort: { fields: [frontmatter___date], order: DESC }
+        ) {
           edges {
             node {
               id

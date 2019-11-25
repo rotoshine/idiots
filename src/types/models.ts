@@ -7,6 +7,7 @@ export interface Live {
   eventLink?: string
   date: string
   slug: string
+  priceInfo?: string
 }
 
 export interface Album {

@@ -1,3 +1,5 @@
+import './LiveList.scss'
+
 import React from 'react'
 import { Link } from 'gatsby'
 
@@ -6,10 +8,11 @@ import Panel from './Panel'
 import { Live } from 'types/models'
 
 interface Props {
-  lives: Live[],
+  title?: string
+  lives: Live[]
 }
-export default ({ lives }: Props) => (
-  <Panel title="Live List">
+export default ({ title = 'Live List', lives }: Props) => (
+  <Panel title={title}>
     <ul>
       {lives.map((live: Live) => (
         <li key={live.id} className="live">

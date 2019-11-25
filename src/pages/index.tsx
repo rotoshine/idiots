@@ -15,7 +15,10 @@ export default () => (
   <StaticQuery
     query={graphql`
       {
-        allMarkdownRemark(filter: {frontmatter: {type: {eq: "live"}}}) {
+        allMarkdownRemark(
+          filter: {frontmatter: { type: {eq: "live"} }},
+          sort: { fields: [frontmatter___date], order: DESC }
+        ) {
           edges {
             node {
               id
@@ -42,7 +45,7 @@ export default () => (
                   <li>이디어츠 홈페이지가 개설되었습니다.</li>
                 </ul>
               </Panel>
-              <LiveList lives={edgesToLives(data.allMarkdownRemark.edges)} />            
+              <LiveList title="Lives" lives={edgesToLives(data.allMarkdownRemark.edges)} />
             </div>
             <TwitterTimeline className="IndexPage__twitterTimelineWrapper" />
           </div>

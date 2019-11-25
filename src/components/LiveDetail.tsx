@@ -1,9 +1,10 @@
+import './LiveDetail.scss'
+
 import { graphql, Link } from 'gatsby'
 import React, { ReactNode } from 'react'
 import { markdownRemarkToLive } from '../utils/dataConverter'
 import Container from './Container'
 import Layout from './Layout'
-import './LiveDetail.scss'
 import Meta from './Meta'
 import Panel from './Panel'
 
@@ -51,6 +52,9 @@ export default ({ data }: any) => {
                 <a href={live.eventLink} target="_blank">{live.eventLink}</a>
               )} />
             )}
+            {live.priceInfo && (
+              <Description label="Price" text={live.priceInfo} />
+            )}
           </div>
         </Panel>
         <div className="LiveDetail__footer">
@@ -71,6 +75,7 @@ export const query = graphql`
         place
         teams
         eventLink
+        priceInfo
       }
       fields {
         slug

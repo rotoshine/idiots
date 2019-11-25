@@ -35,12 +35,13 @@ export const markdownRemarkToLive = (data: MarkdownRemarkQueryResult) => {
   const { markdownRemark } = data
   const { frontmatter, fields } = markdownRemark
   const {
-    title = '',       
+    title = '',
     posterUrl,
-    date = '', 
+    date = '',
     place,
     teams = [],
-    eventLink,   
+    eventLink,
+    priceInfo
   } = frontmatter
 
   return {
@@ -50,6 +51,7 @@ export const markdownRemarkToLive = (data: MarkdownRemarkQueryResult) => {
     place,
     teams,
     eventLink,
+    priceInfo,
     slug: fields.slug
   }
 }
