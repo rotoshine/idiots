@@ -7,7 +7,7 @@
   "scripts": {
     "start": "gatsby develop",
     "develop": "gatsby develop",
-    "build": "gatsby build",
+    "build": "NODE_ENV=production && gatsby build",
     "type-check": "tsc --noEmit",
     "lint": "tslint --project ."
   },

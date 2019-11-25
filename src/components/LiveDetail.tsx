@@ -29,7 +29,7 @@ export default ({ data }: any) => {
       <Meta
         title={`Band Idiots - ${live.title}`}
         imageUrl={live.posterUrl}
-        description={`장소: ${live.place} ${teams.length > 0 ? ` | 출연진: ${teams.join(',')}` : ''}`}
+        description={`장소: ${live.place} ${teams.length > 0 ? ` | 출연진: ${teams.join(',')}` : ''} ${live.priceInfo ? live.priceInfo : ''}`}
         path={live.slug}
       />
       <Container>

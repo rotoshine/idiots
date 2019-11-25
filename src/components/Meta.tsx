@@ -3,10 +3,8 @@ import { Helmet } from 'react-helmet'
 
 const { NODE_ENV } = process.env
 
-const isDev = NODE_ENV !== 'production'
-
 const DEFAULT_TITLE = 'Band Idiots'
-const DEFAULT_URL = isDev ? 'http://localhost:8000' : 'https://idiots.band'
+const DEFAULT_URL = 'https://idiots.band'
 const DEFAULT_DESCRIPTION = `펑크락 밴드 이디어츠(Idiots)의 홈페이지입니다.`
 const DEFAULT_IMAGE_URL = `${DEFAULT_URL}/images/main.jpeg`
 const DEFAULT_IMAGE_WIDTH = 1370
@@ -44,7 +42,7 @@ export const Meta = ({
       <meta property="og:type" content="article" />
       <meta property="og:url" content={url} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={imageUrl} />
+      <meta property="og:image" content={fullImageUrl} />
       { imageWidth && (
         <meta property="og:image:width" content={imageWidth + ''} />
       )}
