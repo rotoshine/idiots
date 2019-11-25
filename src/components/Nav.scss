@@ -13,14 +13,16 @@
     padding-right: 2rem;
     color: #999;
     font-weight: 700;
+    transition: all ease 1s;
+    display: inline-block;
 
     &:visited {
       color: #999;
     }
 
     &:hover {
-      text-decoration: underline;
       color: #000;
+      transform: rotate( 370deg );
     }
 
     @include media(">=tablet", "<desktop") {

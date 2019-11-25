@@ -1,5 +1,6 @@
-import { graphql, StaticQuery } from 'gatsby'
+import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
+import { useSpring, animated } from 'react-spring'
 
 import Layout from '../components/Layout'
 import Container from '../components/Container'
@@ -11,46 +12,48 @@ import { edgesToLives } from '../utils/dataConverter'
 
 import './index.scss'
 
-export default () => (
-  <StaticQuery
-    query={graphql`
-      {
-        allMarkdownRemark(
-          filter: {frontmatter: { type: {eq: "live"} }},
-          sort: { fields: [frontmatter___date], order: DESC }
-        ) {
-          edges {
-            node {
-              id
-              frontmatter {
-                date
-                title
-              }
-              fields {
-                slug
-              }
+export default function IndexPage () {
+  const data = useStaticQuery(graphql`
+    {
+      allMarkdownRemark(
+        filter: {frontmatter: { type: {eq: "live"} }},
+        sort: { fields: [frontmatter___date], order: DESC }
+      ) {
+        edges {
+          node {
+            id
+            frontmatter {
+              date
+              title
+            }
+            fields {
+              slug
             }
           }
         }
       }
-    `}
-    render={data => (
-      <Layout className="IndexPage">
+    }
+  `)
+  const props = useSpring({ opacity:1, from: { opacity: 0 }})
+  
+  return (
+    <Layout className="IndexPage">
+      <animated.div style={props}>
         <img className="cover-image" src="/images/main.jpeg" width="100%" />
-        <Container>
-          <div className="IndexPage__contents">
-            <div className="IndexPage__panels">
-              <Panel title="News">
-                <ul className="IndexPage__newsList">
-                  <li>이디어츠 홈페이지가 개설되었습니다.</li>
-                </ul>
-              </Panel>
-              <LiveList title="Lives" lives={edgesToLives(data.allMarkdownRemark.edges)} />
-            </div>
-            <TwitterTimeline className="IndexPage__twitterTimelineWrapper" />
+      </animated.div>
+      <Container>
+        <div className="IndexPage__contents">
+          <div className="IndexPage__panels">
+            <Panel title="News">
+              <ul className="IndexPage__newsList">
+                <li>이디어츠 홈페이지가 개설되었습니다.</li>
+              </ul>
+            </Panel>
+            <LiveList title="Lives" lives={edgesToLives(data.allMarkdownRemark.edges)} />
           </div>
-        </Container>
-      </Layout>
-    )}
-  />
-)
+          <TwitterTimeline className="IndexPage__twitterTimelineWrapper" />
+        </div>
+      </Container>
+    </Layout>
+  )
+}
