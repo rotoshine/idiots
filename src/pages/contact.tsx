@@ -44,6 +44,11 @@ export default function ContactPage() {
               </a>
             </li>
             <li>
+              <a href="https://twitter.com/band_idiots" target="_blank">
+                <i className="icon ion-logo-twitter" /> @band_idiots
+              </a>
+            </li>
+            <li>
               <a href="https://twitter.com/bullwoostar" target="_blank">
                 <i className="icon ion-logo-twitter" /> @bullwoostar
               </a>
