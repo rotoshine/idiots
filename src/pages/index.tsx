@@ -12,11 +12,11 @@ import { edgesToLives } from '../utils/dataConverter'
 
 import './index.scss'
 
-export default function IndexPage () {
+export default function IndexPage() {
   const data = useStaticQuery(graphql`
     {
       allMarkdownRemark(
-        filter: {frontmatter: { type: {eq: "live"} }},
+        filter: { frontmatter: { type: { eq: "live" } } }
         sort: { fields: [frontmatter___date], order: DESC }
       ) {
         edges {
@@ -34,8 +34,8 @@ export default function IndexPage () {
       }
     }
   `)
-  const props = useSpring({ opacity:1, from: { opacity: 0 }})
-  
+  const props = useSpring({ opacity: 1, from: { opacity: 0 } })
+
   return (
     <Layout className="IndexPage">
       <animated.div style={props}>
@@ -49,7 +49,10 @@ export default function IndexPage () {
                 <li>이디어츠 홈페이지가 개설되었습니다.</li>
               </ul>
             </Panel>
-            <LiveList title="Lives" lives={edgesToLives(data.allMarkdownRemark.edges)} />
+            <LiveList
+              title="Lives"
+              lives={edgesToLives(data.allMarkdownRemark.edges)}
+            />
           </div>
           <TwitterTimeline className="IndexPage__twitterTimelineWrapper" />
         </div>
