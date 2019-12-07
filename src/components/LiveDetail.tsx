@@ -7,7 +7,7 @@ import Container from './Container'
 import Layout from './Layout'
 import Meta from './Meta'
 import Panel from './Panel'
-import { Poster } from 'types/models'
+import { Poster, Live } from 'types/models'
 
 interface LiveRowProps {
   label: string
@@ -20,8 +20,15 @@ const Description = ({ label, text }: LiveRowProps) => (
   </div>
 )
 
+const toMetaDescription = (live: Live) => {
+  const { place, teams = [], priceInfo = '' } = live
+  return `장소: ${place} ${
+    teams.length > 0 ? ` | 출연진: ${teams.join(',')}` : ''
+  } ${priceInfo}`
+}
+
 export default ({ data }: any) => {
-  const live = markdownRemarkToLive(data)
+  const live = markdownRemarkToLive(data) as Live
 
   const {
     title,
@@ -31,6 +38,7 @@ export default ({ data }: any) => {
     posterUrl,
     posterUrls,
     eventLink,
+    priceInfo,
   } = live
 
   const representImageUrl =
@@ -39,11 +47,9 @@ export default ({ data }: any) => {
   return (
     <Layout className="LiveDetail">
       <Meta
-        title={`Band Idiots - ${live.title}`}
+        title={`Band Idiots 공연 - ${live.title}`}
         imageUrl={representImageUrl}
-        description={`장소: ${live.place} ${
-          teams.length > 0 ? ` | 출연진: ${teams.join(',')}` : ''
-        } ${live.priceInfo ? live.priceInfo : ''}`}
+        description={toMetaDescription(live)}
         path={live.slug}
       />
       <Container>
@@ -67,7 +73,7 @@ export default ({ data }: any) => {
               label="출연진"
               text={
                 <ul>
-                  {live.teams!.map((team: string) => (
+                  {teams.map((team: string) => (
                     <li key={team} className="LiveDetail__team">
                       {team}
                     </li>
@@ -85,9 +91,7 @@ export default ({ data }: any) => {
                 }
               />
             )}
-            {live.priceInfo && (
-              <Description label="Price" text={live.priceInfo} />
-            )}
+            {priceInfo && <Description label="Price" text={priceInfo} />}
           </div>
         </Panel>
         <div className="LiveDetail__footer">
