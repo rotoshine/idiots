@@ -20,38 +20,39 @@ interface MarkdownRemarkQueryResult {
   }
 }
 
-export const edgesToLives = (edges: LiveListEdge[]) => (
-  edges.map((edge: LiveListEdge) => (
-    {
-      id: edge.node.id,
-      date: edge.node.frontmatter.date,
-      title: edge.node.frontmatter.title,
-      slug: edge.node.fields.slug,
-    }
-  ))
-)
+export const edgesToLives = (edges: LiveListEdge[]) =>
+  edges.map((edge: LiveListEdge) => ({
+    id: edge.node.id,
+    date: edge.node.frontmatter.date,
+    title: edge.node.frontmatter.title,
+    slug: edge.node.fields.slug,
+  }))
 
 export const markdownRemarkToLive = (data: MarkdownRemarkQueryResult) => {
   const { markdownRemark } = data
   const { frontmatter, fields } = markdownRemark
   const {
     title = '',
+    description,
     posterUrl,
+    posterUrls = [],
     date = '',
     place,
     teams = [],
     eventLink,
-    priceInfo
+    priceInfo,
   } = frontmatter
 
   return {
     title,
+    description,
     posterUrl,
+    posterUrls,
     date,
     place,
     teams,
     eventLink,
     priceInfo,
-    slug: fields.slug
+    slug: fields.slug,
   }
 }
