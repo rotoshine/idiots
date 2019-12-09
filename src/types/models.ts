@@ -15,6 +15,8 @@ export interface Live {
 export interface Poster {
   src: string
   alt: string
+  width?: number
+  height?: number
 }
 
 export interface Album {

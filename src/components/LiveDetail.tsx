@@ -41,8 +41,14 @@ export default ({ data }: any) => {
     priceInfo,
   } = live
 
+  const representImage =
+    posterUrls && posterUrls.length > 0 ? posterUrls[0] : null
   const representImageUrl =
-    posterUrls && posterUrls.length > 0 ? posterUrls[0].src : posterUrl
+    representImage !== null ? representImage.src : posterUrl
+  const reprenstImageWidth =
+    representImage !== null ? representImage.width : null
+  const reprenstImageHeight =
+    representImage !== null ? representImage.height : null
 
   return (
     <Layout className="LiveDetail">
@@ -51,6 +57,8 @@ export default ({ data }: any) => {
         imageUrl={representImageUrl}
         description={toMetaDescription(live)}
         path={live.slug}
+        imageWidth={reprenstImageWidth}
+        imageHeight={reprenstImageHeight}
       />
       <Container>
         <Panel title="Live" noBorder>
@@ -112,6 +120,8 @@ export const query = graphql`
         posterUrls {
           src
           alt
+          width
+          height
         }
         description
         place
