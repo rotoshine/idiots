@@ -13,6 +13,7 @@ posterUrls:
     { src: '/images/posters/20191212-ff-2.jpg', alt: '포스터2' },
     { src: '/images/posters/20191212-ff.jpg', alt: '메인 포스터' },
   ]
+description: ''
 place: 'Club FF'
 date: '2019.12.12'
 teams: ['네마치', '씩제프', '피지퍼그']

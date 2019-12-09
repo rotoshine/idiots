@@ -2,6 +2,8 @@ import './LiveDetail.scss'
 
 import { graphql, Link } from 'gatsby'
 import React, { ReactNode } from 'react'
+import { isEmpty } from 'lodash'
+
 import { markdownRemarkToLive } from '../utils/dataConverter'
 import Container from './Container'
 import Layout from './Layout'
@@ -68,14 +70,16 @@ export default ({ data }: any) => {
                 <img src={src} alt={alt} />
               </div>
             ))}
-          {posterUrl && (
+          {!isEmpty(posterUrl) && (
             <div className="LiveDetail__poster">
               <img src={posterUrl} />
             </div>
           )}
           <div className="LiveDetail__contents">
             <Description label="공연명" text={title} />
-            {description && <Description label="내용" text={description} />}
+            {!isEmpty(description) && (
+              <Description label="내용" text={description} />
+            )}
             <Description label="장소" text={place} />
             <Description
               label="출연진"
