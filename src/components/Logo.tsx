@@ -1,12 +1,19 @@
+import './Logo.scss'
+
 import React from 'react'
 import { Link } from 'gatsby'
-
-import './Logo.scss'
 
 const Logo = () => (
   <div className="Logo">
     <Link to="/">
-      <div className="Logo__text">idiots</div>
+      <div className="Logo__text">
+        <span>i</span>
+        <span>d</span>
+        <span>i</span>
+        <span>o</span>
+        <span>t</span>
+        <span>s</span>
+      </div>
     </Link>
   </div>
 )
