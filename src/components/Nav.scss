@@ -13,7 +13,8 @@
     padding-right: 2rem;
     color: #999;
     font-weight: 700;
-    transition: all ease 1s;
+    transition: all ease 0.5s;
+    transform: rotate(-10deg);
     display: inline-block;
 
     &:visited {
@@ -22,17 +23,22 @@
 
     &:hover {
       color: #000;
-      transform: rotate( 370deg );
+      transform: rotate(370deg);
     }
 
-    @include media(">=tablet", "<desktop") {
+    @include media('>=tablet', '<desktop') {
       font-size: 2.5rem;
     }
 
-    @include media(">=phone", "<tablet") {
+    @include media('>=phone', '<tablet') {
       font-size: 1.2em;
-      padding-left: .8rem;
-      padding-right: .8rem
+      padding-left: 0.8rem;
+      padding-right: 0.8rem;
+    }
+
+    &[aria-current='page'] {
+      color: #000;
+      transform: rotate(10deg);
     }
   }
 }

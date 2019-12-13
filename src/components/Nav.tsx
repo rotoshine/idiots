@@ -1,34 +1,33 @@
 import './Nav.scss'
 
-import classNames from 'classnames'
 import { Link } from 'gatsby'
 import React from 'react'
 
 const menus = [
   {
     name: 'home',
-    path: '/'
+    path: '/',
   },
   {
     name: 'live',
-    path: '/live'
+    path: '/live',
   },
   {
     name: 'discography',
-    path: '/discography'
+    path: '/discography',
   },
   {
     name: 'photos',
-    path: '/photos'
+    path: '/photos',
   },
   {
     name: 'movies',
-    path: '/movies'
+    path: '/movies',
   },
   {
     name: 'contact',
-    path: '/contact'
-  }
+    path: '/contact',
+  },
 ]
 export default function Nav() {
   return (
@@ -37,8 +36,8 @@ export default function Nav() {
         return (
           <Link className="Nav__menu" key={i} to={menu.path}>
             {menu.name}
-          </Link> 
-        )   
+          </Link>
+        )
       })}
     </nav>
   )
