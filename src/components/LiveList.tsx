@@ -12,7 +12,7 @@ interface Props {
   title?: string
   lives: Live[]
 }
-export default function LiveList({ title = 'Live List', lives }: Props) { 
+export default function LiveList({ title = 'Live List', lives }: Props) {
   const trail = useTrail(lives.length, {
     mass: 5,
     tension: 2000,
@@ -21,17 +21,24 @@ export default function LiveList({ title = 'Live List', lives }: Props) {
     x: 0,
     height: 80,
     from: {
-      opacity: 0, x: 20, height: 0
-    }
+      opacity: 0,
+      x: 20,
+      height: 0,
+    },
   })
 
   return (
     <Panel title={title}>
       <ul>
         {trail.map(({ x, height, ...rest }, index) => (
-          <animated.li key={lives[index]}
+          <animated.li
+            key={index}
             className="live"
-            style={{ ...rest, transform: x.interpolate(x => `translate3d(0,${x}px,0)`) }}>
+            style={{
+              ...rest,
+              transform: x.interpolate(x => `translate3d(0,${x}px,0)`),
+            }}
+          >
             <animated.div>
               <Link to={lives[index].slug}>
                 <div>

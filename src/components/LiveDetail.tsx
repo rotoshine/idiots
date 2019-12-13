@@ -29,6 +29,13 @@ const toMetaDescription = (live: Live) => {
   } ${priceInfo}`
 }
 
+const placeMapper: {
+  [key: string]: string
+} = {
+  'Club 빵': 'https://place.map.kakao.com/10449951',
+  'Club FF': 'https://place.map.kakao.com/13494735',
+}
+
 export default ({ data }: any) => {
   const live = markdownRemarkToLive(data) as Live
 
@@ -80,19 +87,35 @@ export default ({ data }: any) => {
             {!isEmpty(description) && (
               <Description label="내용" text={description} />
             )}
-            <Description label="장소" text={place} />
-            <Description
-              label="출연진"
-              text={
-                <ul>
-                  {teams.map((team: string) => (
-                    <li key={team} className="LiveDetail__team">
-                      {team}
-                    </li>
-                  ))}
-                </ul>
-              }
-            />
+            {place && (
+              <Description
+                label="장소"
+                text={
+                  placeMapper[place] ? (
+                    <a href={placeMapper[place]} target="_blank">
+                      {place}
+                    </a>
+                  ) : (
+                    place
+                  )
+                }
+              />
+            )}
+
+            {teams.length > 0 && (
+              <Description
+                label="출연진"
+                text={
+                  <ul>
+                    {teams.map((team: string) => (
+                      <li key={team} className="LiveDetail__team">
+                        {team}
+                      </li>
+                    ))}
+                  </ul>
+                }
+              />
+            )}
             {eventLink && (
               <Description
                 label="INFO"
