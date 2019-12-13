@@ -26,7 +26,7 @@ const toMetaDescription = (live: Live) => {
   const { place, teams = [], priceInfo = '' } = live
   return `장소: ${place} ${
     teams.length > 0 ? ` | 출연진: ${teams.join(',')}` : ''
-  } ${priceInfo}`
+  } ${priceInfo ? priceInfo : ''}`
 }
 
 const placeMapper: {
