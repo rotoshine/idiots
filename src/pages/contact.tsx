@@ -11,7 +11,7 @@ export default function ContactPage() {
   return (
     <Layout className="Contact">
       <Meta
-        title="이디어츠(Idiots) 섭외 문의"
+        title="이디어츠 섭외 문의"
         description="yeonrock@idiots.mail 이나 이디어츠의 각종 SNS를 통해 연락주세요. 섭외문의 기다립니다!!!"
       />
       <Container>

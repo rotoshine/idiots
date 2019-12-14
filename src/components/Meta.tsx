@@ -1,22 +1,20 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 
-const { NODE_ENV } = process.env
-
-const DEFAULT_TITLE = 'Band Idiots'
+const DEFAULT_TITLE = '멍청이 펑크락 밴드 이디어츠 홈페이지'
 const DEFAULT_URL = 'https://idiots.band'
-const DEFAULT_DESCRIPTION = `펑크락 밴드 이디어츠(Idiots)의 홈페이지입니다.`
+const DEFAULT_DESCRIPTION = `멍청이 펑크락 밴드 이디어츠(Idiots)의 홈페이지입니다. 발매 음원, 공연 일정 등을 볼 수 있습니다.`
 const DEFAULT_IMAGE_URL = `${DEFAULT_URL}/images/main.jpeg`
 const DEFAULT_IMAGE_WIDTH = 1370
 const DEFAULT_IMAGE_HEIGHT = 635
 
 interface Props {
-  title?: string,
-  path?: string,
-  description?: string,
-  imageUrl?: string,
-  imageWidth?: number | null,
-  imageHeight?: number | null,
+  title?: string
+  path?: string
+  description?: string
+  imageUrl?: string
+  imageWidth?: number | null
+  imageHeight?: number | null
 }
 
 export const Meta = ({
@@ -27,26 +25,32 @@ export const Meta = ({
   imageWidth = !imageUrl ? DEFAULT_IMAGE_WIDTH : null,
   imageHeight = !imageUrl ? DEFAULT_IMAGE_HEIGHT : null,
 }: Props) => {
-
-  const url = `${DEFAULT_URL}/${path.indexOf('/') === 0 ? path.substr(1) : path}`
-  const fullImageUrl = /^(https?:\/\/)/.test(imageUrl) ? imageUrl : `${DEFAULT_URL}${imageUrl}`
+  const url = `${DEFAULT_URL}/${
+    path.indexOf('/') === 0 ? path.substr(1) : path
+  }`
+  const fullImageUrl = /^(https?:\/\/)/.test(imageUrl)
+    ? imageUrl
+    : `${DEFAULT_URL}${imageUrl}`
 
   return (
     <Helmet>
       <title>{title}</title>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <link rel="canonical" href={url} />
-      <meta name="google-site-verification" content="U3sjUaSWzxwiO1hfB1qC9ghlGOM2fuXxaBKcUZzLj1M" />
+      <meta
+        name="google-site-verification"
+        content="U3sjUaSWzxwiO1hfB1qC9ghlGOM2fuXxaBKcUZzLj1M"
+      />
       <meta name="description" content={description} />
       <meta property="og:title" content={title} />
       <meta property="og:type" content="article" />
       <meta property="og:url" content={url} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={fullImageUrl} />
-      { imageWidth && (
+      {imageWidth && (
         <meta property="og:image:width" content={imageWidth + ''} />
       )}
-      { imageHeight && (
+      {imageHeight && (
         <meta property="og:image:height" content={imageHeight + ''} />
       )}
       <meta name="twitter:card" content="summary_large_image" />

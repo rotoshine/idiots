@@ -23,10 +23,18 @@ const Description = ({ label, text }: LiveRowProps) => (
 )
 
 const toMetaDescription = (live: Live) => {
-  const { place, teams = [], priceInfo = '' } = live
-  return `장소: ${place} ${
-    teams.length > 0 ? ` | 출연진: ${teams.join(',')}` : ''
-  } ${priceInfo ? priceInfo : ''}`
+  const { place, teams = [], priceInfo, description = '' } = live
+  const descriptions = [description, `장소: ${place}`]
+
+  if (teams.length > 0) {
+    descriptions.push(`출연진: ${teams.join(',')}`)
+  }
+
+  if (priceInfo) {
+    descriptions.push(`가격: ${priceInfo}`)
+  }
+
+  return descriptions.join(' | ')
 }
 
 const placeMapper: {
@@ -62,7 +70,7 @@ export default ({ data }: any) => {
   return (
     <Layout className="LiveDetail">
       <Meta
-        title={`Band Idiots 공연 - ${live.title}`}
+        title={`밴드 이디어츠 공연 - ${live.title}`}
         imageUrl={representImageUrl}
         description={toMetaDescription(live)}
         path={live.slug}

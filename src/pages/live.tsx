@@ -10,11 +10,11 @@ import { edgesToLives } from '../utils/dataConverter'
 
 import './live.scss'
 
-export default function LivePage(){ 
+export default function LivePage() {
   const data = useStaticQuery(graphql`
     {
       allMarkdownRemark(
-        filter: {frontmatter: { type: {eq: "live"} }},
+        filter: { frontmatter: { type: { eq: "live" } } }
         sort: { fields: [frontmatter___date], order: DESC }
       ) {
         edges {
@@ -32,19 +32,19 @@ export default function LivePage(){
       }
     }
   `)
-  
+
   return (
     <Layout>
       <Meta
-        title="Idts의 공연 일정"
+        title="이디어츠 공연 일정"
         path="live"
-        description="Band Idiots의 공연 일정을 볼 수 있습니다."
+        description="멍청이 펑크락밴드 이디어츠의 공연 일정입니다."
       />
       <Container>
         <div className="live-wrapper">
           <LiveList lives={edgesToLives(data.allMarkdownRemark.edges)} />
         </div>
       </Container>
-    </Layout>   
+    </Layout>
   )
 }
