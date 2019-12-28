@@ -23,7 +23,7 @@ export default function AlbumDetail({ data }: { data: any }) {
 
   const description = `${releaseYear}년 발매. 수록곡: ${songs
     .map((song: string, i: number) => `${i + 1}. ${song}`)
-    .join(' ')}`
+    .join(' ')} | 구입링크: ${purchageLink}`
 
   return (
     <Layout className="AlbumDetail">
