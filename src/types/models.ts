@@ -29,3 +29,8 @@ export interface Album {
 export interface QueryNode<T> {
   node: T
 }
+
+export interface StreamingLink {
+  name: string
+  link: string
+}

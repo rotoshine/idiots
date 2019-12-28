@@ -1,24 +1,34 @@
-import { graphql, Link } from 'gatsby'
-import React, { ReactNode } from 'react'
+import './AlbumDetail.scss'
+
+import { graphql } from 'gatsby'
+import React from 'react'
 import Layout from './Layout'
 import Panel from './Panel'
 import Container from './Container'
 import Meta from './Meta'
 
-import './AlbumDetail.scss'
+import { StreamingLink } from 'types/models'
 
-export default ({ data }: any) => {
+export default function AlbumDetail({ data }: { data: any }) {
   const { markdownRemark } = data
   const { frontmatter, html, fields } = markdownRemark
-  const { title, imageUrl, releaseYear, songs } = frontmatter
+  const {
+    title,
+    imageUrl,
+    releaseYear,
+    songs,
+    streamingLinks,
+    purchageLink,
+  } = frontmatter
 
   const description = `${releaseYear}년 발매. 수록곡: ${songs
     .map((song: string, i: number) => `${i + 1}. ${song}`)
     .join(' ')}`
+
   return (
     <Layout className="AlbumDetail">
       <Meta
-        title={`이디어츠(Idiots)의 앨범 - ${title}`}
+        title={`밴드 이디어츠의 앨범 - ${title}`}
         imageUrl={imageUrl}
         description={description}
         path={fields.slug}
@@ -38,6 +48,10 @@ export default ({ data }: any) => {
                 <h3>발매년도</h3>
                 {releaseYear}
               </div>
+              <div
+                className="AlbumDetail__description"
+                dangerouslySetInnerHTML={{ __html: html }}
+              />
               <div className="AlbumDetail__description">
                 <h3>수록곡</h3>
                 <ol>
@@ -48,10 +62,30 @@ export default ({ data }: any) => {
                   ))}
                 </ol>
               </div>
-              <div
-                className="AlbumDetail__description"
-                dangerouslySetInnerHTML={{ __html: html }}
-              />
+              <p>
+                <h3>스트리밍 링크</h3>
+                <ul>
+                  {streamingLinks.map(
+                    (streamingLink: StreamingLink, i: number) => (
+                      <li key={`streaming-lini-${i}`}>
+                        <a href={streamingLink.link} target="_blank">
+                          {streamingLink.name}
+                        </a>
+                      </li>
+                    )
+                  )}
+                </ul>
+              </p>
+              <p>
+                <h3>구입링크</h3>
+                <ul>
+                  <li>
+                    <a href={purchageLink} target="_blank">
+                      구입신청서
+                    </a>
+                  </li>
+                </ul>
+              </p>
             </div>
           </div>
         </Panel>
@@ -69,6 +103,11 @@ export const query = graphql`
         imageUrl
         releaseYear
         songs
+        purchageLink
+        streamingLinks {
+          name
+          link
+        }
       }
       fields {
         slug
