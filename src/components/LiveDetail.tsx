@@ -27,7 +27,7 @@ const toMetaDescription = (live: Live) => {
   const descriptions = [description, `장소: ${place}`]
 
   if (teams.length > 0) {
-    descriptions.push(`출연진: ${teams.join(',')}`)
+    descriptions.push(`라인업: ${teams.join(',')}`)
   }
 
   if (priceInfo) {
