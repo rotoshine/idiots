@@ -5,6 +5,12 @@ posterUrl: ''
 posterUrls:
   [
     {
+      src: '/images/posters/2020-01/20200109-club-bbang3.jpg',
+      alt: '이디어츠 빵 공연 포스터',
+      width: 960,
+      heigt: 960,
+    },
+    {
       src: '/images/posters/2020-01/20200109-club-bbang.jpg',
       alt: '이디어츠 빵 공연 포스터',
       width: 960,
