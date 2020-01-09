@@ -1,5 +1,7 @@
 @import '~include-media/dist/include-media';
 
+$logo-color: #967155;
+
 .Nav {
   font-family: 'AHDN', cursive;
   text-align: center;
@@ -22,7 +24,7 @@
     }
 
     &:hover {
-      color: #000;
+      color: $logo-color;
       transform: rotate(370deg);
     }
 
@@ -37,7 +39,7 @@
     }
 
     &[aria-current='page'] {
-      color: #000;
+      color: $logo-color;
       transform: rotate(10deg);
     }
   }
