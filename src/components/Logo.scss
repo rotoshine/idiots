@@ -1,24 +1,26 @@
-@keyframes bounce {
-  25% {
-    top: -0.5rem;
-  }
-
-  50% {
-    top: -1rem;
-  }
-  70% {
-    top: -1.5rem;
-  }
-  100% {
-    top: -1.8rem;
-  }
-}
+@import '~include-media/dist/include-media';
 
 .Logo {
   text-align: center;
+  position: relative;
+  height: 120px;
+  margin: 0 auto;
+
+  @include media('>=phone', '<tablet') {
+    height: 100px;
+  }
 
   .Logo__image {
+    position: absolute;
+    top: 0;
+    left: 50%;
     width: 100%;
     max-width: 500px;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+    transform: translate(-50%, 0);
+    &--hidden {
+      opacity: 0;
+    }
   }
 }
