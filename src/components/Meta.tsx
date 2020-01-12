@@ -59,6 +59,7 @@ export const Meta = ({
       <meta name="twitter:title" content={title} />
       <meta name="twitter:image" content={fullImageUrl} />
       <meta name="twitter:description" content={description} />
+      <link rel="shortcut icon" href="/icons/favicon.ico"></link>
     </Helmet>
   )
 }
