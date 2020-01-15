@@ -3,7 +3,7 @@ import './ClubMap.scss'
 import React, { useEffect } from 'react'
 import { IKakaoMaps } from 'tenel-kakao-map'
 
-const { KAKAO_API_KEY } = process.env
+const KAKAO_API_KEY = process.env.GATSBY_KAKAO_API_KEY
 
 interface KakaoMaps extends IKakaoMaps {
   load: any
