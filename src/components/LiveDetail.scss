@@ -31,8 +31,12 @@
       color: #999;
     }
 
-    .LiveDetail__text {
+    .LiveDetail__content {
       word-break: break-all;
+
+      li {
+        line-height: 2.5rem;
+      }
     }
   }
 

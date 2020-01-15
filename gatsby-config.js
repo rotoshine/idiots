@@ -1,14 +1,14 @@
 module.exports = {
   siteMetadata: {
     siteName: `이디어츠 - Idiots`,
-    siteUrl: `https://idiots.band`
+    siteUrl: `https://idiots.band`,
   },
   plugins: [
     `gatsby-plugin-typescript`,
     {
       resolve: `gatsby-plugin-sass`,
       options: {
-        implementation: require("sass"),
+        implementation: require('sass'),
       },
     },
     `gatsby-transformer-remark`,
@@ -23,10 +23,10 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: "UA-49604777-10",
+        trackingId: 'UA-49604777-10',
       },
     },
     `gatsby-plugin-sitemap`,
-    'gatsby-plugin-robots-txt'
+    'gatsby-plugin-robots-txt',
   ],
 }

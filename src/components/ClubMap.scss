@@ -1,0 +1,13 @@
+@import '~include-media/dist/include-media';
+
+.ClubMap {
+  .ClubMap__map {
+    width: 50rem;
+    height: 49rem;
+
+    @include media('<=tablet') {
+      width: 100%;
+      height: 30rem;
+    }
+  }
+}

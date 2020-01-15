@@ -10,15 +10,23 @@ import Layout from './Layout'
 import Meta from './Meta'
 import Panel from './Panel'
 import { Poster, Live } from 'types/models'
+import ClubMap from './ClubMap'
 
 interface LiveRowProps {
   label: string
-  text: string | ReactNode
+  content: string | ReactNode
 }
-const Description = ({ label, text }: LiveRowProps) => (
+const Description = ({ label, content }: LiveRowProps) => (
   <div className="LiveDetail__description">
     <div className="LiveDetail__label">{label}</div>
-    <div className="LiveDetail__text">{text}</div>
+    {typeof content === 'string' ? (
+      <div
+        className="LiveDetail__content"
+        dangerouslySetInnerHTML={{ __html: `<div>${content}</div>` }}
+      ></div>
+    ) : (
+      <div className="LiveDetail__content">{content}</div>
+    )}
   </div>
 )
 
@@ -35,13 +43,6 @@ const toMetaDescription = (live: Live) => {
   }
 
   return descriptions.join(' | ')
-}
-
-const placeMapper: {
-  [key: string]: string
-} = {
-  'Club 빵': 'https://place.map.kakao.com/10449951',
-  'Club FF': 'https://place.map.kakao.com/13494735',
 }
 
 export default ({ data }: any) => {
@@ -91,29 +92,21 @@ export default ({ data }: any) => {
             </div>
           )}
           <div className="LiveDetail__contents">
-            <Description label="공연명" text={title} />
+            <Description label="공연명" content={title} />
             {!isEmpty(description) && (
-              <Description label="내용" text={description} />
+              <Description label="내용" content={description} />
             )}
             {place && (
               <Description
                 label="장소"
-                text={
-                  placeMapper[place] ? (
-                    <a href={placeMapper[place]} target="_blank">
-                      {place}
-                    </a>
-                  ) : (
-                    place
-                  )
-                }
+                content={<ClubMap clubName={place} />}
               />
             )}
 
             {teams.length > 0 && (
               <Description
                 label="출연진"
-                text={
+                content={
                   <ul>
                     {teams.map((team: string) => (
                       <li key={team} className="LiveDetail__team">
@@ -127,14 +120,14 @@ export default ({ data }: any) => {
             {eventLink && (
               <Description
                 label="INFO"
-                text={
+                content={
                   <a href={eventLink} target="_blank">
                     {eventLink}
                   </a>
                 }
               />
             )}
-            {priceInfo && <Description label="Price" text={priceInfo} />}
+            {priceInfo && <Description label="Price" content={priceInfo} />}
           </div>
         </Panel>
         <div className="LiveDetail__footer">
