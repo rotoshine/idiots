@@ -55,13 +55,10 @@ export default function ClubMap({ clubName }: Props) {
 
             if ($map && result.length > 0) {
               const { x, y } = result[0]
-              console.log(result[0], x, y)
-              const markerPosition = new kakao.maps.LatLng(x, y)
+              const markerPosition = new kakao.maps.LatLng(y, x)
               const marker = {
                 position: markerPosition,
               }
-
-              console.log(marker)
 
               const mapOption = {
                 center: markerPosition,
@@ -97,7 +94,11 @@ export default function ClubMap({ clubName }: Props) {
 
   return (
     <div className="ClubMap">
-      <div className="ClubMap__name'">{clubName}</div>
+      <div className="ClubMap__name">
+        <a href={place.placeLink} target="_blank">
+          {clubName}
+        </a>
+      </div>
       {place && <div className="ClubMap__map"></div>}
     </div>
   )

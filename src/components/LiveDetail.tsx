@@ -105,7 +105,7 @@ export default ({ data }: any) => {
 
             {teams.length > 0 && (
               <Description
-                label="출연진"
+                label="라인업"
                 content={
                   <ul>
                     {teams.map((team: string) => (
