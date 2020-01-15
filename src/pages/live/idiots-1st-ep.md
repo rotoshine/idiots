@@ -7,6 +7,7 @@ place: 'Club Sharp'
 date: '2019.1.29'
 teams: ['Dead Buttons', 'RE:SETERS', 'HiteenPops']
 eventLink: 'https://www.facebook.com/events/277307156472182/?notif_t=plan_user_associated&notif_id=1545993928364369'
+ticketLink: ''
 ---
 
 test

@@ -57,6 +57,7 @@ export default ({ data }: any) => {
     posterUrls,
     eventLink,
     priceInfo,
+    ticketLink,
   } = live
 
   const representImage =
@@ -119,7 +120,7 @@ export default ({ data }: any) => {
             )}
             {eventLink && (
               <Description
-                label="INFO"
+                label="공연 상세 정보"
                 content={
                   <a href={eventLink} target="_blank">
                     {eventLink}
@@ -128,6 +129,16 @@ export default ({ data }: any) => {
               />
             )}
             {priceInfo && <Description label="Price" content={priceInfo} />}
+            {!isEmpty(ticketLink) && (
+              <Description
+                label="에매링크"
+                content={
+                  <a href={ticketLink} target="__blank">
+                    예매하기
+                  </a>
+                }
+              />
+            )}
           </div>
         </Panel>
         <div className="LiveDetail__footer">
@@ -156,6 +167,7 @@ export const query = graphql`
         teams
         eventLink
         priceInfo
+        ticketLink
       }
       fields {
         slug

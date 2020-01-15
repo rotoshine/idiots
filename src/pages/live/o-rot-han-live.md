@@ -27,6 +27,7 @@ place: 'Club 빵'
 date: '2020.01.09'
 teams: ['사서함', '알라리깡숑', '비포유슬립']
 priceInfo: '현매 15000원(1 Free Drink)'
+ticketLink: ''
 ---
 
 test

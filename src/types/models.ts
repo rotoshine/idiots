@@ -10,6 +10,7 @@ export interface Live {
   date: string
   slug: string
   priceInfo?: string
+  ticketLink?: string
 }
 
 export interface Poster {

@@ -5,16 +5,16 @@ posterUrl: ''
 posterUrls:
   [
     {
-      src: '/images/posters/2020-02/goinmul.jpg',
-      alt: '2020 펑크마라톤 포스터',
-      width: 1926,
-      height: 1926,
-    },
-    {
       src: '/images/posters/2020-02/82191077_479553396078214_6170799798740844544_o.jpg',
       alt: '2020 펑크마라톤 공식 포스터',
       width: 680,
       height: 960,
+    },
+    {
+      src: '/images/posters/2020-02/goinmul.jpg',
+      alt: '2020 펑크마라톤 포스터',
+      width: 1926,
+      height: 1926,
     },
   ]
 place: '고인물'
@@ -30,6 +30,7 @@ priceInfo: '
   <li><strong>당일 현매</strong>: 20,000원</li>
   </ul>'
 eventLink: 'https://www.facebook.com/photo?fbid=479553389411548&set=a.228266707873552'
+ticketLink: 'https://docs.google.com/forms/d/e/1FAIpQLSeh6-iz-uWGq2LB8uvcSG6Wtm4QAAuBTmWy4hSU-WKa19Bd9w/viewform?vc=0&c=0&w=1&fbclid=IwAR0ajB3k7KoW-QwAzET_UBUEPWIBONWar7ZN1DdCOFecboytpY3fY2bMqfw'
 ---
 
 test

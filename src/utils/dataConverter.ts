@@ -41,6 +41,7 @@ export const markdownRemarkToLive = (data: MarkdownRemarkQueryResult) => {
     teams = [],
     eventLink,
     priceInfo,
+    ticketLink,
   } = frontmatter
 
   return {
@@ -53,6 +54,7 @@ export const markdownRemarkToLive = (data: MarkdownRemarkQueryResult) => {
     teams,
     eventLink,
     priceInfo,
+    ticketLink,
     slug: fields.slug,
   }
 }

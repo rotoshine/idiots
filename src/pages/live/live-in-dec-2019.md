@@ -18,6 +18,7 @@ place: 'Club FF'
 date: '2019.12.12'
 teams: ['네마치', '씩제프', '피지퍼그']
 priceInfo: '현매 10,000원'
+ticketLink: ''
 ---
 
 test
