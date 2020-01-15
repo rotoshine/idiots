@@ -95,7 +95,7 @@ export default function ClubMap({ clubName }: Props) {
   return (
     <div className="ClubMap">
       <div className="ClubMap__name">
-        <a href={place.placeLink} target="_blank">
+        <a href={place ? place.placeLink : '#'} target="_blank">
           {clubName}
         </a>
       </div>
