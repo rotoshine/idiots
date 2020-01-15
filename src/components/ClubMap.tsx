@@ -32,6 +32,10 @@ const placeMapper: {
     placeLink: 'https://place.map.kakao.com/13494735',
     address: '서울 마포구 와우산로17길 12',
   },
+  'Club Sharp': {
+    placeLink: 'https://place.map.kakao.com/527881183',
+    address: '서울 마포구 동교로 63 지하1층',
+  },
   고인물: {
     placeLink: 'https://place.map.kakao.com/1207259355',
     address: '서울 마포구 와우산로29길 66 지하 1층',

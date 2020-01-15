@@ -20,15 +20,15 @@ posterUrls:
 place: '고인물'
 date: '2020.2.22'
 teams: ['링고포레스트', '노앤써', '오버헤드', '코인클래식']
-priceInfo: '
-  <ul>
-  <li><strong>예매 5일권</strong>: 50,000원 (full pass) (50% 할인) + 1일권 게스트 티켓 2매 증정</li>
-  <li><strong>예매 4일권</strong>: 45,000원 (4-day pass)(44% 할인) + 1일권 게스트 티켓 1매 증정</li>
-  <li><strong>예매 3일권</strong>: 35,000원 (3-day pass)(42% 할인)</li>
-  <li><strong>예매 2일권</strong>: 25,000원 (2-day pass)(37% 할인)</li>
-  <li><strong>예매 1일권</strong>: 15,000원 (1-day pass)(25% 할인)</li>
-  <li><strong>당일 현매</strong>: 20,000원</li>
-  </ul>'
+priceInfos:
+  [
+    '예매 5일권: 50,000원 (full pass) (50% 할인) + 1일권 게스트 티켓 2매 증정',
+    '예매 4일권: 45,000원 (4-day pass)(44% 할인) + 1일권 게스트 티켓 1매 증정',
+    '예매 3일권: 35,000원 (3-day pass)(42% 할인)',
+    '예매 2일권: 25,000원 (2-day pass)(37% 할인)',
+    '예매 1일권: 15,000원 (1-day pass)(25% 할인)',
+    '당일 현매: 20,000원',
+  ]
 eventLink: 'https://www.facebook.com/photo?fbid=479553389411548&set=a.228266707873552'
 ticketLink: 'https://docs.google.com/forms/d/e/1FAIpQLSeh6-iz-uWGq2LB8uvcSG6Wtm4QAAuBTmWy4hSU-WKa19Bd9w/viewform?vc=0&c=0&w=1&fbclid=IwAR0ajB3k7KoW-QwAzET_UBUEPWIBONWar7ZN1DdCOFecboytpY3fY2bMqfw'
 ---

@@ -2,7 +2,7 @@ import './LiveDetail.scss'
 
 import { graphql, Link } from 'gatsby'
 import React, { ReactNode } from 'react'
-import { isEmpty } from 'lodash'
+import { isEmpty, isArray } from 'lodash'
 
 import { markdownRemarkToLive } from '../utils/dataConverter'
 import Container from './Container'
@@ -11,34 +11,56 @@ import Meta from './Meta'
 import Panel from './Panel'
 import { Poster, Live } from 'types/models'
 import ClubMap from './ClubMap'
+import { isString } from 'util'
 
 interface LiveRowProps {
   label: string
-  content: string | ReactNode
+  content: string | string[] | ReactNode
 }
-const Description = ({ label, content }: LiveRowProps) => (
-  <div className="LiveDetail__description">
-    <div className="LiveDetail__label">{label}</div>
-    {typeof content === 'string' ? (
-      <div
-        className="LiveDetail__content"
-        dangerouslySetInnerHTML={{ __html: `<div>${content}</div>` }}
-      ></div>
-    ) : (
-      <div className="LiveDetail__content">{content}</div>
-    )}
-  </div>
-)
+const Description = ({ label, content }: LiveRowProps) => {
+  const renderContent = (content: string | string[] | ReactNode) => {
+    if (isArray(content)) {
+      return (
+        <div className="LiveDetail__content">
+          <ul>
+            {(content as string[]).map(c => (
+              <li key={c}>{c}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    } else if (isString(content)) {
+      return (
+        <div
+          className="LiveDetail__content"
+          dangerouslySetInnerHTML={{ __html: `<div>${content}</div>` }}
+        ></div>
+      )
+    } else {
+      return <div className="LiveDetail__content">{content}</div>
+    }
+  }
+  return (
+    <div className="LiveDetail__description">
+      <div className="LiveDetail__label">{label}</div>
+      {renderContent(content)}
+    </div>
+  )
+}
 
 const toMetaDescription = (live: Live) => {
-  const { place, teams = [], priceInfo, description = '' } = live
-  const descriptions = [description, `장소: ${place}`]
+  const { place, teams = [], priceInfo, description = '', priceInfos } = live
+  const descriptions = isEmpty(description)
+    ? [`장소: ${place}`]
+    : [description, `장소: ${place}`]
 
   if (teams.length > 0) {
     descriptions.push(`라인업: ${teams.join(',')}`)
   }
 
-  if (priceInfo) {
+  if (isArray(priceInfos) && priceInfos.length > 0) {
+    descriptions.push(`가격: ${priceInfos.join(', ')}`)
+  } else if (!isEmpty(priceInfo)) {
     descriptions.push(`가격: ${priceInfo}`)
   }
 
@@ -58,6 +80,7 @@ export default ({ data }: any) => {
     eventLink,
     priceInfo,
     ticketLink,
+    priceInfos,
   } = live
 
   const representImage =
@@ -128,7 +151,12 @@ export default ({ data }: any) => {
                 }
               />
             )}
-            {priceInfo && <Description label="Price" content={priceInfo} />}
+            {!isEmpty(priceInfo) && (
+              <Description label="Price" content={priceInfo} />
+            )}
+            {isArray(priceInfos) && priceInfos.length > 0 && (
+              <Description label="Price" content={priceInfos} />
+            )}
             {!isEmpty(ticketLink) && (
               <Description
                 label="에매링크"
@@ -167,6 +195,7 @@ export const query = graphql`
         teams
         eventLink
         priceInfo
+        priceInfos
         ticketLink
       }
       fields {
