@@ -3,6 +3,8 @@ import './ClubMap.scss'
 import React, { useEffect } from 'react'
 import { IKakaoMaps } from 'tenel-kakao-map'
 
+const { KAKAO_API_KEY } = process.env
+
 interface KakaoMaps extends IKakaoMaps {
   load: any
   services: {
@@ -81,7 +83,7 @@ export default function ClubMap({ clubName }: Props) {
       const $script = document.createElement('script')
       $script.id = 'kakao-sdk'
       $script.type = 'text/javascript'
-      $script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_API_KEY}&libraries=services&autoload=false`
+      $script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_API_KEY}&libraries=services&autoload=false`
       $script.onload = () => {
         kakao.maps.load(() => {
           renderStaticMap()
@@ -99,7 +101,7 @@ export default function ClubMap({ clubName }: Props) {
           {clubName}
         </a>
       </div>
-      {place && <div className="ClubMap__map"></div>}
+      {place && KAKAO_API_KEY && <div className="ClubMap__map"></div>}
     </div>
   )
 }
