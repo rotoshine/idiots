@@ -18,7 +18,7 @@ posterUrls:
     },
   ]
 place: '고인물'
-date: '2020.2.22'
+date: '2020.02.22'
 teams: ['링고포레스트', '노앤써', '오버헤드', '코인클래식']
 priceInfos:
   [
