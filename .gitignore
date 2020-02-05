@@ -6,3 +6,4 @@ public
 .cache
 .vscode
 .env.*
+run.sh

@@ -1,9 +1,15 @@
 ---
 type: 'live'
-title: '[공연명 미정] 2월 6일 공연'
+title: 'LIVE in FEB'
 posterUrl: ''
 posterUrls:
   [
+    {
+      src: '/images/posters/2020-02/20200206-ff.jpg',
+      alt: '20200206 FF 공연 포스터',
+      width: 1080,
+      height: 1527,
+    },
     {
       src: '/images/posters/2020-02/EOzugDwVUAAHioC.jpg',
       alt: '20200206 FF 공연 포스터',
@@ -11,11 +17,10 @@ posterUrls:
       height: 642,
     },
   ]
-description: '자세한 공연 정보 및 라인업, 가격 등은 추후 업데이트 예정입니다.'
 place: 'Club FF'
 date: '2020.02.06'
-teams: []
-priceInfo: '미정'
+teams: ['BLACKWOODENDOOR', '스푼앤나이프', '우희']
+priceInfo: '현매 10,000원'
 ticketLink: ''
 ---
 

@@ -29,7 +29,7 @@ priceInfos:
     '예매 1일권: 15,000원 (1-day pass)(25% 할인)',
     '당일 현매: 20,000원',
   ]
-eventLink: 'https://www.facebook.com/photo?fbid=479553389411548&set=a.228266707873552'
+eventLink: 'https://www.facebook.com/hippytokki/posts/479149026118651'
 ticketLink: 'https://docs.google.com/forms/d/e/1FAIpQLSeh6-iz-uWGq2LB8uvcSG6Wtm4QAAuBTmWy4hSU-WKa19Bd9w/viewform?vc=0&c=0&w=1&fbclid=IwAR0ajB3k7KoW-QwAzET_UBUEPWIBONWar7ZN1DdCOFecboytpY3fY2bMqfw'
 ---
 
