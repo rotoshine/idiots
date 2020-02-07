@@ -40,6 +40,10 @@ const placeMapper: {
     placeLink: 'https://place.map.kakao.com/1207259355',
     address: '서울 마포구 와우산로29길 66 지하 1층',
   },
+  에반스라운지: {
+    placeLink: 'https://place.map.kakao.com/16587801',
+    address: '서울 마포구 독막로9길 9',
+  },
 }
 
 interface Props {

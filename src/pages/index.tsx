@@ -46,7 +46,13 @@ export default function IndexPage() {
           <div className="IndexPage__panels">
             <Panel title="News">
               <ul className="IndexPage__newsList">
-                <li>이디어츠 홈페이지가 개설되었습니다.</li>
+                <li>
+                  <img
+                    width="100%"
+                    src="/images/posters/2020-02/202002-schedule.jpeg"
+                    alt="이디어츠 2월 스케쥴"
+                  />
+                </li>
               </ul>
             </Panel>
             <LiveList
