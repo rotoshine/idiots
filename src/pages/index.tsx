@@ -1,6 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby'
-import React from 'react'
-import { useSpring, animated } from 'react-spring'
+import React, { useState, useEffect, useRef } from 'react'
+import { animated, config, useTransition } from 'react-spring'
 
 import Layout from '../components/Layout'
 import Container from '../components/Container'
@@ -12,7 +12,15 @@ import { edgesToLives } from '../utils/dataConverter'
 
 import './index.scss'
 
+const coverImages = [
+  { id: 0, url: '/images/main.jpg' },
+  { id: 1, url: '/images/main1.jpg' },
+  { id: 2, url: '/images/main2.jpg' },
+]
+
 export default function IndexPage() {
+  const [coverImageIndex, setCoverImageIndex] = useState(0)
+  const indexRef = useRef(coverImageIndex)
   const data = useStaticQuery(graphql`
     {
       allMarkdownRemark(
@@ -34,13 +42,51 @@ export default function IndexPage() {
       }
     }
   `)
-  const props = useSpring({ opacity: 1, from: { opacity: 0 } })
+
+  const transitions = useTransition(
+    coverImages[coverImageIndex],
+    item => item.id,
+    {
+      from: { opacity: 0 },
+      enter: { opacity: 1 },
+      leave: { opacity: 0 },
+      config: config.molasses,
+    }
+  )
+
+  useEffect(() => {
+    const MAX_INDEX = coverImages.length - 1
+    const timeout = setInterval(() => {
+      if (indexRef?.current === MAX_INDEX) {
+        indexRef.current = 0
+      } else {
+        indexRef.current = indexRef.current + 1
+      }
+      setCoverImageIndex(indexRef.current)
+    }, 5000)
+
+    return () => {
+      console.log('cleanr')
+      if (timeout) {
+        clearInterval(timeout)
+      }
+    }
+  }, [])
 
   return (
     <Layout className="IndexPage">
-      <animated.div style={props}>
-        <img className="cover-image" src="/images/main.jpeg" width="100%" />
-      </animated.div>
+      <div className="cover-image-carousel">
+        {transitions.map(({ item, props, key }) => (
+          <animated.div
+            key={key}
+            className="cover-image"
+            style={{
+              ...props,
+              backgroundImage: `url('${item.url}`,
+            }}
+          />
+        ))}
+      </div>
       <Container>
         <div className="IndexPage__contents">
           <div className="IndexPage__panels">
@@ -56,7 +102,7 @@ export default function IndexPage() {
               </ul>
             </Panel>
             <LiveList
-              title="Lives"
+              title="Live"
               lives={edgesToLives(data.allMarkdownRemark.edges)}
             />
           </div>

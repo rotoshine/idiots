@@ -5,8 +5,8 @@
   "author": "ROTO <rotoshine@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "gatsby develop",
-    "develop": "gatsby develop",
+    "start": "gatsby develop --host 0.0.0.0 -p 3003",
+    "develop": "npm start",
     "build": "NODE_ENV=production && gatsby build",
     "type-check": "tsc --noEmit",
     "lint": "tslint --project ."

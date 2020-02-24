@@ -1,6 +1,37 @@
 @import '~include-media/dist/include-media';
 
 .IndexPage {
+  .cover-image-carousel {
+    position: relative;
+    width: 100%;
+    height: 800px;
+
+    .cover-image {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      will-change: opacity;
+    }
+
+    @include media('<=tablet') {
+      height: 300px;
+
+      .cover-image {
+        background-size: contain;
+      }
+    }
+
+    @include media('<=phone') {
+      height: 200px;
+    }
+  }
+
   .IndexPage__contents {
     display: flex;
     flex-direction: column;
@@ -23,8 +54,11 @@
     display: center;
   }
 
+  .live {
+    line-height: 1.5rem;
+  }
 
-  @include media("<=tablet") {
+  @include media('<=tablet') {
     .IndexPage__panels {
       flex-direction: column;
 
