@@ -7,6 +7,7 @@ import Container from '../components/Container'
 import Panel from '../components/Panel'
 import LiveList from '../components/LiveList'
 import TwitterTimeline from '../components/TwitterTimeline'
+import Meta from '../components/Meta'
 
 import { edgesToLives } from '../utils/dataConverter'
 
@@ -66,7 +67,6 @@ export default function IndexPage() {
     }, 5000)
 
     return () => {
-      console.log('cleanr')
       if (timeout) {
         clearInterval(timeout)
       }
@@ -75,6 +75,16 @@ export default function IndexPage() {
 
   return (
     <Layout className="IndexPage">
+      <Meta>
+        {coverImages.map(coverImage => (
+          <link
+            key={coverImage.id}
+            rel="preload"
+            href={coverImage.url}
+            as="image"
+          />
+        ))}
+      </Meta>
       <div className="cover-image-carousel">
         {transitions.map(({ item, props, key }) => (
           <animated.div
@@ -95,7 +105,7 @@ export default function IndexPage() {
                 <li>
                   <img
                     width="100%"
-                    src="/images/posters/2020-02/202002-schedule.jpeg"
+                    src="/images/posters/2020-02/202002-schedule.jpg"
                     alt="이디어츠 2월 스케쥴"
                   />
                 </li>

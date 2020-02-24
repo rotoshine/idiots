@@ -15,6 +15,7 @@ interface Props {
   imageUrl?: string
   imageWidth?: number | null
   imageHeight?: number | null
+  children?: React.ReactNode
 }
 
 export const Meta = ({
@@ -24,6 +25,7 @@ export const Meta = ({
   imageUrl = DEFAULT_IMAGE_URL,
   imageWidth = !imageUrl ? DEFAULT_IMAGE_WIDTH : null,
   imageHeight = !imageUrl ? DEFAULT_IMAGE_HEIGHT : null,
+  children,
 }: Props) => {
   const url = `${DEFAULT_URL}/${
     path.indexOf('/') === 0 ? path.substr(1) : path
@@ -60,6 +62,7 @@ export const Meta = ({
       <meta name="twitter:image" content={fullImageUrl} />
       <meta name="twitter:description" content={description} />
       <link rel="shortcut icon" href="/icons/favicon.ico"></link>
+      {children}
     </Helmet>
   )
 }
