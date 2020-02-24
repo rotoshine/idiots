@@ -19,7 +19,6 @@ posterUrls:
   ]
 place: '에반스라운지'
 date: '2020.02.26'
-description: '자세한 정보는 추후 업데이트 예정입니다.'
 teams: ['신나', '플라이데이즈']
 priceInfo: '현매 1,5000원'
 ticketLink: ''
