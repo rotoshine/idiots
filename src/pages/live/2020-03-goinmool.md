@@ -5,7 +5,7 @@ posterUrl: ''
 posterUrls:
   [
     {
-      src: '/images/posters/2020-03/20200312-bbang.jpg',
+      src: '/images/posters/2020-03/20200313-goinmool.jpg',
       alt: '이디어츠 2020-03-13 고인물 공연 포스터',
       width: 960,
       heigt: 960,
