@@ -105,7 +105,7 @@ export default function IndexPage() {
                 <li>
                   <img
                     width="100%"
-                    src="/images/posters/2020-02/202002-schedule.jpg"
+                    src="/images/posters/2020-03/202003-schedule.jpg"
                     alt="이디어츠 2월 스케쥴"
                   />
                 </li>
