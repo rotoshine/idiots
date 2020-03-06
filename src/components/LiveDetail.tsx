@@ -56,7 +56,7 @@ const toMetaDescription = (live: Live) => {
     : [description, `장소: ${place}`]
 
   if (teams.length > 0) {
-    descriptions.push(`라인업: ${teams.join(',')}`)
+    descriptions.push(`라인업: ${teams.join(', ')}`)
   }
 
   if (isArray(priceInfos) && priceInfos.length > 0) {
