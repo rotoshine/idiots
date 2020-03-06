@@ -12,6 +12,7 @@ import Panel from './Panel'
 import { Poster, Live } from 'types/models'
 import ClubMap from './ClubMap'
 import { isString } from 'util'
+import Teams from './Teams'
 
 interface LiveRowProps {
   label: string
@@ -128,18 +129,7 @@ export default ({ data }: any) => {
             )}
 
             {teams.length > 0 && (
-              <Description
-                label="라인업"
-                content={
-                  <ul>
-                    {teams.map((team: string) => (
-                      <li key={team} className="LiveDetail__team">
-                        {team}
-                      </li>
-                    ))}
-                  </ul>
-                }
-              />
+              <Description label="라인업" content={<Teams teams={teams} />} />
             )}
             {eventLink && (
               <Description
