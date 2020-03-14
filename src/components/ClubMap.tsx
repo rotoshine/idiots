@@ -44,6 +44,11 @@ const placeMapper: {
     placeLink: 'https://place.map.kakao.com/16587801',
     address: '서울 마포구 독막로9길 9',
   },
+  Bender: {
+    placeLink:
+      'https://map.naver.com/v5/search/%EB%B2%A4%EB%8D%94/place/1772316440?c=14128118.6902338,4516064.4484304,14,0,0,0,dh',
+    address: '서울 마포구 와우산로14길 4 지층1',
+  },
 }
 
 interface Props {
