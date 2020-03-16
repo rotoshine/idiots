@@ -43,6 +43,7 @@ export const markdownRemarkToLive = (data: MarkdownRemarkQueryResult) => {
     priceInfo,
     priceInfos,
     ticketLink,
+    content,
   } = frontmatter
 
   return {
@@ -58,5 +59,6 @@ export const markdownRemarkToLive = (data: MarkdownRemarkQueryResult) => {
     priceInfos,
     ticketLink,
     slug: fields.slug,
+    content,
   }
 }

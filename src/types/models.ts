@@ -12,6 +12,7 @@ export interface Live {
   priceInfo?: string
   priceInfos?: string[]
   ticketLink?: string
+  content?: string
 }
 
 export interface Poster {

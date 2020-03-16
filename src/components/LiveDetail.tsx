@@ -34,7 +34,9 @@ const Description = ({ label, content }: LiveRowProps) => {
       return (
         <div
           className="LiveDetail__content"
-          dangerouslySetInnerHTML={{ __html: `<div>${content}</div>` }}
+          dangerouslySetInnerHTML={{
+            __html: `<div className="LiveDetail__content__html">${content}</div>`,
+          }}
         ></div>
       )
     } else {
@@ -82,6 +84,7 @@ export default ({ data }: any) => {
     priceInfo,
     ticketLink,
     priceInfos,
+    content,
   } = live
 
   const representImage =
@@ -119,7 +122,10 @@ export default ({ data }: any) => {
           <div className="LiveDetail__contents">
             <Description label="공연명" content={title} />
             {!isEmpty(description) && (
-              <Description label="내용" content={description} />
+              <Description label="설명" content={description} />
+            )}
+            {!isEmpty(content) && (
+              <Description label="내용" content={content} />
             )}
             {place && (
               <Description
@@ -187,6 +193,7 @@ export const query = graphql`
         priceInfo
         priceInfos
         ticketLink
+        content
       }
       fields {
         slug
