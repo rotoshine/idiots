@@ -52,10 +52,10 @@ const Description = ({ label, content }: LiveRowProps) => {
 }
 
 const toMetaDescription = (live: Live) => {
-  const { place, teams = [], priceInfo, description = '', priceInfos } = live
-  const descriptions = isEmpty(description)
+  const { place, teams = [], priceInfo, seoDescription = '', priceInfos } = live
+  const descriptions = isEmpty(seoDescription)
     ? [`장소: ${place}`]
-    : [description, `장소: ${place}`]
+    : [seoDescription, `장소: ${place}`]
 
   if (teams.length > 0) {
     descriptions.push(`라인업: ${teams.join(', ')}`)
@@ -75,7 +75,6 @@ export default ({ data }: any) => {
 
   const {
     title,
-    description,
     place,
     teams = [],
     posterUrl,
@@ -121,9 +120,6 @@ export default ({ data }: any) => {
           )}
           <div className="LiveDetail__contents">
             <Description label="공연명" content={title} />
-            {!isEmpty(description) && (
-              <Description label="설명" content={description} />
-            )}
             {!isEmpty(content) && (
               <Description label="내용" content={content} />
             )}
@@ -186,7 +182,7 @@ export const query = graphql`
           width
           height
         }
-        description
+        seoDescription
         place
         teams
         eventLink

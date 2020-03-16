@@ -33,7 +33,7 @@ export const markdownRemarkToLive = (data: MarkdownRemarkQueryResult) => {
   const { frontmatter, fields } = markdownRemark
   const {
     title = '',
-    description,
+    seoDescription,
     posterUrl,
     posterUrls = [],
     date = '',
@@ -48,7 +48,7 @@ export const markdownRemarkToLive = (data: MarkdownRemarkQueryResult) => {
 
   return {
     title,
-    description,
+    seoDescription,
     posterUrl,
     posterUrls,
     date,

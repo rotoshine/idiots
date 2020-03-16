@@ -8,13 +8,13 @@ posterUrls:
       src: '/images/posters/2020-03/20200322-bender.jpg',
       alt: '이디어츠 2020-03-22 벤더 공연 포스터',
       width: 948,
-      heigt: 1280,
+      height: 1280,
     },
     {
       src: '/images/posters/2020-03/20200322-bender1.jpg',
       alt: '이디어츠 2020-03-22 벤더 공연 포스터',
       width: 1769,
-      heigt: 1769,
+      height: 1769,
     },
   ]
 place: 'Bender'

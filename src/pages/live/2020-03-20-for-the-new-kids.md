@@ -8,18 +8,18 @@ posterUrls:
       src: '/images/posters/2020-03/20200320-goinmool1.jpg',
       alt: '이디어츠 2020-03-20 고인물 공연 포스터',
       width: 640,
-      heigt: 640,
+      height: 640,
     },
     {
       src: '/images/posters/2020-03/20200320-goinmool.jpg',
       alt: '이디어츠 2020-03-20 고인물 공연 포스터',
       width: 948,
-      heigt: 1280,
+      height: 1280,
     },
   ]
 place: '고인물'
 date: '2020.03.20'
-description: '이번주 금요일! 고인물에서 짱멋진 팀들과 함께합니다! 함께 놀아요 ⚡️👻⚡️'
+seoDescription: '이번주 금요일! 고인물에서 짱멋진 팀들과 함께합니다! 함께 놀아요 ⚡️👻⚡️'
 content: '<p>이번주 금요일! 고인물에서 짱멋진 팀들과 함께합니다! 함께 놀아요 ⚡️👻⚡️</p><p>🦕 타임테이블<br/>
   <ul>
     <li>8:00 알라리깡숑 <a href="https://www.instagram.com/_a.r.k.s._/" target="_blank">@_a.r.k.s._</a></li>
