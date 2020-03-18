@@ -39,6 +39,9 @@ export default function LivePage() {
         title="이디어츠 공연 일정"
         path="live"
         description="멍청이 펑크락밴드 이디어츠의 공연 일정입니다."
+        imageUrl="https://idiots.band/images/main1.jpg"
+        imageWidth={1093}
+        imageHeight={730}
       />
       <Container>
         <div className="live-wrapper">
