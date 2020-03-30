@@ -11,12 +11,18 @@ module.exports = {
         implementation: require('sass'),
       },
     },
-    `gatsby-transformer-remark`,
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: 'gatsby-source-strapi',
       options: {
-        name: 'src',
-        path: `${__dirname}/src/`,
+        apiURL: 'https://admin.idiots.band',
+        contentTypes: [
+          // List of the Content Types you want to be able to request from Gatsby.
+          'albums',
+          'lives',
+          'home-content',
+        ],
+
+        queryLimit: 1000,
       },
     },
     `gatsby-plugin-react-helmet`,

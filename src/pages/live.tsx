@@ -1,3 +1,5 @@
+import './live.scss'
+
 import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 
@@ -6,27 +8,18 @@ import Layout from '../components/Layout'
 import Container from '../components/Container'
 import LiveList from '../components/LiveList'
 
-import { edgesToLives } from '../utils/dataConverter'
-
-import './live.scss'
+import { edgesToLivesForStrapi } from '../utils/dataConverter'
 
 export default function LivePage() {
   const data = useStaticQuery(graphql`
     {
-      allMarkdownRemark(
-        filter: { frontmatter: { type: { eq: "live" } } }
-        sort: { fields: [frontmatter___date], order: DESC }
-      ) {
+      allStrapiLives(sort: { fields: [date], order: DESC }) {
         edges {
           node {
             id
-            frontmatter {
-              date
-              title
-            }
-            fields {
-              slug
-            }
+            date
+            title
+            slug
           }
         }
       }
@@ -45,7 +38,7 @@ export default function LivePage() {
       />
       <Container>
         <div className="live-wrapper">
-          <LiveList lives={edgesToLives(data.allMarkdownRemark.edges)} />
+          <LiveList lives={edgesToLivesForStrapi(data.allStrapiLives.edges)} />
         </div>
       </Container>
     </Layout>

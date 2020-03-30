@@ -1,48 +1,98 @@
-const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require('path')
 
-exports.onCreateNode = ({ node, getNode, actions }) => {
-  const { createNodeField } = actions
-  if (node.internal.type === `MarkdownRemark`) {
-    const slug = createFilePath({ node, getNode, basePath: `pages` })
-    createNodeField({
-      node,
-      name: `slug`,
-      value: slug,
-    })
-  }
-}
+const makeRequest = (graphql, query) =>
+  new Promise((resolve, reject) => {
+    resolve(
+      graphql(query).then(result => {
+        if (result.errors) {
+          return reject(result.errors)
+        }
 
-const createPagesByType = async (graphql, createPage, type, componentPath) => {
-  // **Note:** The graphql function call returns a Promise
-  // see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise for more info
-  const result = await graphql(`
+        return result
+      })
+    )
+  })
+
+exports.createPages = async ({ actions, graphql }) => {
+  const { createPage } = actions
+  const livesRes = await makeRequest(
+    graphql,
+    `
     {
-      allMarkdownRemark(filter: {frontmatter: {type: {eq: "${type}"}}}) {
+      allStrapiLives {
         edges {
           node {
-            fields {
-              slug
+            slug
+            bands {
+              name
+              instagramUrl
+            }
+            date
+            content
+            eventLink
+            place
+            posters {
+              url
+            }
+            priceInfo
+            seoDescription
+            ticketLink
+            title
+          }
+        }
+      }
+    }
+    `
+  )
+
+  const { edges: lives } = livesRes.data.allStrapiLives
+  lives.forEach(({ node }) => {
+    createPage({
+      path: `/live/${node.slug}/`,
+      component: path.resolve('./src/components/LiveDetail.tsx'),
+      context: {
+        slug: node.slug,
+      },
+    })
+    console.log(`path: /live/${node.slug}/`)
+  })
+
+  const albumsRes = await makeRequest(
+    graphql,
+    `
+    {
+      allStrapiAlbums {
+        edges {
+          node {
+            slug
+            title
+            content
+            releaseDate
+            purchaseLink
+            streamingLinks
+            covers {
+              url
+            }
+            songs {
+              track
+              name
             }
           }
         }
       }
     }
-  `)
-  result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+    `
+  )
+
+  const { edges: albums } = albumsRes.data.allStrapiAlbums
+  albums.forEach(({ node }) => {
     createPage({
-      path: node.fields.slug,
-      component: path.resolve(componentPath),
+      path: `/album/${node.slug}`,
+      component: path.resolve('./src/components/AlbumDetail.tsx'),
       context: {
-        slug: node.fields.slug,
+        slug: node.slug,
       },
     })
-    console.log(`[${type}] ${node.fields.slug} created,`)
+    console.log(`path: /album/${node.slug}/`)
   })
-}
-
-exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions
-  await createPagesByType(graphql, createPage, `live`, `./src/components/LiveDetail.tsx`)
-  await createPagesByType(graphql, createPage, `album`, `./src/components/AlbumDetail.tsx`)
 }
