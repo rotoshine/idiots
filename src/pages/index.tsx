@@ -1,3 +1,5 @@
+import './index.scss'
+
 import { graphql, useStaticQuery } from 'gatsby'
 import React, { useState, useEffect, useRef } from 'react'
 import { animated, config, useTransition } from 'react-spring'
@@ -9,40 +11,45 @@ import LiveList from '../components/LiveList'
 import TwitterTimeline from '../components/TwitterTimeline'
 import Meta from '../components/Meta'
 
-import { edgesToLives } from '../utils/dataConverter'
-
-import './index.scss'
-
-const coverImages = [
-  { id: 0, url: '/images/main.jpg' },
-  { id: 1, url: '/images/main1.jpg' },
-  { id: 2, url: '/images/main2.jpg' },
-]
+import { edgesToLivesForStrapi } from '../utils/dataConverter'
+import { createImagePath } from '../utils/image'
 
 export default function IndexPage() {
   const [coverImageIndex, setCoverImageIndex] = useState(0)
   const indexRef = useRef(coverImageIndex)
-  const data = useStaticQuery(graphql`
-    {
-      allMarkdownRemark(
-        filter: { frontmatter: { type: { eq: "live" } } }
-        sort: { fields: [frontmatter___date], order: DESC }
-      ) {
+  const { lives, homeContent } = useStaticQuery(graphql`
+    query {
+      lives: allStrapiLives(sort: { fields: [date], order: DESC }) {
         edges {
           node {
             id
-            frontmatter {
-              date
-              title
+            date
+            title
+            slug
+          }
+        }
+      }
+      homeContent: allStrapiHomeContent {
+        edges {
+          node {
+            schedulePosters {
+              url
             }
-            fields {
-              slug
+            carouselImages {
+              url
             }
           }
         }
       }
     }
   `)
+
+  const coverImages = homeContent.edges[0].node.carouselImages.map(
+    (carouselImage: any, index: i) => ({
+      id: index,
+      url: createImagePath(carouselImage.url),
+    })
+  )
 
   const transitions = useTransition(
     coverImages[coverImageIndex],
@@ -105,16 +112,15 @@ export default function IndexPage() {
                 <li>
                   <img
                     width="100%"
-                    src="/images/posters/2020-03/202003-schedule.jpg"
+                    src={createImagePath(
+                      homeContent.edges[0].node.schedulePosters[0].url
+                    )}
                     alt="이디어츠 2월 스케쥴"
                   />
                 </li>
               </ul>
             </Panel>
-            <LiveList
-              title="Live"
-              lives={edgesToLives(data.allMarkdownRemark.edges)}
-            />
+            <LiveList title="Live" lives={edgesToLivesForStrapi(lives.edges)} />
           </div>
           <TwitterTimeline className="IndexPage__twitterTimelineWrapper" />
         </div>

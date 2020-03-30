@@ -5,12 +5,12 @@ import { Link } from 'gatsby'
 import { useTrail, animated } from 'react-spring'
 
 import Panel from './Panel'
-
+import { formatDateString } from '../utils/date'
 import { Live } from 'types/models'
 
 interface Props {
   title?: string
-  lives: Live[]
+  lives: Partial<Live>[]
 }
 export default function LiveList({ title = 'Live List', lives }: Props) {
   const trail = useTrail(lives.length, {
@@ -40,9 +40,9 @@ export default function LiveList({ title = 'Live List', lives }: Props) {
             }}
           >
             <animated.div>
-              <Link to={lives[index].slug}>
+              <Link to={`/live/${lives[index].slug}`}>
                 <div>
-                  [{lives[index].date}] {lives[index].title}
+                  [{formatDateString(lives[index].date!)}] {lives[index].title}
                 </div>
               </Link>
             </animated.div>

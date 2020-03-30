@@ -7,87 +7,85 @@ import Panel from './Panel'
 import Container from './Container'
 import Meta from './Meta'
 
-import { StreamingLink } from 'types/models'
+import { formatDateString } from '../utils/date'
+import { createImagePath } from '../utils/image'
+
+import { Album } from 'types/models'
 
 export default function AlbumDetail({ data }: { data: any }) {
-  const { markdownRemark } = data
-  const { frontmatter, html, fields } = markdownRemark
+  const album = data.strapiAlbums as Album
   const {
-    title,
-    imageUrl,
-    releaseYear,
+    releaseDate,
     songs,
+    purchaseLink,
+    title,
+    slug,
+    content,
     streamingLinks,
-    purchageLink,
-  } = frontmatter
+    covers,
+  } = album
 
-  const description = `${releaseYear}년 발매. 수록곡: ${songs
-    .map((song: string, i: number) => `${i + 1}. ${song}`)
-    .join(' ')} | 구입링크: ${purchageLink}`
+  const description = `${formatDateString(
+    releaseDate
+  )} 발매. 수록곡: ${songs
+    .map(({ track, name }) => `${track}. ${name}`)
+    .join(' ')} | 구입링크: ${purchaseLink}`
 
   return (
     <Layout className="AlbumDetail">
       <Meta
         title={`밴드 이디어츠의 앨범 - ${title}`}
-        imageUrl={imageUrl}
+        imageUrl={covers[0].url}
         description={description}
-        path={fields.slug}
+        path={slug}
       />
       <Container>
         <Panel noBorder>
-          <div className="AlbumDetail__content">
-            <div
+          <article className="AlbumDetail__content">
+            <section
               className="AlbumDetail__poster"
-              style={{ backgroundImage: `url('${imageUrl}')` }}
+              style={{
+                backgroundImage: `url('${createImagePath(covers[0].url)}')`,
+              }}
             />
-            <div className="AlbumDetail__descriptions">
-              <div className="AlbumDetail__description">
+            <section className="AlbumDetail__descriptions">
+              <section className="AlbumDetail__description">
                 <h1>{title}</h1>
-              </div>
-              <div className="AlbumDetail__description">
-                <h3>발매년도</h3>
-                {releaseYear}
-              </div>
-              <div
+              </section>
+              <section
                 className="AlbumDetail__description"
-                dangerouslySetInnerHTML={{ __html: html }}
+                dangerouslySetInnerHTML={{ __html: content }}
               />
-              <div className="AlbumDetail__description">
+              <section className="AlbumDetail__description">
+                <h3>발매일</h3>
+                {formatDateString(releaseDate)}
+              </section>
+              <section className="AlbumDetail__description">
                 <h3>수록곡</h3>
                 <ol>
-                  {songs.map((song: string, index: number) => (
-                    <li key={song}>
-                      {index + 1}. {song}
+                  {songs.map(({ track, name }) => (
+                    <li key={track}>
+                      {track}. {name}
                     </li>
                   ))}
                 </ol>
-              </div>
-              <p>
+              </section>
+              <section>
                 <h3>스트리밍 링크</h3>
-                <ul>
-                  {streamingLinks.map(
-                    (streamingLink: StreamingLink, i: number) => (
-                      <li key={`streaming-lini-${i}`}>
-                        <a href={streamingLink.link} target="_blank">
-                          {streamingLink.name}
-                        </a>
-                      </li>
-                    )
-                  )}
-                </ul>
-              </p>
-              <p>
+                <div dangerouslySetInnerHTML={{ __html: streamingLinks }}></div>
+              </section>
+              <section>
                 <h3>구입링크</h3>
                 <ul>
                   <li>
-                    <a href={purchageLink} target="_blank">
+                    <a href={purchaseLink} target="_blank">
                       구입신청서
                     </a>
                   </li>
                 </ul>
-              </p>
-            </div>
-          </div>
+              </section>
+            </section>
+          </article>
         </Panel>
       </Container>
     </Layout>
@@ -96,21 +94,19 @@ export default function AlbumDetail({ data }: { data: any }) {
 
 export const query = graphql`
   query($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      html
-      frontmatter {
-        title
-        imageUrl
-        releaseYear
-        songs
-        purchageLink
-        streamingLinks {
-          name
-          link
-        }
+    strapiAlbums(slug: { eq: $slug }) {
+      covers {
+        url
       }
-      fields {
-        slug
+      slug
+      title
+      content
+      releaseDate
+      purchaseLink
+      streamingLinks
+      songs {
+        track
+        name
       }
     }
   }

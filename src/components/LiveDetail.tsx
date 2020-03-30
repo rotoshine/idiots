@@ -4,7 +4,6 @@ import { graphql, Link } from 'gatsby'
 import React, { ReactNode } from 'react'
 import { isEmpty, isArray } from 'lodash'
 
-import { markdownRemarkToLive } from '../utils/dataConverter'
 import Container from './Container'
 import Layout from './Layout'
 import Meta from './Meta'
@@ -12,7 +11,8 @@ import Panel from './Panel'
 import { Poster, Live } from 'types/models'
 import ClubMap from './ClubMap'
 import { isString } from 'util'
-import Teams from './Teams'
+import Bands from './Bands'
+import { createImagePath } from '../utils/image'
 
 interface LiveRowProps {
   label: string
@@ -52,72 +52,59 @@ const Description = ({ label, content }: LiveRowProps) => {
 }
 
 const toMetaDescription = (live: Live) => {
-  const { place, teams = [], priceInfo, seoDescription = '', priceInfos } = live
+  const { place, bands, priceInfo, seoDescription = '' } = live
   const descriptions = isEmpty(seoDescription)
     ? [`장소: ${place}`]
     : [seoDescription, `장소: ${place}`]
 
-  if (teams.length > 0) {
-    descriptions.push(`라인업: ${teams.join(', ')}`)
+  if (bands.length > 0) {
+    descriptions.push(`라인업: ${bands.map(band => band.name).join(', ')}`)
   }
 
-  if (isArray(priceInfos) && priceInfos.length > 0) {
-    descriptions.push(`가격: ${priceInfos.join(', ')}`)
-  } else if (!isEmpty(priceInfo)) {
-    descriptions.push(`가격: ${priceInfo}`)
+  const stripTagRegex = /(<([^>]+)>)/gi
+  if (!isEmpty(priceInfo)) {
+    descriptions.push(`가격: ${priceInfo.replace(stripTagRegex, '')}`)
   }
 
   return descriptions.join(' | ')
 }
 
 export default ({ data }: any) => {
-  const live = markdownRemarkToLive(data) as Live
+  const live = data.strapiLives as Live
 
+  console.log(live)
   const {
     title,
     place,
-    teams = [],
-    posterUrl,
-    posterUrls,
+    posters,
+    bands = [],
     eventLink,
     priceInfo,
     ticketLink,
-    priceInfos,
     content,
   } = live
 
-  const representImage =
-    posterUrls && posterUrls.length > 0 ? posterUrls[0] : null
-  const representImageUrl =
-    representImage !== null ? representImage.src : posterUrl
-  const reprenstImageWidth =
-    representImage !== null ? representImage.width : null
-  const reprenstImageHeight =
-    representImage !== null ? representImage.height : null
+  const representImage = posters[0]
+  const representImageUrl = representImage.url
 
   return (
     <Layout className="LiveDetail">
       <Meta
         title={`밴드 이디어츠 공연 - ${live.title}`}
-        imageUrl={representImageUrl}
+        imageUrl={createImagePath(representImageUrl)}
         description={toMetaDescription(live)}
         path={live.slug}
-        imageWidth={reprenstImageWidth}
-        imageHeight={reprenstImageHeight}
       />
       <Container>
         <Panel title="Live" noBorder>
-          {posterUrls &&
-            posterUrls.map(({ src, alt }: Poster) => (
-              <div key={src} className="LiveDetail__poster">
-                <img src={src} alt={alt} />
-              </div>
-            ))}
-          {!isEmpty(posterUrl) && (
-            <div className="LiveDetail__poster">
-              <img src={posterUrl} />
+          {posters.map(({ url }: Poster) => (
+            <div key={url} className="LiveDetail__poster">
+              <img
+                src={createImagePath(url)}
+                alt={`밴드 이디어츠 ${title} 공연 포스터`}
+              />
             </div>
-          )}
+          ))}
           <div className="LiveDetail__contents">
             <Description label="공연명" content={title} />
             {!isEmpty(content) && (
@@ -130,8 +117,8 @@ export default ({ data }: any) => {
               />
             )}
 
-            {teams.length > 0 && (
-              <Description label="라인업" content={<Teams teams={teams} />} />
+            {bands.length > 0 && (
+              <Description label="라인업" content={<Bands bands={bands} />} />
             )}
             {eventLink && (
               <Description
@@ -145,9 +132,6 @@ export default ({ data }: any) => {
             )}
             {!isEmpty(priceInfo) && (
               <Description label="Price" content={priceInfo} />
-            )}
-            {isArray(priceInfos) && priceInfos.length > 0 && (
-              <Description label="Price" content={priceInfos} />
             )}
             {!isEmpty(ticketLink) && (
               <Description
@@ -171,28 +155,21 @@ export default ({ data }: any) => {
 
 export const query = graphql`
   query($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      html
-      frontmatter {
-        title
-        posterUrl
-        posterUrls {
-          src
-          alt
-          width
-          height
-        }
-        seoDescription
-        place
-        teams
-        eventLink
-        priceInfo
-        priceInfos
-        ticketLink
-        content
+    strapiLives(slug: { eq: $slug }) {
+      title
+      date
+      eventLink
+      place
+      posters {
+        url
       }
-      fields {
-        slug
+      priceInfo
+      seoDescription
+      slug
+      ticketLink
+      bands {
+        name
+        instagramUrl
       }
     }
   }

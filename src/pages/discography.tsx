@@ -7,19 +7,17 @@ import Meta from '../components/Meta'
 import Layout from '../components/Layout'
 import Container from '../components/Container'
 import Panel from '../components/Panel'
+import { createImagePath } from '../utils/image'
 
 export default function DiscographyPage() {
   const data = useStaticQuery(graphql`
     {
-      allMarkdownRemark(filter: { frontmatter: { type: { eq: "album" } } }) {
+      allStrapiAlbums {
         edges {
           node {
-            id
-            frontmatter {
-              imageUrl
-            }
-            fields {
-              slug
+            slug
+            covers {
+              url
             }
           }
         }
@@ -32,13 +30,15 @@ export default function DiscographyPage() {
       <Container>
         <Panel title="Discography">
           <div className="Discography__list">
-            {data.allMarkdownRemark.edges.map(({ node }: any) => (
-              <Link to={node.fields.slug} key={node.id}>
+            {data.allStrapiAlbums.edges.map(({ node }: any) => (
+              <Link to={`/album/${node.slug}/`} key={node.slug}>
                 <div className="Discography__album">
                   <div
                     className="Discography__albumImage"
                     style={{
-                      backgroundImage: `url('${node.frontmatter.imageUrl}')`,
+                      backgroundImage: `url('${createImagePath(
+                        node.covers[0].url
+                      )}')`,
                     }}
                   ></div>
                 </div>
