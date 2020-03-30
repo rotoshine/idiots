@@ -35,7 +35,7 @@ export default function AlbumDetail({ data }: { data: any }) {
     <Layout className="AlbumDetail">
       <Meta
         title={`밴드 이디어츠의 앨범 - ${title}`}
-        imageUrl={covers[0].url}
+        imageUrl={createImagePath(covers[0].url)}
         description={description}
         path={slug}
       />

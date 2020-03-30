@@ -4,7 +4,8 @@ import { Helmet } from 'react-helmet'
 const DEFAULT_TITLE = '멍청이 펑크락 밴드 이디어츠 홈페이지'
 const DEFAULT_URL = 'https://idiots.band'
 const DEFAULT_DESCRIPTION = `멍청이 펑크락 밴드 이디어츠(Idiots)의 홈페이지입니다. 발매 음원, 공연 일정 등을 볼 수 있습니다.`
-const DEFAULT_IMAGE_URL = `${DEFAULT_URL}/images/main.jpeg`
+const DEFAULT_IMAGE_URL =
+  'https://admin.idiots.band/uploads/e6a779d081764f618a65dcda766d0aab.jpg'
 const DEFAULT_IMAGE_WIDTH = 1370
 const DEFAULT_IMAGE_HEIGHT = 635
 
