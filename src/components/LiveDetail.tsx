@@ -155,8 +155,13 @@ export default ({ data }: any) => {
 export const query = graphql`
   query($slug: String!) {
     strapiLives(slug: { eq: $slug }) {
-      title
+      slug
+      bands {
+        name
+        instagramUrl
+      }
       date
+      content
       eventLink
       place
       posters {
@@ -164,12 +169,8 @@ export const query = graphql`
       }
       priceInfo
       seoDescription
-      slug
       ticketLink
-      bands {
-        name
-        instagramUrl
-      }
+      title
     }
   }
 `
