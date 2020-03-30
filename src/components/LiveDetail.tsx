@@ -72,7 +72,6 @@ const toMetaDescription = (live: Live) => {
 export default ({ data }: any) => {
   const live = data.strapiLives as Live
 
-  console.log(live)
   const {
     title,
     place,
