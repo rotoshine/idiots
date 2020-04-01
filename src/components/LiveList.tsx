@@ -40,7 +40,7 @@ export default function LiveList({ title = 'Live List', lives }: Props) {
             }}
           >
             <animated.div>
-              <Link to={`/live/${lives[index].slug}`}>
+              <Link to={`/live/${lives[index].slug}/`}>
                 <div>
                   [{formatDateString(lives[index].date!)}] {lives[index].title}
                 </div>
