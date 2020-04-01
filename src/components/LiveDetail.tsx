@@ -92,7 +92,7 @@ export default ({ data }: any) => {
         title={`밴드 이디어츠 공연 - ${live.title}`}
         imageUrl={createImagePath(representImageUrl)}
         description={toMetaDescription(live)}
-        path={live.slug}
+        path={`/live/${live.slug}`}
       />
       <Container>
         <Panel title="Live" noBorder>

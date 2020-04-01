@@ -37,7 +37,7 @@ export default function AlbumDetail({ data }: { data: any }) {
         title={`밴드 이디어츠의 앨범 - ${title}`}
         imageUrl={createImagePath(covers[0].url)}
         description={description}
-        path={slug}
+        path={`/album/${slug}`}
       />
       <Container>
         <Panel noBorder>
