@@ -32,7 +32,17 @@ module.exports = {
         trackingId: 'UA-49604777-10',
       },
     },
-    `gatsby-plugin-sitemap`,
+    {
+      resolve: 'gatsby-plugin-typegen',
+      options: {
+        emitSchema: {
+          'src/__generated__/gatsby-schema.graphql': true,
+        },
+      },
+    },
+    'gatsby-plugin-sitemap',
     'gatsby-plugin-robots-txt',
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
   ],
 }

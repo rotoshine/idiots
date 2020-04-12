@@ -1,52 +1,58 @@
 import './AlbumDetail.scss'
 
 import { graphql } from 'gatsby'
+import BackgroundImage from 'gatsby-background-image';
 import React from 'react'
 import Layout from './Layout'
 import Panel from './Panel'
 import Container from './Container'
 import Meta from './Meta'
 
-import { formatDateString } from '../utils/date'
-import { createImagePath } from '../utils/image'
+type Context = {
+  slug: string,
+}
 
-import { Album } from 'types/models'
+type Props = {
+  data: GatsbyTypes.AlbumDetailQuery,
+  context: Context,
+}
 
-export default function AlbumDetail({ data }: { data: any }) {
-  const album = data.strapiAlbums as Album
+export default function AlbumDetail({ data, context }: Props) {
+  const album = data.strapiAlbums;
+  if (!album) {
+    throw new Error(`slug: ${context.slug}에 일치하는 앨범 정보가 없습니다.`);
+  }
+
   const {
     releaseDate,
-    songs,
+    songs = [],
     purchaseLink,
     title,
     slug,
-    content,
-    streamingLinks,
+    content = '',
+    streamingLinks = '',
     covers,
   } = album
 
-  const description = `${formatDateString(
-    releaseDate
-  )} 발매. 수록곡: ${songs
-    .map(({ track, name }) => `${track}. ${name}`)
+  const description = `${releaseDate} 발매. 수록곡: ${songs
+    .map((song) => `${song!.name}. ${song!.name}`)
     .join(' ')} | 구입링크: ${purchaseLink}`
 
   return (
     <Layout className="AlbumDetail">
       <Meta
         title={`밴드 이디어츠의 앨범 - ${title}`}
-        imageUrl={createImagePath(covers[0].url)}
+        imageUrl={covers?.[0]?.localFile?.url}
         description={description}
         path={`/album/${slug}/`}
       />
       <Container>
         <Panel noBorder>
           <article className="AlbumDetail__content">
-            <section
+            <BackgroundImage
+              Tag="section"
               className="AlbumDetail__poster"
-              style={{
-                backgroundImage: `url('${createImagePath(covers[0].url)}')`,
-              }}
+              fluid={covers?.[0]?.localFile?.childImageSharp?.fluid}
             />
             <section className="AlbumDetail__descriptions">
               <section className="AlbumDetail__description">
@@ -58,14 +64,14 @@ export default function AlbumDetail({ data }: { data: any }) {
               />
               <section className="AlbumDetail__description">
                 <h3>발매일</h3>
-                {formatDateString(releaseDate)}
+                {releaseDate}
               </section>
               <section className="AlbumDetail__description">
                 <h3>수록곡</h3>
                 <ol>
-                  {songs.map(({ track, name }) => (
-                    <li key={track}>
-                      {track}. {name}
+                  {songs.map(song => (
+                    <li key={song!.track}>
+                      {song!.track}. {song!.name}
                     </li>
                   ))}
                 </ol>
@@ -93,15 +99,22 @@ export default function AlbumDetail({ data }: { data: any }) {
 }
 
 export const query = graphql`
-  query($slug: String!) {
+  query AlbumDetail($slug: String!) {
     strapiAlbums(slug: { eq: $slug }) {
       covers {
-        url
+        localFile {
+          url
+          childImageSharp {
+            fluid(maxWidth: 720) {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
+          }
+        }
       }
       slug
       title
       content
-      releaseDate
+      releaseDate(formatString: "YYYY-MM-DD")
       purchaseLink
       streamingLinks
       songs {

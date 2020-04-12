@@ -8,20 +8,11 @@ import Layout from '../components/Layout'
 import Container from '../components/Container'
 import LiveList from '../components/LiveList'
 
-import { edgesToLivesForStrapi } from '../utils/dataConverter'
-
 export default function LivePage() {
-  const data = useStaticQuery(graphql`
-    {
+  const data = useStaticQuery<GatsbyTypes.LivePageStaticQuery>(graphql`
+    query LivePageStatic {
       allStrapiLives(sort: { fields: [date], order: DESC }) {
-        edges {
-          node {
-            id
-            date
-            title
-            slug
-          }
-        }
+        ...LiveList_lives
       }
     }
   `)
@@ -38,7 +29,7 @@ export default function LivePage() {
       />
       <Container>
         <div className="live-wrapper">
-          <LiveList lives={edgesToLivesForStrapi(data.allStrapiLives.edges)} />
+          <LiveList lives={data.allStrapiLives} />
         </div>
       </Container>
     </Layout>
