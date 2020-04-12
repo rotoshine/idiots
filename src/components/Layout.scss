@@ -2,7 +2,8 @@ html {
   font-size: 10px;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   font-family: 'Spire NBP', 'Noto Sans KR', serif;
 }
@@ -12,9 +13,24 @@ html, body {
   flex-direction: column;
 }
 
-a { 
-  color: inherit; 
-} 
+a {
+  color: inherit;
+}
 a:visited {
   text-decoration: none;
+}
+
+// https://web.dev/headings-and-landmarks/#bypass-repetitive-content-with-skip-links
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000000;
+  color: white;
+  padding: 8px;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
 }

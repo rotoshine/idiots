@@ -7,7 +7,7 @@ import { Link } from 'gatsby'
 function Logo() {
   const [isMouseEnter, setMouseEnter] = useState(false)
   return (
-    <div className="Logo">
+    <nav className="Logo">
       <Link
         className="Logo__wrapper"
         to="/"
@@ -31,7 +31,7 @@ function Logo() {
           alt="logo"
         />
       </Link>
-    </div>
+    </nav>
   )
 }
 

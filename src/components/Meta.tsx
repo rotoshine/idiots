@@ -37,33 +37,35 @@ export const Meta = ({
 
   return (
     <Helmet>
-      <title>{title}</title>
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      <link rel="canonical" href={url} />
-      <meta
-        name="google-site-verification"
-        content="U3sjUaSWzxwiO1hfB1qC9ghlGOM2fuXxaBKcUZzLj1M"
-      />
-      <meta name="description" content={description} />
-      <meta property="og:title" content={title} />
-      <meta property="og:type" content="article" />
-      <meta property="og:url" content={url} />
-      <meta property="og:description" content={description} />
-      <meta property="og:image" content={fullImageUrl} />
-      {imageWidth && (
-        <meta property="og:image:width" content={imageWidth + ''} />
-      )}
-      {imageHeight && (
-        <meta property="og:image:height" content={imageHeight + ''} />
-      )}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@band_idiots" />
-      <meta name="twitter:creator" content="@winterwolf0412" />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:image" content={fullImageUrl} />
-      <meta name="twitter:description" content={description} />
-      <link rel="shortcut icon" href="/icons/favicon.ico"></link>
-      {children}
+      <html lang="ko">
+        <title>{title}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link rel="canonical" href={url} />
+        <meta
+          name="google-site-verification"
+          content="U3sjUaSWzxwiO1hfB1qC9ghlGOM2fuXxaBKcUZzLj1M"
+        />
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={url} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={fullImageUrl} />
+        {imageWidth && (
+          <meta property="og:image:width" content={imageWidth + ''} />
+        )}
+        {imageHeight && (
+          <meta property="og:image:height" content={imageHeight + ''} />
+        )}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@band_idiots" />
+        <meta name="twitter:creator" content="@winterwolf0412" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:image" content={fullImageUrl} />
+        <meta name="twitter:description" content={description} />
+        <link rel="shortcut icon" href="/icons/favicon.ico"></link>
+        {children}
+      </html>
     </Helmet>
   )
 }
