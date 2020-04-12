@@ -2,22 +2,26 @@ import './discography.scss'
 
 import React from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
+import Img from 'gatsby-image'
 
 import Meta from '../components/Meta'
 import Layout from '../components/Layout'
 import Container from '../components/Container'
 import Panel from '../components/Panel'
-import { createImagePath } from '../utils/image'
 
 export default function DiscographyPage() {
-  const data = useStaticQuery(graphql`
-    {
+  const data = useStaticQuery<GatsbyTypes.DiscographyPageStaticQuery>(graphql`
+    query DiscographyPageStatic {
       allStrapiAlbums {
-        edges {
-          node {
-            slug
-            covers {
-              url
+        nodes {
+          slug
+          covers {
+            localFile {
+              childImageSharp {
+                fluid(maxWidth: 720) {
+                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
+                }
+              }
             }
           }
         }
@@ -30,17 +34,13 @@ export default function DiscographyPage() {
       <Container>
         <Panel title="Discography">
           <div className="Discography__list">
-            {data.allStrapiAlbums.edges.map(({ node }: any) => (
-              <Link to={`/album/${node.slug}/`} key={node.slug}>
+            {data.allStrapiAlbums.nodes.map(({ slug, covers }) => (
+              <Link to={`/album/${slug}/`} key={slug}>
                 <div className="Discography__album">
-                  <div
+                  <Img
                     className="Discography__albumImage"
-                    style={{
-                      backgroundImage: `url('${createImagePath(
-                        node.covers[0].url
-                      )}')`,
-                    }}
-                  ></div>
+                    fluid={covers?.[0]?.localFile?.childImageSharp?.fluid}
+                  />
                 </div>
               </Link>
             ))}

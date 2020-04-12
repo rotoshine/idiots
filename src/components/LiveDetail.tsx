@@ -1,25 +1,26 @@
 import './LiveDetail.scss'
 
 import { graphql, Link } from 'gatsby'
+import Img from 'gatsby-image';
 import React, { ReactNode } from 'react'
 import { isEmpty, isArray } from 'lodash'
+
+import { isString } from 'util'
+import { Live } from 'types/models';
 
 import Container from './Container'
 import Layout from './Layout'
 import Meta from './Meta'
 import Panel from './Panel'
-import { Poster, Live } from 'types/models'
 import ClubMap from './ClubMap'
-import { isString } from 'util'
 import Bands from './Bands'
-import { createImagePath } from '../utils/image'
 
 interface LiveRowProps {
   label: string
-  content: string | string[] | ReactNode
+  content: ReactNode
 }
 const Description = ({ label, content }: LiveRowProps) => {
-  const renderContent = (content: string | string[] | ReactNode) => {
+  const renderContent = (content: ReactNode) => {
     if (isArray(content)) {
       return (
         <div className="LiveDetail__content">
@@ -69,13 +70,23 @@ const toMetaDescription = (live: Live) => {
   return descriptions.join(' | ')
 }
 
-export default ({ data }: any) => {
-  const live = data.strapiLives as Live
+type Props = {
+  data: GatsbyTypes.LiveDetailQuery
+  context: {
+    slug: string,
+  }
+}
+export default ({ data, context }: Props) => {
+  const live = data.strapiLives
+
+  if (!live) {
+    throw new Error(`${context.slug}에 매치하는 Live 정보가 없습니다.`)
+  }
 
   const {
     title,
     place,
-    posters,
+    posters = [],
     bands = [],
     eventLink,
     priceInfo,
@@ -84,23 +95,24 @@ export default ({ data }: any) => {
   } = live
 
   const representImage = posters[0]
-  const representImageUrl = representImage.url
+  const representImageUrl = representImage?.localFile?.url
 
   return (
     <Layout className="LiveDetail">
       <Meta
         title={`밴드 이디어츠 공연 - ${live.title}`}
-        imageUrl={createImagePath(representImageUrl)}
-        description={toMetaDescription(live)}
+        imageUrl={representImageUrl}
+        description={toMetaDescription(live as any)}
         path={`/live/${live.slug}/`}
       />
       <Container>
         <Panel title="Live" noBorder>
-          {posters.map(({ url }: Poster) => (
-            <div key={url} className="LiveDetail__poster">
-              <img
-                src={createImagePath(url)}
+          {posters.map(poster => (
+            <div key={poster?.localFile?.url} className="LiveDetail__poster">
+              <Img
+                fluid={poster?.localFile?.childImageSharp?.fluid}
                 alt={`밴드 이디어츠 ${title} 공연 포스터`}
+                loading="lazy"
               />
             </div>
           ))}
@@ -117,7 +129,7 @@ export default ({ data }: any) => {
             )}
 
             {bands.length > 0 && (
-              <Description label="라인업" content={<Bands bands={bands} />} />
+              <Description label="라인업" content={<Bands bands={bands as any} />} />
             )}
             {eventLink && (
               <Description
@@ -153,7 +165,7 @@ export default ({ data }: any) => {
 }
 
 export const query = graphql`
-  query($slug: String!) {
+  query LiveDetail($slug: String!) {
     strapiLives(slug: { eq: $slug }) {
       slug
       bands {
@@ -165,7 +177,14 @@ export const query = graphql`
       eventLink
       place
       posters {
-        url
+        localFile {
+          url
+          childImageSharp {
+            fluid(maxWidth: 1200) {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
+          }
+        }
       }
       priceInfo
       seoDescription

@@ -1,19 +1,17 @@
 import './LiveList.scss'
 
 import React from 'react'
-import { Link } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 import { useTrail, animated } from 'react-spring'
 
 import Panel from './Panel'
-import { formatDateString } from '../utils/date'
-import { Live } from 'types/models'
 
 interface Props {
   title?: string
-  lives: Partial<Live>[]
+  lives: GatsbyTypes.LiveList_livesFragment,
 }
 export default function LiveList({ title = 'Live List', lives }: Props) {
-  const trail = useTrail(lives.length, {
+  const trail = useTrail(lives.edges.length, {
     mass: 5,
     tension: 2000,
     friction: 200,
@@ -40,9 +38,9 @@ export default function LiveList({ title = 'Live List', lives }: Props) {
             }}
           >
             <animated.div>
-              <Link to={`/live/${lives[index].slug}/`}>
+              <Link to={`/live/${lives.edges[index].node.slug}/`}>
                 <div>
-                  [{formatDateString(lives[index].date!)}] {lives[index].title}
+                  [{lives.edges[index].node.date}] {lives.edges[index].node.title}
                 </div>
               </Link>
             </animated.div>
@@ -52,3 +50,16 @@ export default function LiveList({ title = 'Live List', lives }: Props) {
     </Panel>
   )
 }
+
+export const fragments = graphql`
+  fragment LiveList_lives on StrapiLivesConnection {
+    edges {
+      node {
+        id
+        date(formatString: "YYYY-MM-DD")
+        title
+        slug
+      }
+    }
+  }
+`;

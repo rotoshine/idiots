@@ -1,4 +1,5 @@
 const path = require('path')
+const { createRemoteFileNode } = require('gatsby-source-filesystem')
 
 const makeRequest = (graphql, query) =>
   new Promise((resolve, reject) => {
@@ -12,6 +13,38 @@ const makeRequest = (graphql, query) =>
       })
     )
   })
+
+exports.onCreateNode = async ({ node, actions, store, cache }) => {
+  const { createNode } = actions
+
+  const createRemoteFileNodes = async images => {
+    for (const image of images) {
+      const fileNode = await createRemoteFileNode({
+        url: 'https://admin.idiots.band' + image.url,
+        store,
+        cache,
+        createNode,
+        createNodeId: () => image.id,
+      })
+      if (fileNode) {
+        image.localFile___NODE = fileNode.id
+      }
+    }
+  }
+
+  if (node.internal.type === 'StrapiAlbums') {
+    await createRemoteFileNodes(node.covers)
+  }
+
+  if (node.internal.type === 'StrapiLives') {
+    await createRemoteFileNodes(node.posters)
+  }
+
+  if (node.internal.type === 'StrapiHomeContent') {
+    await createRemoteFileNodes(node.schedulePosters)
+    await createRemoteFileNodes(node.carouselImages)
+  }
+}
 
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions

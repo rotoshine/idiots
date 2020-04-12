@@ -59,6 +59,10 @@ export default function ClubMap({ clubName }: Props) {
 
   useEffect(() => {
     const renderStaticMap = () => {
+      if (!kakao) {
+        return;
+      }
+
       if (place) {
         const geocoder = new kakao.maps.services.Geocoder()
 

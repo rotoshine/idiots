@@ -17,6 +17,7 @@
       background-position: center;
       background-repeat: no-repeat;
       will-change: opacity;
+      pointer-events: none;
     }
 
     @include media('<=tablet') {

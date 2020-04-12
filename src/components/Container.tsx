@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react'
 import './Container.scss'
 
 interface Props {
-  children: string | ReactNode,
+  children: ReactNode,
 }
 
 export default ({ children }: Props) => (

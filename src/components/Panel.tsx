@@ -5,7 +5,7 @@ import './Panel.scss'
 interface Props {
   title?: string
   noBorder?: boolean
-  children: string | React.ReactNode
+  children: React.ReactNode
 }
 
 const Panel = ({ title, noBorder = false, children }: Props) => (

@@ -1,6 +1,7 @@
 import './index.scss'
 
 import { graphql, useStaticQuery } from 'gatsby'
+import Img from 'gatsby-image';
 import React, { useState, useEffect, useRef } from 'react'
 import { animated, config, useTransition } from 'react-spring'
 
@@ -9,34 +10,33 @@ import Container from '../components/Container'
 import Panel from '../components/Panel'
 import LiveList from '../components/LiveList'
 import TwitterTimeline from '../components/TwitterTimeline'
-import Meta from '../components/Meta'
-
-import { edgesToLivesForStrapi } from '../utils/dataConverter'
-import { createImagePath } from '../utils/image'
 
 export default function IndexPage() {
   const [coverImageIndex, setCoverImageIndex] = useState(0)
   const indexRef = useRef(coverImageIndex)
-  const { lives, homeContent } = useStaticQuery(graphql`
-    query {
+  const { lives, homeContent } = useStaticQuery<GatsbyTypes.IndexPageStaticQuery>(graphql`
+    query IndexPageStatic {
       lives: allStrapiLives(sort: { fields: [date], order: DESC }) {
-        edges {
-          node {
-            id
-            date
-            title
-            slug
+        ...LiveList_lives
+      }
+      homeContent: strapiHomeContent(createdAt: { gt: "0" }) {
+        schedulePosters {
+          localFile {
+            publicURL
+            childImageSharp {
+              fluid(maxWidth: 700) {
+                ...GatsbyImageSharpFluid_withWebp_tracedSVG
+              }
+            }
           }
         }
-      }
-      homeContent: allStrapiHomeContent {
-        edges {
-          node {
-            schedulePosters {
-              url
-            }
-            carouselImages {
-              url
+        carouselImages {
+          localFile {
+            publicURL
+            childImageSharp {
+              fluid(maxWidth: 1920) {
+                ...GatsbyImageSharpFluid_withWebp_noBase64
+              }
             }
           }
         }
@@ -44,16 +44,17 @@ export default function IndexPage() {
     }
   `)
 
-  const coverImages = homeContent.edges[0].node.carouselImages.map(
-    (carouselImage: any, index: i) => ({
-      id: index,
-      url: createImagePath(carouselImage.url),
+  const coverImages = homeContent?.carouselImages?.map(
+    (carouselImage) => ({
+      id: carouselImage?.localFile?.publicURL,
+      url: carouselImage?.localFile?.publicURL,
+      fluid: carouselImage?.localFile?.childImageSharp?.fluid,
     })
   )
 
   const transitions = useTransition(
-    coverImages[coverImageIndex],
-    item => item.id,
+    coverImages?.[coverImageIndex],
+    item => item?.id || '',
     {
       from: { opacity: 0 },
       enter: { opacity: 1 },
@@ -63,7 +64,7 @@ export default function IndexPage() {
   )
 
   useEffect(() => {
-    const MAX_INDEX = coverImages.length - 1
+    const MAX_INDEX = (coverImages?.length ?? 1) - 1
     const timeout = setInterval(() => {
       if (indexRef?.current === MAX_INDEX) {
         indexRef.current = 0
@@ -82,26 +83,21 @@ export default function IndexPage() {
 
   return (
     <Layout className="IndexPage">
-      <Meta>
-        {coverImages.map(coverImage => (
-          <link
-            key={coverImage.id}
-            rel="preload"
-            href={coverImage.url}
-            as="image"
-          />
-        ))}
-      </Meta>
       <div className="cover-image-carousel">
         {transitions.map(({ item, props, key }) => (
           <animated.div
             key={key}
             className="cover-image"
-            style={{
-              ...props,
-              backgroundImage: `url('${item.url}`,
-            }}
-          />
+            style={props}
+          >
+            <Img
+              fluid={item?.fluid}
+              style={{
+                width: '100%',
+                height: '100%',
+              }}
+            />
+          </animated.div>
         ))}
       </div>
       <Container>
@@ -110,17 +106,15 @@ export default function IndexPage() {
             <Panel title="News">
               <ul className="IndexPage__newsList">
                 <li>
-                  <img
-                    width="100%"
-                    src={createImagePath(
-                      homeContent.edges[0].node.schedulePosters[0].url
-                    )}
+                  <Img
+                    fluid={homeContent?.schedulePosters?.[0]?.localFile?.childImageSharp?.fluid}
                     alt="이디어츠 2월 스케쥴"
+                    loading="lazy"
                   />
                 </li>
               </ul>
             </Panel>
-            <LiveList title="Live" lives={edgesToLivesForStrapi(lives.edges)} />
+            <LiveList title="Live" lives={lives} />
           </div>
           <TwitterTimeline className="IndexPage__twitterTimelineWrapper" />
         </div>
