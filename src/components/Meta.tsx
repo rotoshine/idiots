@@ -36,8 +36,8 @@ export const Meta = ({
     : `${DEFAULT_URL}${imageUrl}`
 
   return (
-    <Helmet>
-      <html lang="ko">
+    <html lang="ko">
+      <Helmet>
         <title>{title}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="canonical" href={url} />
@@ -65,8 +65,8 @@ export const Meta = ({
         <meta name="twitter:description" content={description} />
         <link rel="shortcut icon" href="/icons/favicon.ico"></link>
         {children}
-      </html>
-    </Helmet>
+      </Helmet>
+    </html>
   )
 }
 export default Meta

@@ -1,7 +1,7 @@
 import './index.scss'
 
 import { graphql, useStaticQuery } from 'gatsby'
-import Img from 'gatsby-image';
+import Img from 'gatsby-image'
 import React, { useState, useEffect, useRef } from 'react'
 import { animated, config, useTransition } from 'react-spring'
 
@@ -14,7 +14,9 @@ import TwitterTimeline from '../components/TwitterTimeline'
 export default function IndexPage() {
   const [coverImageIndex, setCoverImageIndex] = useState(0)
   const indexRef = useRef(coverImageIndex)
-  const { lives, homeContent } = useStaticQuery<GatsbyTypes.IndexPageStaticQuery>(graphql`
+  const { lives, homeContent } = useStaticQuery<
+    GatsbyTypes.IndexPageStaticQuery
+  >(graphql`
     query IndexPageStatic {
       lives: allStrapiLives(sort: { fields: [date], order: DESC }) {
         ...LiveList_lives
@@ -22,7 +24,7 @@ export default function IndexPage() {
       homeContent: strapiHomeContent(createdAt: { gt: "0" }) {
         schedulePosters {
           localFile {
-            publicURL
+            url
             childImageSharp {
               fluid(maxWidth: 700) {
                 ...GatsbyImageSharpFluid_withWebp_tracedSVG
@@ -32,7 +34,7 @@ export default function IndexPage() {
         }
         carouselImages {
           localFile {
-            publicURL
+            url
             childImageSharp {
               fluid(maxWidth: 1920) {
                 ...GatsbyImageSharpFluid_withWebp_noBase64
@@ -44,13 +46,11 @@ export default function IndexPage() {
     }
   `)
 
-  const coverImages = homeContent?.carouselImages?.map(
-    (carouselImage) => ({
-      id: carouselImage?.localFile?.publicURL,
-      url: carouselImage?.localFile?.publicURL,
-      fluid: carouselImage?.localFile?.childImageSharp?.fluid,
-    })
-  )
+  const coverImages = homeContent?.carouselImages?.map(carouselImage => ({
+    id: carouselImage?.localFile?.url,
+    url: carouselImage?.localFile?.url,
+    fluid: carouselImage?.localFile?.childImageSharp?.fluid,
+  }))
 
   const transitions = useTransition(
     coverImages?.[coverImageIndex],
@@ -83,13 +83,9 @@ export default function IndexPage() {
 
   return (
     <Layout className="IndexPage">
-      <div className="cover-image-carousel">
+      <section className="cover-image-carousel">
         {transitions.map(({ item, props, key }) => (
-          <animated.div
-            key={key}
-            className="cover-image"
-            style={props}
-          >
+          <animated.div key={key} className="cover-image" style={props}>
             <Img
               fluid={item?.fluid}
               style={{
@@ -99,15 +95,18 @@ export default function IndexPage() {
             />
           </animated.div>
         ))}
-      </div>
+      </section>
       <Container>
-        <div className="IndexPage__contents">
-          <div className="IndexPage__panels">
+        <section className="IndexPage__contents">
+          <section className="IndexPage__panels">
             <Panel title="News">
               <ul className="IndexPage__newsList">
                 <li>
                   <Img
-                    fluid={homeContent?.schedulePosters?.[0]?.localFile?.childImageSharp?.fluid}
+                    fluid={
+                      homeContent?.schedulePosters?.[0]?.localFile
+                        ?.childImageSharp?.fluid
+                    }
                     alt="이디어츠 2월 스케쥴"
                     loading="lazy"
                   />
@@ -115,9 +114,9 @@ export default function IndexPage() {
               </ul>
             </Panel>
             <LiveList title="Live" lives={lives} />
-          </div>
+          </section>
           <TwitterTimeline className="IndexPage__twitterTimelineWrapper" />
-        </div>
+        </section>
       </Container>
     </Layout>
   )

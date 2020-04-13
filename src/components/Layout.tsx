@@ -13,12 +13,12 @@ interface Props {
   children: string | ReactNode
 }
 
-export const Layout = ({
+export default function Layout({
   title,
   meta = {},
   className = '',
   children,
-}: Props) => {
+}: Props) {
   return (
     <>
       <a className="skip-link" href="#main">
@@ -26,7 +26,7 @@ export const Layout = ({
       </a>
       <main id="App" className="App">
         <Meta title={title} {...meta} />
-        <header>
+        <header className="header">
           <Logo />
           <Nav />
         </header>
@@ -35,5 +35,3 @@ export const Layout = ({
     </>
   )
 }
-
-export default Layout

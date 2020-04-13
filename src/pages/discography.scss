@@ -1,6 +1,7 @@
 @import '~include-media/dist/include-media';
 
 .Discography {
+  /*
   .Discography__list {
     display: flex;
     flex-flow: row wrap;
@@ -20,20 +21,28 @@
     @include media(">=phone", "<tablet") {
       width: 100%;
     }
-  }
+  }*/
 
+  .Discography__list {
+    display: grid;
+    row-gap: 1rem;
+    column-gap: 10rem;
+    grid-template-columns: repeat(4, 1fr);
+
+    @include media('>=tablet', '<desktop') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media('>=phone', '<tablet') {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
 
   .Discography__albumImage {
     background-position: center;
     background-size: cover;
     width: 100%;
-    transition: all .2s ease-in-out;
-
-    &:after {
-      display: block;
-      content: "";
-      padding-bottom: 100%;
-    }
+    transition: all 0.2s ease-in-out;
 
     &:hover {
       cursor: pointer;
