@@ -11,7 +11,7 @@ import LiveList from '../components/LiveList'
 export default function LivePage() {
   const data = useStaticQuery<GatsbyTypes.LivePageStaticQuery>(graphql`
     query LivePageStatic {
-      allStrapiLives(sort: { fields: [date], order: DESC }, limit: 5) {
+      allStrapiLives(sort: { fields: [date], order: DESC }) {
         ...LiveList_lives
       }
     }

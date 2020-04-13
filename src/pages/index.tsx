@@ -18,7 +18,7 @@ export default function IndexPage() {
     GatsbyTypes.IndexPageStaticQuery
   >(graphql`
     query IndexPageStatic {
-      lives: allStrapiLives(sort: { fields: [date], order: DESC }) {
+      lives: allStrapiLives(sort: { fields: [date], order: DESC }, limit: 16) {
         ...LiveList_lives
       }
       homeContent: strapiHomeContent(createdAt: { gt: "0" }) {
