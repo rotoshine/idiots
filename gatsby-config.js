@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   siteMetadata: {
     siteName: `이디어츠 - Idiots`,
@@ -38,6 +40,13 @@ module.exports = {
         emitSchema: {
           'src/__generated__/gatsby-schema.graphql': true,
         },
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: path.join(__dirname, `src`, `images`),
       },
     },
     'gatsby-plugin-sitemap',

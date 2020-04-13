@@ -55,22 +55,7 @@ exports.createPages = async ({ actions, graphql }) => {
       allStrapiLives {
         edges {
           node {
-            slug
-            bands {
-              name
-              instagramUrl
-            }
-            date
-            content
-            eventLink
-            place
-            posters {
-              url
-            }
-            priceInfo
-            seoDescription
-            ticketLink
-            title
+            slug           
           }
         }
       }
@@ -97,19 +82,7 @@ exports.createPages = async ({ actions, graphql }) => {
       allStrapiAlbums {
         edges {
           node {
-            slug
-            title
-            content
-            releaseDate
-            purchaseLink
-            streamingLinks
-            covers {
-              url
-            }
-            songs {
-              track
-              name
-            }
+            slug            
           }
         }
       }

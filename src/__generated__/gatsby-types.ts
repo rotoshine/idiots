@@ -76,6 +76,8 @@ type Directory = Node & {
   readonly birthtime: Maybe<Scalars['Date']>;
   /** @deprecated Use `birthTime` instead */
   readonly birthtimeMs: Maybe<Scalars['Float']>;
+  readonly blksize: Maybe<Scalars['Int']>;
+  readonly blocks: Maybe<Scalars['Int']>;
   readonly id: Scalars['ID'];
   readonly parent: Maybe<Node>;
   readonly children: ReadonlyArray<Node>;
@@ -197,6 +199,8 @@ enum DirectoryFieldsEnum {
   ctime = 'ctime',
   birthtime = 'birthtime',
   birthtimeMs = 'birthtimeMs',
+  blksize = 'blksize',
+  blocks = 'blocks',
   id = 'id',
   parent___id = 'parent.id',
   parent___parent___id = 'parent.parent.id',
@@ -317,6 +321,8 @@ type DirectoryFilterInput = {
   readonly ctime: Maybe<DateQueryOperatorInput>;
   readonly birthtime: Maybe<DateQueryOperatorInput>;
   readonly birthtimeMs: Maybe<FloatQueryOperatorInput>;
+  readonly blksize: Maybe<IntQueryOperatorInput>;
+  readonly blocks: Maybe<IntQueryOperatorInput>;
   readonly id: Maybe<StringQueryOperatorInput>;
   readonly parent: Maybe<NodeFilterInput>;
   readonly children: Maybe<NodeFilterListInput>;
@@ -380,6 +386,8 @@ type File = Node & {
   readonly blksize: Maybe<Scalars['Int']>;
   readonly blocks: Maybe<Scalars['Int']>;
   readonly url: Maybe<Scalars['String']>;
+  /** Copy file to static directory and return public url to it */
+  readonly publicURL: Maybe<Scalars['String']>;
   readonly childImageSharp: Maybe<ImageSharp>;
   readonly id: Scalars['ID'];
   readonly parent: Maybe<Node>;
@@ -505,6 +513,7 @@ enum FileFieldsEnum {
   blksize = 'blksize',
   blocks = 'blocks',
   url = 'url',
+  publicURL = 'publicURL',
   childImageSharp___fixed___base64 = 'childImageSharp.fixed.base64',
   childImageSharp___fixed___tracedSVG = 'childImageSharp.fixed.tracedSVG',
   childImageSharp___fixed___aspectRatio = 'childImageSharp.fixed.aspectRatio',
@@ -719,6 +728,7 @@ type FileFilterInput = {
   readonly blksize: Maybe<IntQueryOperatorInput>;
   readonly blocks: Maybe<IntQueryOperatorInput>;
   readonly url: Maybe<StringQueryOperatorInput>;
+  readonly publicURL: Maybe<StringQueryOperatorInput>;
   readonly childImageSharp: Maybe<ImageSharpFilterInput>;
   readonly id: Maybe<StringQueryOperatorInput>;
   readonly parent: Maybe<NodeFilterInput>;
@@ -1394,6 +1404,7 @@ type Query_fileArgs = {
   blksize: Maybe<IntQueryOperatorInput>;
   blocks: Maybe<IntQueryOperatorInput>;
   url: Maybe<StringQueryOperatorInput>;
+  publicURL: Maybe<StringQueryOperatorInput>;
   childImageSharp: Maybe<ImageSharpFilterInput>;
   id: Maybe<StringQueryOperatorInput>;
   parent: Maybe<NodeFilterInput>;
@@ -1442,6 +1453,8 @@ type Query_directoryArgs = {
   ctime: Maybe<DateQueryOperatorInput>;
   birthtime: Maybe<DateQueryOperatorInput>;
   birthtimeMs: Maybe<FloatQueryOperatorInput>;
+  blksize: Maybe<IntQueryOperatorInput>;
+  blocks: Maybe<IntQueryOperatorInput>;
   id: Maybe<StringQueryOperatorInput>;
   parent: Maybe<NodeFilterInput>;
   children: Maybe<NodeFilterListInput>;
@@ -1486,6 +1499,8 @@ type Query_allSitePageArgs = {
 type Query_siteArgs = {
   buildTime: Maybe<DateQueryOperatorInput>;
   siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
+  port: Maybe<IntQueryOperatorInput>;
+  host: Maybe<StringQueryOperatorInput>;
   polyfill: Maybe<BooleanQueryOperatorInput>;
   pathPrefix: Maybe<StringQueryOperatorInput>;
   id: Maybe<StringQueryOperatorInput>;
@@ -1560,6 +1575,7 @@ type Query_strapiLivesArgs = {
   eventLink: Maybe<StringQueryOperatorInput>;
   priceInfo: Maybe<StringQueryOperatorInput>;
   slug: Maybe<StringQueryOperatorInput>;
+  club: Maybe<StrapiLivesClubFilterInput>;
   posters: Maybe<StrapiLivesPostersFilterListInput>;
   videos: Maybe<StrapiLivesVideosFilterListInput>;
   strapiId: Maybe<StringQueryOperatorInput>;
@@ -1650,6 +1666,8 @@ type Query_allSitePluginArgs = {
 type Site = Node & {
   readonly buildTime: Maybe<Scalars['Date']>;
   readonly siteMetadata: Maybe<SiteSiteMetadata>;
+  readonly port: Maybe<Scalars['Int']>;
+  readonly host: Maybe<Scalars['String']>;
   readonly polyfill: Maybe<Scalars['Boolean']>;
   readonly pathPrefix: Maybe<Scalars['String']>;
   readonly id: Scalars['ID'];
@@ -1852,6 +1870,8 @@ enum SiteFieldsEnum {
   buildTime = 'buildTime',
   siteMetadata___siteName = 'siteMetadata.siteName',
   siteMetadata___siteUrl = 'siteMetadata.siteUrl',
+  port = 'port',
+  host = 'host',
   polyfill = 'polyfill',
   pathPrefix = 'pathPrefix',
   id = 'id',
@@ -1945,6 +1965,8 @@ enum SiteFieldsEnum {
 type SiteFilterInput = {
   readonly buildTime: Maybe<DateQueryOperatorInput>;
   readonly siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
+  readonly port: Maybe<IntQueryOperatorInput>;
+  readonly host: Maybe<StringQueryOperatorInput>;
   readonly polyfill: Maybe<BooleanQueryOperatorInput>;
   readonly pathPrefix: Maybe<StringQueryOperatorInput>;
   readonly id: Maybe<StringQueryOperatorInput>;
@@ -2155,6 +2177,7 @@ enum SitePageFieldsEnum {
   pluginCreator___pluginOptions___queryLimit = 'pluginCreator.pluginOptions.queryLimit',
   pluginCreator___pluginOptions___trackingId = 'pluginCreator.pluginOptions.trackingId',
   pluginCreator___pluginOptions___emitSchema___src___generated___gatsby_schema_graphql = 'pluginCreator.pluginOptions.emitSchema.src___generated___gatsby_schema_graphql',
+  pluginCreator___pluginOptions___name = 'pluginCreator.pluginOptions.name',
   pluginCreator___pluginOptions___path = 'pluginCreator.pluginOptions.path',
   pluginCreator___pluginOptions___pathCheck = 'pluginCreator.pluginOptions.pathCheck',
   pluginCreator___nodeAPIs = 'pluginCreator.nodeAPIs',
@@ -2350,6 +2373,7 @@ enum SitePluginFieldsEnum {
   pluginOptions___queryLimit = 'pluginOptions.queryLimit',
   pluginOptions___trackingId = 'pluginOptions.trackingId',
   pluginOptions___emitSchema___src___generated___gatsby_schema_graphql = 'pluginOptions.emitSchema.src___generated___gatsby_schema_graphql',
+  pluginOptions___name = 'pluginOptions.name',
   pluginOptions___path = 'pluginOptions.path',
   pluginOptions___pathCheck = 'pluginOptions.pathCheck',
   nodeAPIs = 'nodeAPIs',
@@ -2471,6 +2495,7 @@ type SitePluginPluginOptions = {
   readonly queryLimit: Maybe<Scalars['Int']>;
   readonly trackingId: Maybe<Scalars['String']>;
   readonly emitSchema: Maybe<SitePluginPluginOptionsEmitSchema>;
+  readonly name: Maybe<Scalars['String']>;
   readonly path: Maybe<Scalars['String']>;
   readonly pathCheck: Maybe<Scalars['Boolean']>;
 };
@@ -2490,6 +2515,7 @@ type SitePluginPluginOptionsFilterInput = {
   readonly queryLimit: Maybe<IntQueryOperatorInput>;
   readonly trackingId: Maybe<StringQueryOperatorInput>;
   readonly emitSchema: Maybe<SitePluginPluginOptionsEmitSchemaFilterInput>;
+  readonly name: Maybe<StringQueryOperatorInput>;
   readonly path: Maybe<StringQueryOperatorInput>;
   readonly pathCheck: Maybe<BooleanQueryOperatorInput>;
 };
@@ -2792,6 +2818,7 @@ enum StrapiAlbumsFieldsEnum {
   covers___localFile___blksize = 'covers.localFile.blksize',
   covers___localFile___blocks = 'covers.localFile.blocks',
   covers___localFile___url = 'covers.localFile.url',
+  covers___localFile___publicURL = 'covers.localFile.publicURL',
   covers___localFile___childImageSharp___id = 'covers.localFile.childImageSharp.id',
   covers___localFile___childImageSharp___children = 'covers.localFile.childImageSharp.children',
   covers___localFile___id = 'covers.localFile.id',
@@ -3135,6 +3162,7 @@ enum StrapiHomeContentFieldsEnum {
   schedulePosters___localFile___blksize = 'schedulePosters.localFile.blksize',
   schedulePosters___localFile___blocks = 'schedulePosters.localFile.blocks',
   schedulePosters___localFile___url = 'schedulePosters.localFile.url',
+  schedulePosters___localFile___publicURL = 'schedulePosters.localFile.publicURL',
   schedulePosters___localFile___childImageSharp___id = 'schedulePosters.localFile.childImageSharp.id',
   schedulePosters___localFile___childImageSharp___children = 'schedulePosters.localFile.childImageSharp.children',
   schedulePosters___localFile___id = 'schedulePosters.localFile.id',
@@ -3198,6 +3226,7 @@ enum StrapiHomeContentFieldsEnum {
   carouselImages___localFile___blksize = 'carouselImages.localFile.blksize',
   carouselImages___localFile___blocks = 'carouselImages.localFile.blocks',
   carouselImages___localFile___url = 'carouselImages.localFile.url',
+  carouselImages___localFile___publicURL = 'carouselImages.localFile.publicURL',
   carouselImages___localFile___childImageSharp___id = 'carouselImages.localFile.childImageSharp.id',
   carouselImages___localFile___childImageSharp___children = 'carouselImages.localFile.childImageSharp.children',
   carouselImages___localFile___id = 'carouselImages.localFile.id',
@@ -3309,6 +3338,7 @@ type StrapiLives = Node & {
   readonly eventLink: Maybe<Scalars['String']>;
   readonly priceInfo: Maybe<Scalars['String']>;
   readonly slug: Maybe<Scalars['String']>;
+  readonly club: Maybe<StrapiLivesClub>;
   readonly posters: Maybe<ReadonlyArray<Maybe<StrapiLivesPosters>>>;
   readonly videos: Maybe<ReadonlyArray<Maybe<StrapiLivesVideos>>>;
   readonly strapiId: Maybe<Scalars['String']>;
@@ -3378,6 +3408,40 @@ type StrapiLivesBandsFilterInput = {
 
 type StrapiLivesBandsFilterListInput = {
   readonly elemMatch: Maybe<StrapiLivesBandsFilterInput>;
+};
+
+type StrapiLivesClub = {
+  readonly name: Maybe<Scalars['String']>;
+  readonly placeLink: Maybe<Scalars['String']>;
+  readonly address: Maybe<Scalars['String']>;
+  readonly createdAt: Maybe<Scalars['Date']>;
+  readonly updatedAt: Maybe<Scalars['Date']>;
+  readonly id: Maybe<Scalars['String']>;
+};
+
+
+type StrapiLivesClub_createdAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+type StrapiLivesClub_updatedAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+type StrapiLivesClubFilterInput = {
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly placeLink: Maybe<StringQueryOperatorInput>;
+  readonly address: Maybe<StringQueryOperatorInput>;
+  readonly createdAt: Maybe<DateQueryOperatorInput>;
+  readonly updatedAt: Maybe<DateQueryOperatorInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
 };
 
 type StrapiLivesConnection = {
@@ -3509,6 +3573,12 @@ enum StrapiLivesFieldsEnum {
   eventLink = 'eventLink',
   priceInfo = 'priceInfo',
   slug = 'slug',
+  club___name = 'club.name',
+  club___placeLink = 'club.placeLink',
+  club___address = 'club.address',
+  club___createdAt = 'club.createdAt',
+  club___updatedAt = 'club.updatedAt',
+  club___id = 'club.id',
   posters = 'posters',
   posters___name = 'posters.name',
   posters___sha256 = 'posters.sha256',
@@ -3556,6 +3626,7 @@ enum StrapiLivesFieldsEnum {
   posters___localFile___blksize = 'posters.localFile.blksize',
   posters___localFile___blocks = 'posters.localFile.blocks',
   posters___localFile___url = 'posters.localFile.url',
+  posters___localFile___publicURL = 'posters.localFile.publicURL',
   posters___localFile___childImageSharp___id = 'posters.localFile.childImageSharp.id',
   posters___localFile___childImageSharp___children = 'posters.localFile.childImageSharp.children',
   posters___localFile___id = 'posters.localFile.id',
@@ -3617,6 +3688,7 @@ type StrapiLivesFilterInput = {
   readonly eventLink: Maybe<StringQueryOperatorInput>;
   readonly priceInfo: Maybe<StringQueryOperatorInput>;
   readonly slug: Maybe<StringQueryOperatorInput>;
+  readonly club: Maybe<StrapiLivesClubFilterInput>;
   readonly posters: Maybe<StrapiLivesPostersFilterListInput>;
   readonly videos: Maybe<StrapiLivesVideosFilterListInput>;
   readonly strapiId: Maybe<StringQueryOperatorInput>;
@@ -3823,6 +3895,8 @@ type StringQueryOperatorInput = {
   readonly glob: Maybe<Scalars['String']>;
 };
 
+type GatsbyImageSharpFluid_withWebp_tracedSVGFragment = Pick<ImageSharpFluid, 'tracedSVG' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
+
 type AlbumDetailQueryVariables = {
   slug: Scalars['String'];
 };
@@ -3842,8 +3916,8 @@ type LiveDetailQueryVariables = {
 
 
 type LiveDetailQuery = { readonly strapiLives: Maybe<(
-    Pick<StrapiLives, 'slug' | 'date' | 'content' | 'eventLink' | 'place' | 'priceInfo' | 'seoDescription' | 'ticketLink' | 'title'>
-    & { readonly bands: Maybe<ReadonlyArray<Maybe<Pick<StrapiLivesBands, 'name' | 'instagramUrl'>>>>, readonly posters: Maybe<ReadonlyArray<Maybe<{ readonly localFile: Maybe<(
+    Pick<StrapiLives, 'slug' | 'date' | 'content' | 'eventLink' | 'priceInfo' | 'seoDescription' | 'ticketLink' | 'title'>
+    & { readonly bands: Maybe<ReadonlyArray<Maybe<Pick<StrapiLivesBands, 'name' | 'instagramUrl'>>>>, readonly club: Maybe<Pick<StrapiLivesClub, 'name' | 'placeLink' | 'address'>>, readonly posters: Maybe<ReadonlyArray<Maybe<{ readonly localFile: Maybe<(
         Pick<File, 'url'>
         & { readonly childImageSharp: Maybe<{ readonly fluid: Maybe<GatsbyImageSharpFluid_withWebp_tracedSVGFragment> }> }
       )> }>>> }
@@ -3858,6 +3932,8 @@ type DiscographyPageStaticQuery = { readonly allStrapiAlbums: { readonly nodes: 
       Pick<StrapiAlbums, 'slug'>
       & { readonly covers: Maybe<ReadonlyArray<Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<GatsbyImageSharpFluid_withWebp_tracedSVGFragment> }> }> }>>> }
     )> } };
+
+type GatsbyImageSharpFluid_withWebp_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
 
 type IndexPageStaticQueryVariables = {};
 
@@ -3893,11 +3969,7 @@ type GatsbyImageSharpFluid_tracedSVGFragment = Pick<ImageSharpFluid, 'tracedSVG'
 
 type GatsbyImageSharpFluid_withWebpFragment = Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
 
-type GatsbyImageSharpFluid_withWebp_tracedSVGFragment = Pick<ImageSharpFluid, 'tracedSVG' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
 type GatsbyImageSharpFluid_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
-
-type GatsbyImageSharpFluid_withWebp_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
 
 type GatsbyImageSharpResolutionsFragment = Pick<ImageSharpResolutions, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
@@ -3922,5 +3994,10 @@ type GatsbyImageSharpSizes_withWebp_tracedSVGFragment = Pick<ImageSharpSizes, 't
 type GatsbyImageSharpSizes_noBase64Fragment = Pick<ImageSharpSizes, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
 
 type GatsbyImageSharpSizes_withWebp_noBase64Fragment = Pick<ImageSharpSizes, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
+
+type PagesQueryQueryVariables = {};
+
+
+type PagesQueryQuery = { readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
 }

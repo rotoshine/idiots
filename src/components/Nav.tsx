@@ -3,6 +3,7 @@ import './Nav.scss'
 import { Link } from 'gatsby'
 import React, { useState } from 'react'
 import { useSpring, animated } from 'react-spring'
+import classNames from 'classnames'
 
 const menus = [
   {
@@ -34,12 +35,6 @@ const menus = [
 export default function Nav() {
   const [visibleMobileMenu, setVisibleMobileMenu] = useState<boolean>(false)
 
-  const classNames = ['Nav__wrapper']
-
-  if (visibleMobileMenu) {
-    classNames.push('Nav__wrapper--visible')
-  }
-
   const props = useSpring({
     to: {
       height: visibleMobileMenu ? 330 : 0,
@@ -69,7 +64,12 @@ export default function Nav() {
           <i className="icon ion-ios-menu" />
         </button>
 
-        <animated.div className={classNames.join(' ')} style={props}>
+        <animated.div
+          className={classNames('Nav__wrapper', {
+            'Nav__wrapper--visible': visibleMobileMenu,
+          })}
+          style={props}
+        >
           {renderMenus()}
         </animated.div>
       </nav>

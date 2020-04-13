@@ -213,6 +213,8 @@ type Directory implements Node {
   ): Date!
   birthtime: Date @deprecated(reason: "Use `birthTime` instead")
   birthtimeMs: Float @deprecated(reason: "Use `birthTime` instead")
+  blksize: Int
+  blocks: Int
   id: ID!
   parent: Node
   children: [Node!]!
@@ -266,6 +268,8 @@ enum DirectoryFieldsEnum {
   ctime
   birthtime
   birthtimeMs
+  blksize
+  blocks
   id
   parent___id
   parent___parent___id
@@ -386,6 +390,8 @@ input DirectoryFilterInput {
   ctime: DateQueryOperatorInput
   birthtime: DateQueryOperatorInput
   birthtimeMs: FloatQueryOperatorInput
+  blksize: IntQueryOperatorInput
+  blocks: IntQueryOperatorInput
   id: StringQueryOperatorInput
   parent: NodeFilterInput
   children: NodeFilterListInput
@@ -559,6 +565,9 @@ type File implements Node {
   blksize: Int
   blocks: Int
   url: String
+
+  # Copy file to static directory and return public url to it
+  publicURL: String
   childImageSharp: ImageSharp
   id: ID!
   parent: Node
@@ -616,6 +625,7 @@ enum FileFieldsEnum {
   blksize
   blocks
   url
+  publicURL
   childImageSharp___fixed___base64 @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childImageSharp___fixed___tracedSVG @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childImageSharp___fixed___aspectRatio @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
@@ -830,6 +840,7 @@ input FileFilterInput {
   blksize: IntQueryOperatorInput
   blocks: IntQueryOperatorInput
   url: StringQueryOperatorInput
+  publicURL: StringQueryOperatorInput
   childImageSharp: ImageSharpFilterInput
   id: StringQueryOperatorInput
   parent: NodeFilterInput
@@ -1364,19 +1375,19 @@ enum PotraceTurnPolicy {
 }
 
 type Query {
-  file(sourceInstanceName: StringQueryOperatorInput, absolutePath: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, extension: StringQueryOperatorInput, size: IntQueryOperatorInput, prettySize: StringQueryOperatorInput, modifiedTime: DateQueryOperatorInput, accessTime: DateQueryOperatorInput, changeTime: DateQueryOperatorInput, birthTime: DateQueryOperatorInput, root: StringQueryOperatorInput, dir: StringQueryOperatorInput, base: StringQueryOperatorInput, ext: StringQueryOperatorInput, name: StringQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, dev: IntQueryOperatorInput, mode: IntQueryOperatorInput, nlink: IntQueryOperatorInput, uid: IntQueryOperatorInput, gid: IntQueryOperatorInput, rdev: IntQueryOperatorInput, ino: FloatQueryOperatorInput, atimeMs: FloatQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, atime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, ctime: DateQueryOperatorInput, birthtime: DateQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, blksize: IntQueryOperatorInput, blocks: IntQueryOperatorInput, url: StringQueryOperatorInput, childImageSharp: ImageSharpFilterInput, id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): File
+  file(sourceInstanceName: StringQueryOperatorInput, absolutePath: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, extension: StringQueryOperatorInput, size: IntQueryOperatorInput, prettySize: StringQueryOperatorInput, modifiedTime: DateQueryOperatorInput, accessTime: DateQueryOperatorInput, changeTime: DateQueryOperatorInput, birthTime: DateQueryOperatorInput, root: StringQueryOperatorInput, dir: StringQueryOperatorInput, base: StringQueryOperatorInput, ext: StringQueryOperatorInput, name: StringQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, dev: IntQueryOperatorInput, mode: IntQueryOperatorInput, nlink: IntQueryOperatorInput, uid: IntQueryOperatorInput, gid: IntQueryOperatorInput, rdev: IntQueryOperatorInput, ino: FloatQueryOperatorInput, atimeMs: FloatQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, atime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, ctime: DateQueryOperatorInput, birthtime: DateQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, blksize: IntQueryOperatorInput, blocks: IntQueryOperatorInput, url: StringQueryOperatorInput, publicURL: StringQueryOperatorInput, childImageSharp: ImageSharpFilterInput, id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): File
   allFile(filter: FileFilterInput, sort: FileSortInput, skip: Int, limit: Int): FileConnection!
-  directory(sourceInstanceName: StringQueryOperatorInput, absolutePath: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, extension: StringQueryOperatorInput, size: IntQueryOperatorInput, prettySize: StringQueryOperatorInput, modifiedTime: DateQueryOperatorInput, accessTime: DateQueryOperatorInput, changeTime: DateQueryOperatorInput, birthTime: DateQueryOperatorInput, root: StringQueryOperatorInput, dir: StringQueryOperatorInput, base: StringQueryOperatorInput, ext: StringQueryOperatorInput, name: StringQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, dev: IntQueryOperatorInput, mode: IntQueryOperatorInput, nlink: IntQueryOperatorInput, uid: IntQueryOperatorInput, gid: IntQueryOperatorInput, rdev: IntQueryOperatorInput, ino: FloatQueryOperatorInput, atimeMs: FloatQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, atime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, ctime: DateQueryOperatorInput, birthtime: DateQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): Directory
+  directory(sourceInstanceName: StringQueryOperatorInput, absolutePath: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, extension: StringQueryOperatorInput, size: IntQueryOperatorInput, prettySize: StringQueryOperatorInput, modifiedTime: DateQueryOperatorInput, accessTime: DateQueryOperatorInput, changeTime: DateQueryOperatorInput, birthTime: DateQueryOperatorInput, root: StringQueryOperatorInput, dir: StringQueryOperatorInput, base: StringQueryOperatorInput, ext: StringQueryOperatorInput, name: StringQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, dev: IntQueryOperatorInput, mode: IntQueryOperatorInput, nlink: IntQueryOperatorInput, uid: IntQueryOperatorInput, gid: IntQueryOperatorInput, rdev: IntQueryOperatorInput, ino: FloatQueryOperatorInput, atimeMs: FloatQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, atime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, ctime: DateQueryOperatorInput, birthtime: DateQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, blksize: IntQueryOperatorInput, blocks: IntQueryOperatorInput, id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): Directory
   allDirectory(filter: DirectoryFilterInput, sort: DirectorySortInput, skip: Int, limit: Int): DirectoryConnection!
   sitePage(path: StringQueryOperatorInput, component: StringQueryOperatorInput, internalComponentName: StringQueryOperatorInput, componentChunkName: StringQueryOperatorInput, matchPath: StringQueryOperatorInput, id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, isCreatedByStatefulCreatePages: BooleanQueryOperatorInput, context: SitePageContextFilterInput, pluginCreator: SitePluginFilterInput, pluginCreatorId: StringQueryOperatorInput, componentPath: StringQueryOperatorInput): SitePage
   allSitePage(filter: SitePageFilterInput, sort: SitePageSortInput, skip: Int, limit: Int): SitePageConnection!
-  site(buildTime: DateQueryOperatorInput, siteMetadata: SiteSiteMetadataFilterInput, polyfill: BooleanQueryOperatorInput, pathPrefix: StringQueryOperatorInput, id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): Site
+  site(buildTime: DateQueryOperatorInput, siteMetadata: SiteSiteMetadataFilterInput, port: IntQueryOperatorInput, host: StringQueryOperatorInput, polyfill: BooleanQueryOperatorInput, pathPrefix: StringQueryOperatorInput, id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): Site
   allSite(filter: SiteFilterInput, sort: SiteSortInput, skip: Int, limit: Int): SiteConnection!
   imageSharp(fixed: ImageSharpFixedFilterInput, resolutions: ImageSharpResolutionsFilterInput, fluid: ImageSharpFluidFilterInput, sizes: ImageSharpSizesFilterInput, original: ImageSharpOriginalFilterInput, resize: ImageSharpResizeFilterInput, id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ImageSharp
   allImageSharp(filter: ImageSharpFilterInput, sort: ImageSharpSortInput, skip: Int, limit: Int): ImageSharpConnection!
   strapiHomeContent(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, schedulePosters: StrapiHomeContentSchedulePostersFilterListInput, carouselImages: StrapiHomeContentCarouselImagesFilterListInput, strapiId: StringQueryOperatorInput): StrapiHomeContent
   allStrapiHomeContent(filter: StrapiHomeContentFilterInput, sort: StrapiHomeContentSortInput, skip: Int, limit: Int): StrapiHomeContentConnection!
-  strapiLives(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, bands: StrapiLivesBandsFilterListInput, title: StringQueryOperatorInput, place: StringQueryOperatorInput, date: DateQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, eventLink: StringQueryOperatorInput, priceInfo: StringQueryOperatorInput, slug: StringQueryOperatorInput, posters: StrapiLivesPostersFilterListInput, videos: StrapiLivesVideosFilterListInput, strapiId: StringQueryOperatorInput, ticketLink: StringQueryOperatorInput, content: StringQueryOperatorInput, seoDescription: StringQueryOperatorInput, livePhoto: StrapiLivesLivePhotoFilterInput): StrapiLives
+  strapiLives(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, bands: StrapiLivesBandsFilterListInput, title: StringQueryOperatorInput, place: StringQueryOperatorInput, date: DateQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, eventLink: StringQueryOperatorInput, priceInfo: StringQueryOperatorInput, slug: StringQueryOperatorInput, club: StrapiLivesClubFilterInput, posters: StrapiLivesPostersFilterListInput, videos: StrapiLivesVideosFilterListInput, strapiId: StringQueryOperatorInput, ticketLink: StringQueryOperatorInput, content: StringQueryOperatorInput, seoDescription: StringQueryOperatorInput, livePhoto: StrapiLivesLivePhotoFilterInput): StrapiLives
   allStrapiLives(filter: StrapiLivesFilterInput, sort: StrapiLivesSortInput, skip: Int, limit: Int): StrapiLivesConnection!
   strapiAlbums(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, title: StringQueryOperatorInput, streamingLinks: StringQueryOperatorInput, purchargeLink: StringQueryOperatorInput, releaseDate: DateQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, content: StringQueryOperatorInput, slug: StringQueryOperatorInput, purchaseLink: StringQueryOperatorInput, covers: StrapiAlbumsCoversFilterListInput, songs: StrapiAlbumsSongsFilterListInput, strapiId: StringQueryOperatorInput): StrapiAlbums
   allStrapiAlbums(filter: StrapiAlbumsFilterInput, sort: StrapiAlbumsSortInput, skip: Int, limit: Int): StrapiAlbumsConnection!
@@ -1405,6 +1416,8 @@ type Site implements Node {
     locale: String
   ): Date
   siteMetadata: SiteSiteMetadata
+  port: Int
+  host: String
   polyfill: Boolean
   pathPrefix: String
   id: ID!
@@ -1583,6 +1596,8 @@ enum SiteFieldsEnum {
   buildTime
   siteMetadata___siteName
   siteMetadata___siteUrl
+  port
+  host
   polyfill
   pathPrefix
   id
@@ -1676,6 +1691,8 @@ enum SiteFieldsEnum {
 input SiteFilterInput {
   buildTime: DateQueryOperatorInput
   siteMetadata: SiteSiteMetadataFilterInput
+  port: IntQueryOperatorInput
+  host: StringQueryOperatorInput
   polyfill: BooleanQueryOperatorInput
   pathPrefix: StringQueryOperatorInput
   id: StringQueryOperatorInput
@@ -1874,6 +1891,7 @@ enum SitePageFieldsEnum {
   pluginCreator___pluginOptions___queryLimit
   pluginCreator___pluginOptions___trackingId
   pluginCreator___pluginOptions___emitSchema___src___generated___gatsby_schema_graphql
+  pluginCreator___pluginOptions___name
   pluginCreator___pluginOptions___path
   pluginCreator___pluginOptions___pathCheck
   pluginCreator___nodeAPIs
@@ -2057,6 +2075,7 @@ enum SitePluginFieldsEnum {
   pluginOptions___queryLimit
   pluginOptions___trackingId
   pluginOptions___emitSchema___src___generated___gatsby_schema_graphql
+  pluginOptions___name
   pluginOptions___path
   pluginOptions___pathCheck
   nodeAPIs
@@ -2178,6 +2197,7 @@ type SitePluginPluginOptions {
   queryLimit: Int
   trackingId: String
   emitSchema: SitePluginPluginOptionsEmitSchema
+  name: String
   path: String
   pathCheck: Boolean
 }
@@ -2197,6 +2217,7 @@ input SitePluginPluginOptionsFilterInput {
   queryLimit: IntQueryOperatorInput
   trackingId: StringQueryOperatorInput
   emitSchema: SitePluginPluginOptionsEmitSchemaFilterInput
+  name: StringQueryOperatorInput
   path: StringQueryOperatorInput
   pathCheck: BooleanQueryOperatorInput
 }
@@ -2527,6 +2548,7 @@ enum StrapiAlbumsFieldsEnum {
   covers___localFile___blksize
   covers___localFile___blocks
   covers___localFile___url
+  covers___localFile___publicURL
   covers___localFile___childImageSharp___id @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   covers___localFile___childImageSharp___children @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   covers___localFile___id
@@ -2906,6 +2928,7 @@ enum StrapiHomeContentFieldsEnum {
   schedulePosters___localFile___blksize
   schedulePosters___localFile___blocks
   schedulePosters___localFile___url
+  schedulePosters___localFile___publicURL
   schedulePosters___localFile___childImageSharp___id @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   schedulePosters___localFile___childImageSharp___children @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   schedulePosters___localFile___id
@@ -2969,6 +2992,7 @@ enum StrapiHomeContentFieldsEnum {
   carouselImages___localFile___blksize
   carouselImages___localFile___blocks
   carouselImages___localFile___url
+  carouselImages___localFile___publicURL
   carouselImages___localFile___childImageSharp___id @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   carouselImages___localFile___childImageSharp___children @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   carouselImages___localFile___id
@@ -3144,6 +3168,7 @@ type StrapiLives implements Node {
   eventLink: String
   priceInfo: String
   slug: String
+  club: StrapiLivesClub
   posters: [StrapiLivesPosters]
   videos: [StrapiLivesVideos]
   strapiId: String
@@ -3205,6 +3230,56 @@ input StrapiLivesBandsFilterInput {
 
 input StrapiLivesBandsFilterListInput {
   elemMatch: StrapiLivesBandsFilterInput
+}
+
+type StrapiLivesClub {
+  name: String
+  placeLink: String
+  address: String
+  createdAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  updatedAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  id: String
+}
+
+input StrapiLivesClubFilterInput {
+  name: StringQueryOperatorInput
+  placeLink: StringQueryOperatorInput
+  address: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  id: StringQueryOperatorInput
 }
 
 type StrapiLivesConnection {
@@ -3324,6 +3399,12 @@ enum StrapiLivesFieldsEnum {
   eventLink
   priceInfo
   slug
+  club___name
+  club___placeLink
+  club___address
+  club___createdAt
+  club___updatedAt
+  club___id
   posters
   posters___name
   posters___sha256
@@ -3371,6 +3452,7 @@ enum StrapiLivesFieldsEnum {
   posters___localFile___blksize
   posters___localFile___blocks
   posters___localFile___url
+  posters___localFile___publicURL
   posters___localFile___childImageSharp___id @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   posters___localFile___childImageSharp___children @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   posters___localFile___id
@@ -3432,6 +3514,7 @@ input StrapiLivesFilterInput {
   eventLink: StringQueryOperatorInput
   priceInfo: StringQueryOperatorInput
   slug: StringQueryOperatorInput
+  club: StrapiLivesClubFilterInput
   posters: StrapiLivesPostersFilterListInput
   videos: StrapiLivesVideosFilterListInput
   strapiId: StringQueryOperatorInput

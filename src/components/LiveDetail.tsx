@@ -1,12 +1,12 @@
 import './LiveDetail.scss'
 
 import { graphql, Link } from 'gatsby'
-import Img from 'gatsby-image';
+import Img from 'gatsby-image'
 import React, { ReactNode } from 'react'
 import { isEmpty, isArray } from 'lodash'
 
 import { isString } from 'util'
-import { Live } from 'types/models';
+import { Live } from 'types/models'
 
 import Container from './Container'
 import Layout from './Layout'
@@ -73,7 +73,7 @@ const toMetaDescription = (live: Live) => {
 type Props = {
   data: GatsbyTypes.LiveDetailQuery
   context: {
-    slug: string,
+    slug: string
   }
 }
 export default ({ data, context }: Props) => {
@@ -85,7 +85,7 @@ export default ({ data, context }: Props) => {
 
   const {
     title,
-    place,
+    club,
     posters = [],
     bands = [],
     eventLink,
@@ -121,15 +121,15 @@ export default ({ data, context }: Props) => {
             {!isEmpty(content) && (
               <Description label="내용" content={content} />
             )}
-            {place && (
-              <Description
-                label="장소"
-                content={<ClubMap clubName={place} />}
-              />
+            {club && (
+              <Description label="장소" content={<ClubMap club={club} />} />
             )}
 
             {bands.length > 0 && (
-              <Description label="라인업" content={<Bands bands={bands as any} />} />
+              <Description
+                label="라인업"
+                content={<Bands bands={bands as any} />}
+              />
             )}
             {eventLink && (
               <Description
@@ -175,7 +175,11 @@ export const query = graphql`
       date
       content
       eventLink
-      place
+      club {
+        name
+        placeLink
+        address
+      }
       posters {
         localFile {
           url
