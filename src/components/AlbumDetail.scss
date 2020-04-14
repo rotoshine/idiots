@@ -18,12 +18,6 @@
       @include media('<desktop') {
         width: 100%;
       }
-
-      &:after {
-        display: block;
-        content: '';
-        padding-bottom: 100%;
-      }
     }
 
     .AlbumDetail__descriptions {

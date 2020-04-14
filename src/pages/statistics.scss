@@ -1,0 +1,25 @@
+@import '~include-media/dist/include-media';
+
+.StatisticsPage {
+  a {
+    text-decoration: none;
+  }
+  .StatisticsPage__listWrapper {
+    display: grid;
+    row-gap: 1rem;
+    column-gap: 2rem;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+    @include media('>=tablet', '<desktop') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media('>=phone', '<tablet') {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    .StatisticsPage__listDescription {
+      margin-top: 1rem;
+    }
+  }
+}

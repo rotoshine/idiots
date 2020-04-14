@@ -1,7 +1,7 @@
 import './AlbumDetail.scss'
 
 import { graphql } from 'gatsby'
-import BackgroundImage from 'gatsby-background-image';
+import Img from 'gatsby-image'
 import React from 'react'
 import Layout from './Layout'
 import Panel from './Panel'
@@ -9,18 +9,18 @@ import Container from './Container'
 import Meta from './Meta'
 
 type Context = {
-  slug: string,
+  slug: string
 }
 
 type Props = {
-  data: GatsbyTypes.AlbumDetailQuery,
-  context: Context,
+  data: GatsbyTypes.AlbumDetailQuery
+  context: Context
 }
 
 export default function AlbumDetail({ data, context }: Props) {
-  const album = data.strapiAlbums;
+  const album = data.strapiAlbums
   if (!album) {
-    throw new Error(`slug: ${context.slug}에 일치하는 앨범 정보가 없습니다.`);
+    throw new Error(`slug: ${context.slug}에 일치하는 앨범 정보가 없습니다.`)
   }
 
   const {
@@ -35,7 +35,7 @@ export default function AlbumDetail({ data, context }: Props) {
   } = album
 
   const description = `${releaseDate} 발매. 수록곡: ${songs
-    .map((song) => `${song!.name}. ${song!.name}`)
+    .map(song => `${song!.name}. ${song!.name}`)
     .join(' ')} | 구입링크: ${purchaseLink}`
 
   return (
@@ -49,9 +49,9 @@ export default function AlbumDetail({ data, context }: Props) {
       <Container>
         <Panel noBorder>
           <article className="AlbumDetail__content">
-            <BackgroundImage
-              Tag="section"
+            <Img
               className="AlbumDetail__poster"
+              alt={`밴드 이디어츠의 ${title} 앨범 사진`}
               fluid={covers?.[0]?.localFile?.childImageSharp?.fluid}
             />
             <section className="AlbumDetail__descriptions">
