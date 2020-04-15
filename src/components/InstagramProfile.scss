@@ -13,6 +13,11 @@
     padding-bottom: 100%;
   }
 
+  &:hover {
+    transition: 0.3s ease-in-out;
+    transform: scale(1.03);
+  }
+
   .InstagramProfile__status {
     position: absolute;
     left: 50%;

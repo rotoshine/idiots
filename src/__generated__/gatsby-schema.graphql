@@ -3215,6 +3215,7 @@ type StrapiLivesBands {
     # Configures the locale Moment.js will use to format the date.
     locale: String
   ): Date
+  profileImageUrl: String
   id: String
   facebookUrl: String
 }
@@ -3224,6 +3225,7 @@ input StrapiLivesBandsFilterInput {
   instagramUrl: StringQueryOperatorInput
   createdAt: DateQueryOperatorInput
   updatedAt: DateQueryOperatorInput
+  profileImageUrl: StringQueryOperatorInput
   id: StringQueryOperatorInput
   facebookUrl: StringQueryOperatorInput
 }
@@ -3389,6 +3391,7 @@ enum StrapiLivesFieldsEnum {
   bands___instagramUrl
   bands___createdAt
   bands___updatedAt
+  bands___profileImageUrl
   bands___id
   bands___facebookUrl
   title

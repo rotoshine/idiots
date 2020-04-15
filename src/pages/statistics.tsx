@@ -1,7 +1,8 @@
 import './statistics.scss'
 
 import React, { useState, useEffect } from 'react'
-import { last, isEmpty } from 'lodash'
+import { dropRight, last, isEmpty } from 'lodash'
+
 import Layout from '../components/Layout'
 import Meta from '../components/Meta'
 import Panel from '../components/Panel'
@@ -11,16 +12,20 @@ import InstagramProfile from '../components/InstagramProfile'
 interface BandWithCount {
   name: string
   count: number
+  profileImageUrl: string
   instagramUrl: string
   lives: string[]
+  rank: number
 }
 
 const extractInstagramUrl = (instagramUrl?: string) => {
   if (!isEmpty(instagramUrl)) {
     const urls = instagramUrl!.split('/')
 
-    return last(urls) === '' ? urls[urls.length - 2] : last(urls)
+    return `@${last(urls) === '' ? urls[urls.length - 2] : last(urls)}`
   }
+
+  return null
 }
 
 export default function StatsticsPage() {
@@ -38,6 +43,17 @@ export default function StatsticsPage() {
 
     findBandWithCount()
   }, [])
+
+  const renderMedal = (rank: number) => {
+    if (rank === 1) {
+      return <div className="StatisticsPage__medal">🥇</div>
+    } else if (rank === 2) {
+      return <div className="StatisticsPage__medal">🥈</div>
+    } else if (rank === 3) {
+      return <div className="StatisticsPage__medal">🥉</div>
+    }
+    return null
+  }
   return (
     <Layout className="StatisticsPage">
       <Meta
@@ -46,23 +62,29 @@ export default function StatsticsPage() {
         description="이디어츠와 관련된 각종 통계를 내본 페이지입니다. "
       />
       <Container>
-        <Panel title="이디어츠와 공연을 많이 한 밴드">
+        <Panel title="이디어츠와 함께 했던 밴드들">
           {isFetching && 'Loading...'}
           {!isFetching && (
-            <section className="StatisticsPage__listWrapper">
-              {bandWithCounts.map(({ name, instagramUrl, count }) => (
-                <a key={name} href={instagramUrl ? instagramUrl : '#'}>
-                  <article>
-                    <InstagramProfile
-                      instagramId={extractInstagramUrl(instagramUrl)}
-                    />
-                    <div className="StatisticsPage__listDescription">
-                      <div>{name}</div>
-                      <div>{count}번</div>
-                    </div>
-                  </article>
-                </a>
-              ))}
+            <section className="list-wrapper">
+              {bandWithCounts.map(
+                ({ name, instagramUrl, profileImageUrl, count, rank }) => (
+                  <a key={name} href={instagramUrl ? instagramUrl : '#'}>
+                    <article className="list-item">
+                      {renderMedal(rank)}
+                      <InstagramProfile profileImageUrl={profileImageUrl} />
+                      <div className="description">
+                        <div className="band-name">{name}</div>
+                        <div className="live-count">
+                          같이 {count}번 공연했어요.
+                        </div>
+                        <div className="instagram-id">
+                          {extractInstagramUrl(instagramUrl)}
+                        </div>
+                      </div>
+                    </article>
+                  </a>
+                )
+              )}
             </section>
           )}
         </Panel>

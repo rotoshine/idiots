@@ -3377,6 +3377,7 @@ type StrapiLivesBands = {
   readonly instagramUrl: Maybe<Scalars['String']>;
   readonly createdAt: Maybe<Scalars['Date']>;
   readonly updatedAt: Maybe<Scalars['Date']>;
+  readonly profileImageUrl: Maybe<Scalars['String']>;
   readonly id: Maybe<Scalars['String']>;
   readonly facebookUrl: Maybe<Scalars['String']>;
 };
@@ -3402,6 +3403,7 @@ type StrapiLivesBandsFilterInput = {
   readonly instagramUrl: Maybe<StringQueryOperatorInput>;
   readonly createdAt: Maybe<DateQueryOperatorInput>;
   readonly updatedAt: Maybe<DateQueryOperatorInput>;
+  readonly profileImageUrl: Maybe<StringQueryOperatorInput>;
   readonly id: Maybe<StringQueryOperatorInput>;
   readonly facebookUrl: Maybe<StringQueryOperatorInput>;
 };
@@ -3563,6 +3565,7 @@ enum StrapiLivesFieldsEnum {
   bands___instagramUrl = 'bands.instagramUrl',
   bands___createdAt = 'bands.createdAt',
   bands___updatedAt = 'bands.updatedAt',
+  bands___profileImageUrl = 'bands.profileImageUrl',
   bands___id = 'bands.id',
   bands___facebookUrl = 'bands.facebookUrl',
   title = 'title',
