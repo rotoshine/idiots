@@ -45,13 +45,17 @@ export default function StatsticsPage() {
   }, [])
 
   const renderMedal = (rank: number) => {
-    if (rank === 1) {
-      return <div className="StatisticsPage__medal">🥇</div>
-    } else if (rank === 2) {
-      return <div className="StatisticsPage__medal">🥈</div>
-    } else if (rank === 3) {
-      return <div className="StatisticsPage__medal">🥉</div>
+    if (rank >= 1 && rank <= 3) {
+      return (
+        <div className="StatisticsPage__medal">
+          <img
+            src={`/images/medals/rank-${rank}-medal.png`}
+            alt={`rank ${rank} icon`}
+          />
+        </div>
+      )
     }
+
     return null
   }
   return (
