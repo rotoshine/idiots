@@ -4003,4 +4003,9 @@ type PagesQueryQueryVariables = {};
 
 type PagesQueryQuery = { readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
+type LogoStaticQueryVariables = {};
+
+
+type LogoStaticQuery = { readonly defaultLogo: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<Pick<ImageSharpFluid, 'src'>> }> }>, readonly logo: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<Pick<ImageSharpFluid, 'src'>> }> }> };
+
 }
