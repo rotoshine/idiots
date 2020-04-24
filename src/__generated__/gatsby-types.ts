@@ -1499,8 +1499,6 @@ type Query_allSitePageArgs = {
 type Query_siteArgs = {
   buildTime: Maybe<DateQueryOperatorInput>;
   siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
-  port: Maybe<IntQueryOperatorInput>;
-  host: Maybe<StringQueryOperatorInput>;
   polyfill: Maybe<BooleanQueryOperatorInput>;
   pathPrefix: Maybe<StringQueryOperatorInput>;
   id: Maybe<StringQueryOperatorInput>;
@@ -1581,8 +1579,8 @@ type Query_strapiLivesArgs = {
   strapiId: Maybe<StringQueryOperatorInput>;
   ticketLink: Maybe<StringQueryOperatorInput>;
   content: Maybe<StringQueryOperatorInput>;
-  seoDescription: Maybe<StringQueryOperatorInput>;
   livePhoto: Maybe<StrapiLivesLivePhotoFilterInput>;
+  seoDescription: Maybe<StringQueryOperatorInput>;
 };
 
 
@@ -1666,8 +1664,6 @@ type Query_allSitePluginArgs = {
 type Site = Node & {
   readonly buildTime: Maybe<Scalars['Date']>;
   readonly siteMetadata: Maybe<SiteSiteMetadata>;
-  readonly port: Maybe<Scalars['Int']>;
-  readonly host: Maybe<Scalars['String']>;
   readonly polyfill: Maybe<Scalars['Boolean']>;
   readonly pathPrefix: Maybe<Scalars['String']>;
   readonly id: Scalars['ID'];
@@ -1870,8 +1866,6 @@ enum SiteFieldsEnum {
   buildTime = 'buildTime',
   siteMetadata___siteName = 'siteMetadata.siteName',
   siteMetadata___siteUrl = 'siteMetadata.siteUrl',
-  port = 'port',
-  host = 'host',
   polyfill = 'polyfill',
   pathPrefix = 'pathPrefix',
   id = 'id',
@@ -1965,8 +1959,6 @@ enum SiteFieldsEnum {
 type SiteFilterInput = {
   readonly buildTime: Maybe<DateQueryOperatorInput>;
   readonly siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
-  readonly port: Maybe<IntQueryOperatorInput>;
-  readonly host: Maybe<StringQueryOperatorInput>;
   readonly polyfill: Maybe<BooleanQueryOperatorInput>;
   readonly pathPrefix: Maybe<StringQueryOperatorInput>;
   readonly id: Maybe<StringQueryOperatorInput>;
@@ -3344,8 +3336,8 @@ type StrapiLives = Node & {
   readonly strapiId: Maybe<Scalars['String']>;
   readonly ticketLink: Maybe<Scalars['String']>;
   readonly content: Maybe<Scalars['String']>;
-  readonly seoDescription: Maybe<Scalars['String']>;
   readonly livePhoto: Maybe<StrapiLivesLivePhoto>;
+  readonly seoDescription: Maybe<Scalars['String']>;
 };
 
 
@@ -3657,7 +3649,6 @@ enum StrapiLivesFieldsEnum {
   strapiId = 'strapiId',
   ticketLink = 'ticketLink',
   content = 'content',
-  seoDescription = 'seoDescription',
   livePhoto___createdAt = 'livePhoto.createdAt',
   livePhoto___updatedAt = 'livePhoto.updatedAt',
   livePhoto___live = 'livePhoto.live',
@@ -3674,7 +3665,8 @@ enum StrapiLivesFieldsEnum {
   livePhoto___photo___createdAt = 'livePhoto.photo.createdAt',
   livePhoto___photo___updatedAt = 'livePhoto.photo.updatedAt',
   livePhoto___photo___id = 'livePhoto.photo.id',
-  livePhoto___id = 'livePhoto.id'
+  livePhoto___id = 'livePhoto.id',
+  seoDescription = 'seoDescription'
 }
 
 type StrapiLivesFilterInput = {
@@ -3697,8 +3689,8 @@ type StrapiLivesFilterInput = {
   readonly strapiId: Maybe<StringQueryOperatorInput>;
   readonly ticketLink: Maybe<StringQueryOperatorInput>;
   readonly content: Maybe<StringQueryOperatorInput>;
-  readonly seoDescription: Maybe<StringQueryOperatorInput>;
   readonly livePhoto: Maybe<StrapiLivesLivePhotoFilterInput>;
+  readonly seoDescription: Maybe<StringQueryOperatorInput>;
 };
 
 type StrapiLivesGroupConnection = {
@@ -3898,8 +3890,6 @@ type StringQueryOperatorInput = {
   readonly glob: Maybe<Scalars['String']>;
 };
 
-type GatsbyImageSharpFluid_withWebp_tracedSVGFragment = Pick<ImageSharpFluid, 'tracedSVG' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
 type AlbumDetailQueryVariables = {
   slug: Scalars['String'];
 };
@@ -3928,6 +3918,11 @@ type LiveDetailQuery = { readonly strapiLives: Maybe<(
 
 type LiveList_livesFragment = { readonly edges: ReadonlyArray<{ readonly node: Pick<StrapiLives, 'id' | 'date' | 'title' | 'slug'> }> };
 
+type LogoStaticQueryVariables = {};
+
+
+type LogoStaticQuery = { readonly defaultLogo: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<Pick<ImageSharpFluid, 'src'>> }> }>, readonly logo: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<Pick<ImageSharpFluid, 'src'>> }> }> };
+
 type DiscographyPageStaticQueryVariables = {};
 
 
@@ -3935,8 +3930,6 @@ type DiscographyPageStaticQuery = { readonly allStrapiAlbums: { readonly nodes: 
       Pick<StrapiAlbums, 'slug'>
       & { readonly covers: Maybe<ReadonlyArray<Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<GatsbyImageSharpFluid_withWebp_tracedSVGFragment> }> }> }>>> }
     )> } };
-
-type GatsbyImageSharpFluid_withWebp_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
 
 type IndexPageStaticQueryVariables = {};
 
@@ -3972,7 +3965,11 @@ type GatsbyImageSharpFluid_tracedSVGFragment = Pick<ImageSharpFluid, 'tracedSVG'
 
 type GatsbyImageSharpFluid_withWebpFragment = Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
 
+type GatsbyImageSharpFluid_withWebp_tracedSVGFragment = Pick<ImageSharpFluid, 'tracedSVG' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
+
 type GatsbyImageSharpFluid_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
+
+type GatsbyImageSharpFluid_withWebp_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
 
 type GatsbyImageSharpResolutionsFragment = Pick<ImageSharpResolutions, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
@@ -3997,15 +3994,5 @@ type GatsbyImageSharpSizes_withWebp_tracedSVGFragment = Pick<ImageSharpSizes, 't
 type GatsbyImageSharpSizes_noBase64Fragment = Pick<ImageSharpSizes, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
 
 type GatsbyImageSharpSizes_withWebp_noBase64Fragment = Pick<ImageSharpSizes, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
-type PagesQueryQueryVariables = {};
-
-
-type PagesQueryQuery = { readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
-
-type LogoStaticQueryVariables = {};
-
-
-type LogoStaticQuery = { readonly defaultLogo: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<Pick<ImageSharpFluid, 'src'>> }> }>, readonly logo: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<Pick<ImageSharpFluid, 'src'>> }> }> };
 
 }
