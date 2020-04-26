@@ -1,44 +1,46 @@
-ul {
-  padding: 0;
-}
+.Live {
+  ul {
+    padding: 0;
+  }
 
-li {
-  list-style: none;
-}
+  li {
+    list-style: none;
+  }
 
-.live {
-  display: flex;
-  flex-direction: column;
-}
+  .live {
+    display: flex;
+    flex-direction: column;
+  }
 
-.poster {
-  width: 100%;
-}
+  .poster {
+    width: 100%;
+  }
 
-.poster img {
-  width: 100%;
-}
+  .poster img {
+    width: 100%;
+  }
 
-.live-contents {
-  font-size: 2rem;
-}
+  .live-contents {
+    font-size: 2rem;
+  }
 
-.description {
-  padding-left: 2rem;
-  margin-bottom: 2rem;
-  min-height: 4.5rem;
-}
+  .description {
+    padding-left: 2rem;
+    margin-bottom: 2rem;
+    min-height: 4.5rem;
+  }
 
-.description .label {
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: #999;
-}
+  .description .label {
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #999;
+  }
 
-.description .text {          
-  word-break: break-all;          
-}
+  .description .text {
+    word-break: break-all;
+  }
 
-.team {
-  margin-bottom: .8rem;
+  .team {
+    margin-bottom: 0.8rem;
+  }
 }

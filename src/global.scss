@@ -28,3 +28,21 @@
 * {
   word-break: keep-all;
 }
+
+html {
+  font-size: 10px;
+}
+
+html,
+body {
+  margin: 0;
+  font-family: 'Spire NBP', 'Noto Sans KR', serif;
+}
+
+a {
+  color: inherit;
+}
+
+a:visited {
+  text-decoration: none;
+}
