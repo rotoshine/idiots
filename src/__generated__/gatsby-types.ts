@@ -1505,6 +1505,8 @@ type Query_allSitePageArgs = {
 type Query_siteArgs = {
   buildTime: Maybe<DateQueryOperatorInput>;
   siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
+  port: Maybe<IntQueryOperatorInput>;
+  host: Maybe<StringQueryOperatorInput>;
   polyfill: Maybe<BooleanQueryOperatorInput>;
   pathPrefix: Maybe<StringQueryOperatorInput>;
   id: Maybe<StringQueryOperatorInput>;
@@ -1742,6 +1744,8 @@ type Query_allSitePluginArgs = {
 type Site = Node & {
   readonly buildTime: Maybe<Scalars['Date']>;
   readonly siteMetadata: Maybe<SiteSiteMetadata>;
+  readonly port: Maybe<Scalars['Int']>;
+  readonly host: Maybe<Scalars['String']>;
   readonly polyfill: Maybe<Scalars['Boolean']>;
   readonly pathPrefix: Maybe<Scalars['String']>;
   readonly id: Scalars['ID'];
@@ -1944,6 +1948,8 @@ enum SiteFieldsEnum {
   buildTime = 'buildTime',
   siteMetadata___siteName = 'siteMetadata.siteName',
   siteMetadata___siteUrl = 'siteMetadata.siteUrl',
+  port = 'port',
+  host = 'host',
   polyfill = 'polyfill',
   pathPrefix = 'pathPrefix',
   id = 'id',
@@ -2037,6 +2043,8 @@ enum SiteFieldsEnum {
 type SiteFilterInput = {
   readonly buildTime: Maybe<DateQueryOperatorInput>;
   readonly siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
+  readonly port: Maybe<IntQueryOperatorInput>;
+  readonly host: Maybe<StringQueryOperatorInput>;
   readonly polyfill: Maybe<BooleanQueryOperatorInput>;
   readonly pathPrefix: Maybe<StringQueryOperatorInput>;
   readonly id: Maybe<StringQueryOperatorInput>;
@@ -5078,20 +5086,7 @@ type StringQueryOperatorInput = {
   readonly glob: Maybe<Scalars['String']>;
 };
 
-type LiveDetailQueryVariables = {
-  slug: Scalars['String'];
-};
-
-
-type LiveDetailQuery = { readonly strapiLives: Maybe<(
-    Pick<StrapiLives, 'slug' | 'date' | 'content' | 'eventLink' | 'priceInfo' | 'seoDescription' | 'ticketLink' | 'title'>
-    & { readonly bands: Maybe<ReadonlyArray<Maybe<Pick<StrapiLivesBands, 'name' | 'instagramUrl'>>>>, readonly club: Maybe<Pick<StrapiLivesClub, 'name' | 'placeLink' | 'address'>>, readonly posters: Maybe<ReadonlyArray<Maybe<{ readonly localFile: Maybe<(
-        Pick<File, 'url'>
-        & { readonly childImageSharp: Maybe<{ readonly fluid: Maybe<GatsbyImageSharpFluid_withWebp_tracedSVGFragment> }> }
-      )> }>>> }
-  )> };
-
-type LiveList_livesFragment = { readonly edges: ReadonlyArray<{ readonly node: Pick<StrapiLives, 'id' | 'date' | 'title' | 'slug'> }> };
+type GatsbyImageSharpFluid_withWebp_tracedSVGFragment = Pick<ImageSharpFluid, 'tracedSVG' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
 
 type AlbumDetailQueryVariables = {
   slug: Scalars['String'];
@@ -5106,10 +5101,38 @@ type AlbumDetailQuery = { readonly strapiAlbums: Maybe<(
       )> }>>>, readonly songs: Maybe<ReadonlyArray<Maybe<Pick<StrapiAlbumsSongs, 'track' | 'name'>>>> }
   )> };
 
+type LiveList_livesFragment = { readonly edges: ReadonlyArray<{ readonly node: Pick<StrapiLives, 'id' | 'date' | 'title' | 'slug'> }> };
+
+type LiveDetailQueryVariables = {
+  slug: Scalars['String'];
+};
+
+
+type LiveDetailQuery = { readonly strapiLives: Maybe<(
+    Pick<StrapiLives, 'slug' | 'date' | 'content' | 'eventLink' | 'priceInfo' | 'seoDescription' | 'ticketLink' | 'title'>
+    & { readonly bands: Maybe<ReadonlyArray<Maybe<Pick<StrapiLivesBands, 'name' | 'instagramUrl'>>>>, readonly club: Maybe<Pick<StrapiLivesClub, 'name' | 'placeLink' | 'address'>>, readonly posters: Maybe<ReadonlyArray<Maybe<{ readonly localFile: Maybe<(
+        Pick<File, 'url'>
+        & { readonly childImageSharp: Maybe<{ readonly fluid: Maybe<GatsbyImageSharpFluid_withWebp_tracedSVGFragment> }> }
+      )> }>>> }
+  )> };
+
 type LogoStaticQueryVariables = {};
 
 
 type LogoStaticQuery = { readonly defaultLogo: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<Pick<ImageSharpFluid, 'src'>> }> }>, readonly logo: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<Pick<ImageSharpFluid, 'src'>> }> }> };
+
+type PhotoDetailQueryVariables = {
+  slug: Scalars['String'];
+};
+
+
+type PhotoDetailQuery = { readonly strapiPhotos: Maybe<(
+    Pick<StrapiPhotos, 'slug'>
+    & { readonly live: Maybe<Pick<StrapiPhotosLive, 'slug' | 'date' | 'title'>>, readonly photographer: Maybe<Pick<StrapiPhotosPhotographer, 'name' | 'instagramUrl'>>, readonly photo: Maybe<ReadonlyArray<Maybe<{ readonly localFile: Maybe<(
+        Pick<File, 'publicURL'>
+        & { readonly childImageSharp: Maybe<{ readonly fluid: Maybe<GatsbyImageSharpFluid_withWebp_tracedSVGFragment> }> }
+      )> }>>> }
+  )> };
 
 type DiscographyPageStaticQueryVariables = {};
 
@@ -5118,6 +5141,8 @@ type DiscographyPageStaticQuery = { readonly allStrapiAlbums: { readonly nodes: 
       Pick<StrapiAlbums, 'slug'>
       & { readonly covers: Maybe<ReadonlyArray<Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<GatsbyImageSharpFluid_withWebp_tracedSVGFragment> }> }> }>>> }
     )> } };
+
+type GatsbyImageSharpFluid_withWebp_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
 
 type IndexPageStaticQueryVariables = {};
 
@@ -5137,6 +5162,17 @@ type LivePageStaticQuery = { readonly allStrapiLives: LiveList_livesFragment };
 
 type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
+type PhotosPageStaticQueryVariables = {};
+
+
+type PhotosPageStaticQuery = { readonly photographers: { readonly edges: ReadonlyArray<{ readonly node: Pick<StrapiPhotographer, 'name' | 'instagramUrl' | 'profileImageUrl'> }> }, readonly photos: (
+    Pick<StrapiPhotosConnection, 'totalCount'>
+    & { readonly edges: ReadonlyArray<{ readonly node: (
+        Pick<StrapiPhotos, 'id' | 'slug'>
+        & { readonly photo: Maybe<ReadonlyArray<Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fixed: Maybe<GatsbyImageSharpFixedFragment> }> }> }>>>, readonly live: Maybe<Pick<StrapiPhotosLive, 'title' | 'date'>>, readonly photographer: Maybe<Pick<StrapiPhotosPhotographer, 'name'>> }
+      ) }> }
+  ) };
+
 type GatsbyImageSharpFixed_tracedSVGFragment = Pick<ImageSharpFixed, 'tracedSVG' | 'width' | 'height' | 'src' | 'srcSet'>;
 
 type GatsbyImageSharpFixed_withWebpFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp'>;
@@ -5153,11 +5189,7 @@ type GatsbyImageSharpFluid_tracedSVGFragment = Pick<ImageSharpFluid, 'tracedSVG'
 
 type GatsbyImageSharpFluid_withWebpFragment = Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
 
-type GatsbyImageSharpFluid_withWebp_tracedSVGFragment = Pick<ImageSharpFluid, 'tracedSVG' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
 type GatsbyImageSharpFluid_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
-
-type GatsbyImageSharpFluid_withWebp_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
 
 type GatsbyImageSharpResolutionsFragment = Pick<ImageSharpResolutions, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
@@ -5183,28 +5215,9 @@ type GatsbyImageSharpSizes_noBase64Fragment = Pick<ImageSharpSizes, 'aspectRatio
 
 type GatsbyImageSharpSizes_withWebp_noBase64Fragment = Pick<ImageSharpSizes, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
 
-type PhotoDetailQueryVariables = {
-  slug: Scalars['String'];
-};
+type PagesQueryQueryVariables = {};
 
 
-type PhotoDetailQuery = { readonly strapiPhotos: Maybe<(
-    Pick<StrapiPhotos, 'slug'>
-    & { readonly live: Maybe<Pick<StrapiPhotosLive, 'slug' | 'date' | 'title'>>, readonly photographer: Maybe<Pick<StrapiPhotosPhotographer, 'name' | 'instagramUrl'>>, readonly photo: Maybe<ReadonlyArray<Maybe<{ readonly localFile: Maybe<(
-        Pick<File, 'publicURL'>
-        & { readonly childImageSharp: Maybe<{ readonly fluid: Maybe<GatsbyImageSharpFluid_withWebp_tracedSVGFragment> }> }
-      )> }>>> }
-  )> };
-
-type PhotosPageStaticQueryVariables = {};
-
-
-type PhotosPageStaticQuery = { readonly photographers: { readonly edges: ReadonlyArray<{ readonly node: Pick<StrapiPhotographer, 'name' | 'instagramUrl' | 'profileImageUrl'> }> }, readonly photos: (
-    Pick<StrapiPhotosConnection, 'totalCount'>
-    & { readonly edges: ReadonlyArray<{ readonly node: (
-        Pick<StrapiPhotos, 'id' | 'slug'>
-        & { readonly photo: Maybe<ReadonlyArray<Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fixed: Maybe<GatsbyImageSharpFixedFragment> }> }> }>>>, readonly live: Maybe<Pick<StrapiPhotosLive, 'title' | 'date'>>, readonly photographer: Maybe<Pick<StrapiPhotosPhotographer, 'name'>> }
-      ) }> }
-  ) };
+type PagesQueryQuery = { readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
 }

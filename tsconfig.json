@@ -13,7 +13,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "noEmit": true,
-    "skipLibCheck": true,
-    "baseUrl": "./src"
+    "skipLibCheck": true
   }
 }

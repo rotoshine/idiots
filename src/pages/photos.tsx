@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
 import classNames from 'classnames'
 import Img from 'gatsby-image'
-import { useTrail, animated } from 'react-spring'
 
 import Layout from '../components/Layout'
 import Container from '../components/Container'
@@ -65,16 +64,6 @@ export default function PhotosPage() {
     )
   }
 
-  const trail = useTrail(getPhotosByPhotographer().length, {
-    mass: 5,
-    opacity: 1,
-    y: 0,
-    width: '100%',
-    from: {
-      opacity: 0,
-      y: 190,
-    },
-  })
   return (
     <Layout className="Photos">
       <Meta title="밴드 이디어츠 사진" />
@@ -99,36 +88,27 @@ export default function PhotosPage() {
           ))}
         </section>
         <section className="Photos__photos">
-          {trail.map(({ y, width, ...rest }, index) => {
-            const { node } = getPhotosByPhotographer()[index]
-            return (
-              <Link key={node.id} to={`/photos/${node.slug}`}>
-                <animated.article
-                  className="Photos__gallery"
-                  style={{
-                    ...rest,
-                    transform: y.interpolate(y => `translate3d(${y}px,0,0)`),
-                  }}
-                >
-                  <Img
-                    style={{ width: '100%', borderRadius: 5 }}
-                    className="img"
-                    fixed={node.photo[0]?.localFile.childImageSharp?.fixed}
-                    objectFit="cover"
-                    alt={`${node.live?.title} 공연 사진`}
-                  />
-                  <section className="Photos__description">
-                    <h3>
-                      {node.live.title} ({node.photo.length})
-                    </h3>
-                    <aside className="Photos__photo-by">
-                      photo by{node.photographer.name}
-                    </aside>
-                  </section>
-                </animated.article>
-              </Link>
-            )
-          })}
+          {getPhotosByPhotographer().map(({ node }) => (
+            <Link key={node.id} to={`/photos/${node.slug}`}>
+              <article className="Photos__gallery">
+                <Img
+                  style={{ width: '100%', borderRadius: 5 }}
+                  className="img"
+                  fixed={node.photo[0]?.localFile.childImageSharp?.fixed}
+                  objectFit="cover"
+                  alt={`${node.live?.title} 공연 사진`}
+                />
+                <section className="Photos__description">
+                  <h3>
+                    {node.live.title} ({node.photo.length})
+                  </h3>
+                  <aside className="Photos__photo-by">
+                    photo by{node.photographer.name}
+                  </aside>
+                </section>
+              </article>
+            </Link>
+          ))}
         </section>
       </Container>
     </Layout>
