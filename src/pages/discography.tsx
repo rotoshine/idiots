@@ -30,7 +30,7 @@ export default function DiscographyPage() {
   `)
   return (
     <Layout className="Discography">
-      <Meta title="이디어츠 음원 발매 목록" />
+      <Meta title="밴드 이디어츠의 음원 발매 목록" />
       <Container>
         <Panel title="Discography">
           <div className="Discography__list">

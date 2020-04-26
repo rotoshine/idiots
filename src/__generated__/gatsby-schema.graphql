@@ -1385,9 +1385,15 @@ type Query {
   allSite(filter: SiteFilterInput, sort: SiteSortInput, skip: Int, limit: Int): SiteConnection!
   imageSharp(fixed: ImageSharpFixedFilterInput, resolutions: ImageSharpResolutionsFilterInput, fluid: ImageSharpFluidFilterInput, sizes: ImageSharpSizesFilterInput, original: ImageSharpOriginalFilterInput, resize: ImageSharpResizeFilterInput, id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ImageSharp
   allImageSharp(filter: ImageSharpFilterInput, sort: ImageSharpSortInput, skip: Int, limit: Int): ImageSharpConnection!
+  strapiVideos(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, videoType: StringQueryOperatorInput, videoUrl: StringQueryOperatorInput, title: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, live: StrapiVideosLiveFilterInput, strapiId: StringQueryOperatorInput): StrapiVideos
+  allStrapiVideos(filter: StrapiVideosFilterInput, sort: StrapiVideosSortInput, skip: Int, limit: Int): StrapiVideosConnection!
+  strapiPhotographer(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, name: StringQueryOperatorInput, instagramUrl: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, photo: StringQueryOperatorInput, profileImageUrl: StringQueryOperatorInput, photos: StrapiPhotographerPhotosFilterListInput, strapiId: StringQueryOperatorInput): StrapiPhotographer
+  allStrapiPhotographer(filter: StrapiPhotographerFilterInput, sort: StrapiPhotographerSortInput, skip: Int, limit: Int): StrapiPhotographerConnection!
+  strapiPhotos(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, live: StrapiPhotosLiveFilterInput, photographer: StrapiPhotosPhotographerFilterInput, representationImageIndex: IntQueryOperatorInput, slug: StringQueryOperatorInput, photo: StrapiPhotosPhotoFilterListInput, strapiId: StringQueryOperatorInput): StrapiPhotos
+  allStrapiPhotos(filter: StrapiPhotosFilterInput, sort: StrapiPhotosSortInput, skip: Int, limit: Int): StrapiPhotosConnection!
   strapiHomeContent(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, schedulePosters: StrapiHomeContentSchedulePostersFilterListInput, carouselImages: StrapiHomeContentCarouselImagesFilterListInput, strapiId: StringQueryOperatorInput): StrapiHomeContent
   allStrapiHomeContent(filter: StrapiHomeContentFilterInput, sort: StrapiHomeContentSortInput, skip: Int, limit: Int): StrapiHomeContentConnection!
-  strapiLives(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, bands: StrapiLivesBandsFilterListInput, title: StringQueryOperatorInput, place: StringQueryOperatorInput, date: DateQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, eventLink: StringQueryOperatorInput, priceInfo: StringQueryOperatorInput, slug: StringQueryOperatorInput, club: StrapiLivesClubFilterInput, posters: StrapiLivesPostersFilterListInput, videos: StrapiLivesVideosFilterListInput, strapiId: StringQueryOperatorInput, ticketLink: StringQueryOperatorInput, content: StringQueryOperatorInput, livePhoto: StrapiLivesLivePhotoFilterInput, seoDescription: StringQueryOperatorInput): StrapiLives
+  strapiLives(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, bands: StrapiLivesBandsFilterListInput, title: StringQueryOperatorInput, place: StringQueryOperatorInput, date: DateQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, eventLink: StringQueryOperatorInput, priceInfo: StringQueryOperatorInput, slug: StringQueryOperatorInput, club: StrapiLivesClubFilterInput, posters: StrapiLivesPostersFilterListInput, videos: StrapiLivesVideosFilterListInput, livePhotos: StrapiLivesLivePhotosFilterListInput, strapiId: StringQueryOperatorInput, ticketLink: StringQueryOperatorInput, content: StringQueryOperatorInput, livePhoto: StringQueryOperatorInput, seoDescription: StringQueryOperatorInput): StrapiLives
   allStrapiLives(filter: StrapiLivesFilterInput, sort: StrapiLivesSortInput, skip: Int, limit: Int): StrapiLivesConnection!
   strapiAlbums(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, title: StringQueryOperatorInput, streamingLinks: StringQueryOperatorInput, purchargeLink: StringQueryOperatorInput, releaseDate: DateQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, content: StringQueryOperatorInput, slug: StringQueryOperatorInput, purchaseLink: StringQueryOperatorInput, covers: StrapiAlbumsCoversFilterListInput, songs: StrapiAlbumsSongsFilterListInput, strapiId: StringQueryOperatorInput): StrapiAlbums
   allStrapiAlbums(filter: StrapiAlbumsFilterInput, sort: StrapiAlbumsSortInput, skip: Int, limit: Int): StrapiAlbumsConnection!
@@ -3165,10 +3171,11 @@ type StrapiLives implements Node {
   club: StrapiLivesClub
   posters: [StrapiLivesPosters]
   videos: [StrapiLivesVideos]
+  livePhotos: [StrapiLivesLivePhotos]
   strapiId: String
   ticketLink: String
   content: String
-  livePhoto: StrapiLivesLivePhoto
+  livePhoto: String
   seoDescription: String
 }
 
@@ -3474,26 +3481,31 @@ enum StrapiLivesFieldsEnum {
   videos___updatedAt
   videos___live
   videos___id
+  livePhotos
+  livePhotos___createdAt
+  livePhotos___updatedAt
+  livePhotos___live
+  livePhotos___photographer
+  livePhotos___representationImageIndex
+  livePhotos___slug
+  livePhotos___photo
+  livePhotos___photo___name
+  livePhotos___photo___sha256
+  livePhotos___photo___hash
+  livePhotos___photo___ext
+  livePhotos___photo___mime
+  livePhotos___photo___size
+  livePhotos___photo___url
+  livePhotos___photo___provider
+  livePhotos___photo___related
+  livePhotos___photo___createdAt
+  livePhotos___photo___updatedAt
+  livePhotos___photo___id
+  livePhotos___id
   strapiId
   ticketLink
   content
-  livePhoto___createdAt
-  livePhoto___updatedAt
-  livePhoto___live
-  livePhoto___photo
-  livePhoto___photo___name
-  livePhoto___photo___sha256
-  livePhoto___photo___hash
-  livePhoto___photo___ext
-  livePhoto___photo___mime
-  livePhoto___photo___size
-  livePhoto___photo___url
-  livePhoto___photo___provider
-  livePhoto___photo___related
-  livePhoto___photo___createdAt
-  livePhoto___photo___updatedAt
-  livePhoto___photo___id
-  livePhoto___id
+  livePhoto
   seoDescription
 }
 
@@ -3514,10 +3526,11 @@ input StrapiLivesFilterInput {
   club: StrapiLivesClubFilterInput
   posters: StrapiLivesPostersFilterListInput
   videos: StrapiLivesVideosFilterListInput
+  livePhotos: StrapiLivesLivePhotosFilterListInput
   strapiId: StringQueryOperatorInput
   ticketLink: StringQueryOperatorInput
   content: StringQueryOperatorInput
-  livePhoto: StrapiLivesLivePhotoFilterInput
+  livePhoto: StringQueryOperatorInput
   seoDescription: StringQueryOperatorInput
 }
 
@@ -3530,7 +3543,7 @@ type StrapiLivesGroupConnection {
   fieldValue: String
 }
 
-type StrapiLivesLivePhoto {
+type StrapiLivesLivePhotos {
   createdAt(
     # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
     # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
@@ -3566,19 +3579,29 @@ type StrapiLivesLivePhoto {
     locale: String
   ): Date
   live: String
-  photo: [StrapiLivesLivePhotoPhoto]
+  photographer: String
+  representationImageIndex: Int
+  slug: String
+  photo: [StrapiLivesLivePhotosPhoto]
   id: String
 }
 
-input StrapiLivesLivePhotoFilterInput {
+input StrapiLivesLivePhotosFilterInput {
   createdAt: DateQueryOperatorInput
   updatedAt: DateQueryOperatorInput
   live: StringQueryOperatorInput
-  photo: StrapiLivesLivePhotoPhotoFilterListInput
+  photographer: StringQueryOperatorInput
+  representationImageIndex: IntQueryOperatorInput
+  slug: StringQueryOperatorInput
+  photo: StrapiLivesLivePhotosPhotoFilterListInput
   id: StringQueryOperatorInput
 }
 
-type StrapiLivesLivePhotoPhoto {
+input StrapiLivesLivePhotosFilterListInput {
+  elemMatch: StrapiLivesLivePhotosFilterInput
+}
+
+type StrapiLivesLivePhotosPhoto {
   name: String
   sha256: String
   hash: String
@@ -3625,7 +3648,7 @@ type StrapiLivesLivePhotoPhoto {
   id: String
 }
 
-input StrapiLivesLivePhotoPhotoFilterInput {
+input StrapiLivesLivePhotosPhotoFilterInput {
   name: StringQueryOperatorInput
   sha256: StringQueryOperatorInput
   hash: StringQueryOperatorInput
@@ -3640,8 +3663,8 @@ input StrapiLivesLivePhotoPhotoFilterInput {
   id: StringQueryOperatorInput
 }
 
-input StrapiLivesLivePhotoPhotoFilterListInput {
-  elemMatch: StrapiLivesLivePhotoPhotoFilterInput
+input StrapiLivesLivePhotosPhotoFilterListInput {
+  elemMatch: StrapiLivesLivePhotosPhotoFilterInput
 }
 
 type StrapiLivesPosters {
@@ -3771,6 +3794,1255 @@ input StrapiLivesVideosFilterInput {
 
 input StrapiLivesVideosFilterListInput {
   elemMatch: StrapiLivesVideosFilterInput
+}
+
+type StrapiPhotographer implements Node {
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  name: String
+  instagramUrl: String
+  createdAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  updatedAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  photo: String
+  profileImageUrl: String
+  photos: [StrapiPhotographerPhotos]
+  strapiId: String
+}
+
+type StrapiPhotographerConnection {
+  totalCount: Int!
+  edges: [StrapiPhotographerEdge!]!
+  nodes: [StrapiPhotographer!]!
+  pageInfo: PageInfo!
+  distinct(field: StrapiPhotographerFieldsEnum!): [String!]!
+  group(skip: Int, limit: Int, field: StrapiPhotographerFieldsEnum!): [StrapiPhotographerGroupConnection!]!
+}
+
+type StrapiPhotographerEdge {
+  next: StrapiPhotographer
+  node: StrapiPhotographer!
+  previous: StrapiPhotographer
+}
+
+enum StrapiPhotographerFieldsEnum {
+  id
+  parent___id
+  parent___parent___id
+  parent___parent___parent___id
+  parent___parent___parent___children
+  parent___parent___children
+  parent___parent___children___id
+  parent___parent___children___children
+  parent___parent___internal___content
+  parent___parent___internal___contentDigest
+  parent___parent___internal___description
+  parent___parent___internal___fieldOwners
+  parent___parent___internal___ignoreType
+  parent___parent___internal___mediaType
+  parent___parent___internal___owner
+  parent___parent___internal___type
+  parent___children
+  parent___children___id
+  parent___children___parent___id
+  parent___children___parent___children
+  parent___children___children
+  parent___children___children___id
+  parent___children___children___children
+  parent___children___internal___content
+  parent___children___internal___contentDigest
+  parent___children___internal___description
+  parent___children___internal___fieldOwners
+  parent___children___internal___ignoreType
+  parent___children___internal___mediaType
+  parent___children___internal___owner
+  parent___children___internal___type
+  parent___internal___content
+  parent___internal___contentDigest
+  parent___internal___description
+  parent___internal___fieldOwners
+  parent___internal___ignoreType
+  parent___internal___mediaType
+  parent___internal___owner
+  parent___internal___type
+  children
+  children___id
+  children___parent___id
+  children___parent___parent___id
+  children___parent___parent___children
+  children___parent___children
+  children___parent___children___id
+  children___parent___children___children
+  children___parent___internal___content
+  children___parent___internal___contentDigest
+  children___parent___internal___description
+  children___parent___internal___fieldOwners
+  children___parent___internal___ignoreType
+  children___parent___internal___mediaType
+  children___parent___internal___owner
+  children___parent___internal___type
+  children___children
+  children___children___id
+  children___children___parent___id
+  children___children___parent___children
+  children___children___children
+  children___children___children___id
+  children___children___children___children
+  children___children___internal___content
+  children___children___internal___contentDigest
+  children___children___internal___description
+  children___children___internal___fieldOwners
+  children___children___internal___ignoreType
+  children___children___internal___mediaType
+  children___children___internal___owner
+  children___children___internal___type
+  children___internal___content
+  children___internal___contentDigest
+  children___internal___description
+  children___internal___fieldOwners
+  children___internal___ignoreType
+  children___internal___mediaType
+  children___internal___owner
+  children___internal___type
+  internal___content
+  internal___contentDigest
+  internal___description
+  internal___fieldOwners
+  internal___ignoreType
+  internal___mediaType
+  internal___owner
+  internal___type
+  name
+  instagramUrl
+  createdAt
+  updatedAt
+  photo
+  profileImageUrl
+  photos
+  photos___slug
+  photos___createdAt
+  photos___updatedAt
+  photos___live
+  photos___photographer
+  photos___photo
+  photos___photo___name
+  photos___photo___sha256
+  photos___photo___hash
+  photos___photo___ext
+  photos___photo___mime
+  photos___photo___size
+  photos___photo___url
+  photos___photo___provider
+  photos___photo___related
+  photos___photo___createdAt
+  photos___photo___updatedAt
+  photos___photo___id
+  photos___id
+  photos___representationImageIndex
+  strapiId
+}
+
+input StrapiPhotographerFilterInput {
+  id: StringQueryOperatorInput
+  parent: NodeFilterInput
+  children: NodeFilterListInput
+  internal: InternalFilterInput
+  name: StringQueryOperatorInput
+  instagramUrl: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  photo: StringQueryOperatorInput
+  profileImageUrl: StringQueryOperatorInput
+  photos: StrapiPhotographerPhotosFilterListInput
+  strapiId: StringQueryOperatorInput
+}
+
+type StrapiPhotographerGroupConnection {
+  totalCount: Int!
+  edges: [StrapiPhotographerEdge!]!
+  nodes: [StrapiPhotographer!]!
+  pageInfo: PageInfo!
+  field: String!
+  fieldValue: String
+}
+
+type StrapiPhotographerPhotos {
+  slug: String
+  createdAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  updatedAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  live: String
+  photographer: String
+  photo: [StrapiPhotographerPhotosPhoto]
+  id: String
+  representationImageIndex: Int
+}
+
+input StrapiPhotographerPhotosFilterInput {
+  slug: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  live: StringQueryOperatorInput
+  photographer: StringQueryOperatorInput
+  photo: StrapiPhotographerPhotosPhotoFilterListInput
+  id: StringQueryOperatorInput
+  representationImageIndex: IntQueryOperatorInput
+}
+
+input StrapiPhotographerPhotosFilterListInput {
+  elemMatch: StrapiPhotographerPhotosFilterInput
+}
+
+type StrapiPhotographerPhotosPhoto {
+  name: String
+  sha256: String
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  related: [String]
+  createdAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  updatedAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  id: String
+}
+
+input StrapiPhotographerPhotosPhotoFilterInput {
+  name: StringQueryOperatorInput
+  sha256: StringQueryOperatorInput
+  hash: StringQueryOperatorInput
+  ext: StringQueryOperatorInput
+  mime: StringQueryOperatorInput
+  size: FloatQueryOperatorInput
+  url: StringQueryOperatorInput
+  provider: StringQueryOperatorInput
+  related: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  id: StringQueryOperatorInput
+}
+
+input StrapiPhotographerPhotosPhotoFilterListInput {
+  elemMatch: StrapiPhotographerPhotosPhotoFilterInput
+}
+
+input StrapiPhotographerSortInput {
+  fields: [StrapiPhotographerFieldsEnum]
+  order: [SortOrderEnum] = [ASC]
+}
+
+type StrapiPhotos implements Node {
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  createdAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  updatedAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  live: StrapiPhotosLive
+  photographer: StrapiPhotosPhotographer
+  representationImageIndex: Int
+  slug: String
+  photo: [StrapiPhotosPhoto]
+  strapiId: String
+}
+
+type StrapiPhotosConnection {
+  totalCount: Int!
+  edges: [StrapiPhotosEdge!]!
+  nodes: [StrapiPhotos!]!
+  pageInfo: PageInfo!
+  distinct(field: StrapiPhotosFieldsEnum!): [String!]!
+  group(skip: Int, limit: Int, field: StrapiPhotosFieldsEnum!): [StrapiPhotosGroupConnection!]!
+}
+
+type StrapiPhotosEdge {
+  next: StrapiPhotos
+  node: StrapiPhotos!
+  previous: StrapiPhotos
+}
+
+enum StrapiPhotosFieldsEnum {
+  id
+  parent___id
+  parent___parent___id
+  parent___parent___parent___id
+  parent___parent___parent___children
+  parent___parent___children
+  parent___parent___children___id
+  parent___parent___children___children
+  parent___parent___internal___content
+  parent___parent___internal___contentDigest
+  parent___parent___internal___description
+  parent___parent___internal___fieldOwners
+  parent___parent___internal___ignoreType
+  parent___parent___internal___mediaType
+  parent___parent___internal___owner
+  parent___parent___internal___type
+  parent___children
+  parent___children___id
+  parent___children___parent___id
+  parent___children___parent___children
+  parent___children___children
+  parent___children___children___id
+  parent___children___children___children
+  parent___children___internal___content
+  parent___children___internal___contentDigest
+  parent___children___internal___description
+  parent___children___internal___fieldOwners
+  parent___children___internal___ignoreType
+  parent___children___internal___mediaType
+  parent___children___internal___owner
+  parent___children___internal___type
+  parent___internal___content
+  parent___internal___contentDigest
+  parent___internal___description
+  parent___internal___fieldOwners
+  parent___internal___ignoreType
+  parent___internal___mediaType
+  parent___internal___owner
+  parent___internal___type
+  children
+  children___id
+  children___parent___id
+  children___parent___parent___id
+  children___parent___parent___children
+  children___parent___children
+  children___parent___children___id
+  children___parent___children___children
+  children___parent___internal___content
+  children___parent___internal___contentDigest
+  children___parent___internal___description
+  children___parent___internal___fieldOwners
+  children___parent___internal___ignoreType
+  children___parent___internal___mediaType
+  children___parent___internal___owner
+  children___parent___internal___type
+  children___children
+  children___children___id
+  children___children___parent___id
+  children___children___parent___children
+  children___children___children
+  children___children___children___id
+  children___children___children___children
+  children___children___internal___content
+  children___children___internal___contentDigest
+  children___children___internal___description
+  children___children___internal___fieldOwners
+  children___children___internal___ignoreType
+  children___children___internal___mediaType
+  children___children___internal___owner
+  children___children___internal___type
+  children___internal___content
+  children___internal___contentDigest
+  children___internal___description
+  children___internal___fieldOwners
+  children___internal___ignoreType
+  children___internal___mediaType
+  children___internal___owner
+  children___internal___type
+  internal___content
+  internal___contentDigest
+  internal___description
+  internal___fieldOwners
+  internal___ignoreType
+  internal___mediaType
+  internal___owner
+  internal___type
+  createdAt
+  updatedAt
+  live___bands
+  live___ticketLink
+  live___place
+  live___slug
+  live___date
+  live___priceInfo
+  live___title
+  live___content
+  live___seoDescription
+  live___createdAt
+  live___updatedAt
+  live___livePhoto
+  live___club
+  live___posters
+  live___posters___name
+  live___posters___sha256
+  live___posters___hash
+  live___posters___ext
+  live___posters___mime
+  live___posters___size
+  live___posters___url
+  live___posters___provider
+  live___posters___related
+  live___posters___createdAt
+  live___posters___updatedAt
+  live___posters___id
+  live___id
+  live___eventLink
+  photographer___name
+  photographer___instagramUrl
+  photographer___createdAt
+  photographer___updatedAt
+  photographer___photo
+  photographer___profileImageUrl
+  photographer___id
+  representationImageIndex
+  slug
+  photo
+  photo___name
+  photo___sha256
+  photo___hash
+  photo___ext
+  photo___mime
+  photo___size
+  photo___url
+  photo___provider
+  photo___related
+  photo___createdAt
+  photo___updatedAt
+  photo___id
+  photo___localFile___sourceInstanceName
+  photo___localFile___absolutePath
+  photo___localFile___relativePath
+  photo___localFile___extension
+  photo___localFile___size
+  photo___localFile___prettySize
+  photo___localFile___modifiedTime
+  photo___localFile___accessTime
+  photo___localFile___changeTime
+  photo___localFile___birthTime
+  photo___localFile___root
+  photo___localFile___dir
+  photo___localFile___base
+  photo___localFile___ext
+  photo___localFile___name
+  photo___localFile___relativeDirectory
+  photo___localFile___dev
+  photo___localFile___mode
+  photo___localFile___nlink
+  photo___localFile___uid
+  photo___localFile___gid
+  photo___localFile___rdev
+  photo___localFile___ino
+  photo___localFile___atimeMs
+  photo___localFile___mtimeMs
+  photo___localFile___ctimeMs
+  photo___localFile___atime
+  photo___localFile___mtime
+  photo___localFile___ctime
+  photo___localFile___birthtime
+  photo___localFile___birthtimeMs
+  photo___localFile___blksize
+  photo___localFile___blocks
+  photo___localFile___url
+  photo___localFile___publicURL
+  photo___localFile___childImageSharp___id @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
+  photo___localFile___childImageSharp___children @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
+  photo___localFile___id
+  photo___localFile___parent___id
+  photo___localFile___parent___children
+  photo___localFile___children
+  photo___localFile___children___id
+  photo___localFile___children___children
+  photo___localFile___internal___content
+  photo___localFile___internal___contentDigest
+  photo___localFile___internal___description
+  photo___localFile___internal___fieldOwners
+  photo___localFile___internal___ignoreType
+  photo___localFile___internal___mediaType
+  photo___localFile___internal___owner
+  photo___localFile___internal___type
+  strapiId
+}
+
+input StrapiPhotosFilterInput {
+  id: StringQueryOperatorInput
+  parent: NodeFilterInput
+  children: NodeFilterListInput
+  internal: InternalFilterInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  live: StrapiPhotosLiveFilterInput
+  photographer: StrapiPhotosPhotographerFilterInput
+  representationImageIndex: IntQueryOperatorInput
+  slug: StringQueryOperatorInput
+  photo: StrapiPhotosPhotoFilterListInput
+  strapiId: StringQueryOperatorInput
+}
+
+type StrapiPhotosGroupConnection {
+  totalCount: Int!
+  edges: [StrapiPhotosEdge!]!
+  nodes: [StrapiPhotos!]!
+  pageInfo: PageInfo!
+  field: String!
+  fieldValue: String
+}
+
+type StrapiPhotosLive {
+  bands: [String]
+  ticketLink: String
+  place: String
+  slug: String
+  date(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  priceInfo: String
+  title: String
+  content: String
+  seoDescription: String
+  createdAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  updatedAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  livePhoto: String
+  club: String
+  posters: [StrapiPhotosLivePosters]
+  id: String
+  eventLink: String
+}
+
+input StrapiPhotosLiveFilterInput {
+  bands: StringQueryOperatorInput
+  ticketLink: StringQueryOperatorInput
+  place: StringQueryOperatorInput
+  slug: StringQueryOperatorInput
+  date: DateQueryOperatorInput
+  priceInfo: StringQueryOperatorInput
+  title: StringQueryOperatorInput
+  content: StringQueryOperatorInput
+  seoDescription: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  livePhoto: StringQueryOperatorInput
+  club: StringQueryOperatorInput
+  posters: StrapiPhotosLivePostersFilterListInput
+  id: StringQueryOperatorInput
+  eventLink: StringQueryOperatorInput
+}
+
+type StrapiPhotosLivePosters {
+  name: String
+  sha256: String
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  related: [String]
+  createdAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  updatedAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  id: String
+}
+
+input StrapiPhotosLivePostersFilterInput {
+  name: StringQueryOperatorInput
+  sha256: StringQueryOperatorInput
+  hash: StringQueryOperatorInput
+  ext: StringQueryOperatorInput
+  mime: StringQueryOperatorInput
+  size: FloatQueryOperatorInput
+  url: StringQueryOperatorInput
+  provider: StringQueryOperatorInput
+  related: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  id: StringQueryOperatorInput
+}
+
+input StrapiPhotosLivePostersFilterListInput {
+  elemMatch: StrapiPhotosLivePostersFilterInput
+}
+
+type StrapiPhotosPhoto {
+  name: String
+  sha256: String
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  related: [String]
+  createdAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  updatedAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  id: String
+  localFile: File
+}
+
+input StrapiPhotosPhotoFilterInput {
+  name: StringQueryOperatorInput
+  sha256: StringQueryOperatorInput
+  hash: StringQueryOperatorInput
+  ext: StringQueryOperatorInput
+  mime: StringQueryOperatorInput
+  size: FloatQueryOperatorInput
+  url: StringQueryOperatorInput
+  provider: StringQueryOperatorInput
+  related: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  id: StringQueryOperatorInput
+  localFile: FileFilterInput
+}
+
+input StrapiPhotosPhotoFilterListInput {
+  elemMatch: StrapiPhotosPhotoFilterInput
+}
+
+type StrapiPhotosPhotographer {
+  name: String
+  instagramUrl: String
+  createdAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  updatedAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  photo: String
+  profileImageUrl: String
+  id: String
+}
+
+input StrapiPhotosPhotographerFilterInput {
+  name: StringQueryOperatorInput
+  instagramUrl: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  photo: StringQueryOperatorInput
+  profileImageUrl: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+}
+
+input StrapiPhotosSortInput {
+  fields: [StrapiPhotosFieldsEnum]
+  order: [SortOrderEnum] = [ASC]
+}
+
+type StrapiVideos implements Node {
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  videoType: String
+  videoUrl: String
+  title: String
+  createdAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  updatedAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  live: StrapiVideosLive
+  strapiId: String
+}
+
+type StrapiVideosConnection {
+  totalCount: Int!
+  edges: [StrapiVideosEdge!]!
+  nodes: [StrapiVideos!]!
+  pageInfo: PageInfo!
+  distinct(field: StrapiVideosFieldsEnum!): [String!]!
+  group(skip: Int, limit: Int, field: StrapiVideosFieldsEnum!): [StrapiVideosGroupConnection!]!
+}
+
+type StrapiVideosEdge {
+  next: StrapiVideos
+  node: StrapiVideos!
+  previous: StrapiVideos
+}
+
+enum StrapiVideosFieldsEnum {
+  id
+  parent___id
+  parent___parent___id
+  parent___parent___parent___id
+  parent___parent___parent___children
+  parent___parent___children
+  parent___parent___children___id
+  parent___parent___children___children
+  parent___parent___internal___content
+  parent___parent___internal___contentDigest
+  parent___parent___internal___description
+  parent___parent___internal___fieldOwners
+  parent___parent___internal___ignoreType
+  parent___parent___internal___mediaType
+  parent___parent___internal___owner
+  parent___parent___internal___type
+  parent___children
+  parent___children___id
+  parent___children___parent___id
+  parent___children___parent___children
+  parent___children___children
+  parent___children___children___id
+  parent___children___children___children
+  parent___children___internal___content
+  parent___children___internal___contentDigest
+  parent___children___internal___description
+  parent___children___internal___fieldOwners
+  parent___children___internal___ignoreType
+  parent___children___internal___mediaType
+  parent___children___internal___owner
+  parent___children___internal___type
+  parent___internal___content
+  parent___internal___contentDigest
+  parent___internal___description
+  parent___internal___fieldOwners
+  parent___internal___ignoreType
+  parent___internal___mediaType
+  parent___internal___owner
+  parent___internal___type
+  children
+  children___id
+  children___parent___id
+  children___parent___parent___id
+  children___parent___parent___children
+  children___parent___children
+  children___parent___children___id
+  children___parent___children___children
+  children___parent___internal___content
+  children___parent___internal___contentDigest
+  children___parent___internal___description
+  children___parent___internal___fieldOwners
+  children___parent___internal___ignoreType
+  children___parent___internal___mediaType
+  children___parent___internal___owner
+  children___parent___internal___type
+  children___children
+  children___children___id
+  children___children___parent___id
+  children___children___parent___children
+  children___children___children
+  children___children___children___id
+  children___children___children___children
+  children___children___internal___content
+  children___children___internal___contentDigest
+  children___children___internal___description
+  children___children___internal___fieldOwners
+  children___children___internal___ignoreType
+  children___children___internal___mediaType
+  children___children___internal___owner
+  children___children___internal___type
+  children___internal___content
+  children___internal___contentDigest
+  children___internal___description
+  children___internal___fieldOwners
+  children___internal___ignoreType
+  children___internal___mediaType
+  children___internal___owner
+  children___internal___type
+  internal___content
+  internal___contentDigest
+  internal___description
+  internal___fieldOwners
+  internal___ignoreType
+  internal___mediaType
+  internal___owner
+  internal___type
+  videoType
+  videoUrl
+  title
+  createdAt
+  updatedAt
+  live___bands
+  live___ticketLink
+  live___place
+  live___slug
+  live___date
+  live___priceInfo
+  live___title
+  live___content
+  live___seoDescription
+  live___createdAt
+  live___updatedAt
+  live___livePhoto
+  live___club
+  live___posters
+  live___posters___name
+  live___posters___sha256
+  live___posters___hash
+  live___posters___ext
+  live___posters___mime
+  live___posters___size
+  live___posters___url
+  live___posters___provider
+  live___posters___related
+  live___posters___createdAt
+  live___posters___updatedAt
+  live___posters___id
+  live___id
+  strapiId
+}
+
+input StrapiVideosFilterInput {
+  id: StringQueryOperatorInput
+  parent: NodeFilterInput
+  children: NodeFilterListInput
+  internal: InternalFilterInput
+  videoType: StringQueryOperatorInput
+  videoUrl: StringQueryOperatorInput
+  title: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  live: StrapiVideosLiveFilterInput
+  strapiId: StringQueryOperatorInput
+}
+
+type StrapiVideosGroupConnection {
+  totalCount: Int!
+  edges: [StrapiVideosEdge!]!
+  nodes: [StrapiVideos!]!
+  pageInfo: PageInfo!
+  field: String!
+  fieldValue: String
+}
+
+type StrapiVideosLive {
+  bands: [String]
+  ticketLink: String
+  place: String
+  slug: String
+  date(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  priceInfo: String
+  title: String
+  content: String
+  seoDescription: String
+  createdAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  updatedAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  livePhoto: String
+  club: String
+  posters: [StrapiVideosLivePosters]
+  id: String
+}
+
+input StrapiVideosLiveFilterInput {
+  bands: StringQueryOperatorInput
+  ticketLink: StringQueryOperatorInput
+  place: StringQueryOperatorInput
+  slug: StringQueryOperatorInput
+  date: DateQueryOperatorInput
+  priceInfo: StringQueryOperatorInput
+  title: StringQueryOperatorInput
+  content: StringQueryOperatorInput
+  seoDescription: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  livePhoto: StringQueryOperatorInput
+  club: StringQueryOperatorInput
+  posters: StrapiVideosLivePostersFilterListInput
+  id: StringQueryOperatorInput
+}
+
+type StrapiVideosLivePosters {
+  name: String
+  sha256: String
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  related: [String]
+  createdAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  updatedAt(
+    # Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
+    # MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
+    # documentation for different tokens.
+    formatString: String
+
+    # Returns a string generated with Moment.js' `fromNow` function
+    fromNow: Boolean
+
+    # Returns the difference between this date and the current time. Defaults to
+    # "milliseconds" but you can also pass in as the measurement "years",
+    # "months", "weeks", "days", "hours", "minutes", and "seconds".
+    difference: String
+
+    # Configures the locale Moment.js will use to format the date.
+    locale: String
+  ): Date
+  id: String
+}
+
+input StrapiVideosLivePostersFilterInput {
+  name: StringQueryOperatorInput
+  sha256: StringQueryOperatorInput
+  hash: StringQueryOperatorInput
+  ext: StringQueryOperatorInput
+  mime: StringQueryOperatorInput
+  size: FloatQueryOperatorInput
+  url: StringQueryOperatorInput
+  provider: StringQueryOperatorInput
+  related: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  id: StringQueryOperatorInput
+}
+
+input StrapiVideosLivePostersFilterListInput {
+  elemMatch: StrapiVideosLivePostersFilterInput
+}
+
+input StrapiVideosSortInput {
+  fields: [StrapiVideosFieldsEnum]
+  order: [SortOrderEnum] = [ASC]
 }
 
 input StringQueryOperatorInput {

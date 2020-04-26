@@ -8,7 +8,7 @@ import Panel from './Panel'
 
 interface Props {
   title?: string
-  lives: GatsbyTypes.LiveList_livesFragment,
+  lives: GatsbyTypes.LiveList_livesFragment
 }
 export default function LiveList({ title = 'Live List', lives }: Props) {
   const trail = useTrail(lives.edges.length, {
@@ -27,26 +27,29 @@ export default function LiveList({ title = 'Live List', lives }: Props) {
 
   return (
     <Panel title={title}>
-      <ul>
-        {trail.map(({ x, height, ...rest }, index) => (
-          <animated.li
-            key={index}
-            className="live"
-            style={{
-              ...rest,
-              transform: x.interpolate(x => `translate3d(0,${x}px,0)`),
-            }}
-          >
-            <animated.div>
-              <Link to={`/live/${lives.edges[index].node.slug}/`}>
-                <div>
-                  [{lives.edges[index].node.date}] {lives.edges[index].node.title}
-                </div>
-              </Link>
-            </animated.div>
-          </animated.li>
-        ))}
-      </ul>
+      <section className="LiveList">
+        <ul>
+          {trail.map(({ x, height, ...rest }, index) => (
+            <animated.li
+              key={index}
+              className="LiveList__live"
+              style={{
+                ...rest,
+                transform: x.interpolate(x => `translate3d(0,${x}px,0)`),
+              }}
+            >
+              <animated.div>
+                <Link to={`/live/${lives.edges[index].node.slug}/`}>
+                  <div>
+                    [{lives.edges[index].node.date}]{' '}
+                    {lives.edges[index].node.title}
+                  </div>
+                </Link>
+              </animated.div>
+            </animated.li>
+          ))}
+        </ul>
+      </section>
     </Panel>
   )
 }
@@ -62,4 +65,4 @@ export const fragments = graphql`
       }
     }
   }
-`;
+`

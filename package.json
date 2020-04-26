@@ -5,14 +5,12 @@
   "author": "ROTO <rotoshine@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "prestart": "npm run clean",
     "start": "gatsby develop --host 0.0.0.0 -p 3003",
     "develop": "npm start",
-    "prebuild": "npm run clean",
     "build": "NODE_ENV=production GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",
     "type-check": "tsc --noEmit",
     "lint": "tslint --project .",
-    "clean": "rm -rf .cache"
+    "clean": "gatsby clean"
   },
   "dependencies": {
     "@sentry/browser": "^4.6.6",
@@ -39,6 +37,8 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1",
+    "react-image-lightbox": "^5.1.1",
+    "react-masonry-css": "^1.0.14",
     "react-spring": "^8.0.27",
     "react-typography": "^0.16.19",
     "sharp": "^0.25.2",

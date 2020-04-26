@@ -18,7 +18,7 @@ export default function LivePage() {
   `)
 
   return (
-    <Layout>
+    <Layout className="Live">
       <Meta
         title="이디어츠 공연 일정"
         path="live"

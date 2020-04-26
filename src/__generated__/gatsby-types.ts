@@ -1356,6 +1356,12 @@ type Query = {
   readonly allSite: SiteConnection;
   readonly imageSharp: Maybe<ImageSharp>;
   readonly allImageSharp: ImageSharpConnection;
+  readonly strapiVideos: Maybe<StrapiVideos>;
+  readonly allStrapiVideos: StrapiVideosConnection;
+  readonly strapiPhotographer: Maybe<StrapiPhotographer>;
+  readonly allStrapiPhotographer: StrapiPhotographerConnection;
+  readonly strapiPhotos: Maybe<StrapiPhotos>;
+  readonly allStrapiPhotos: StrapiPhotosConnection;
   readonly strapiHomeContent: Maybe<StrapiHomeContent>;
   readonly allStrapiHomeContent: StrapiHomeContentConnection;
   readonly strapiLives: Maybe<StrapiLives>;
@@ -1538,6 +1544,77 @@ type Query_allImageSharpArgs = {
 };
 
 
+type Query_strapiVideosArgs = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  videoType: Maybe<StringQueryOperatorInput>;
+  videoUrl: Maybe<StringQueryOperatorInput>;
+  title: Maybe<StringQueryOperatorInput>;
+  createdAt: Maybe<DateQueryOperatorInput>;
+  updatedAt: Maybe<DateQueryOperatorInput>;
+  live: Maybe<StrapiVideosLiveFilterInput>;
+  strapiId: Maybe<StringQueryOperatorInput>;
+};
+
+
+type Query_allStrapiVideosArgs = {
+  filter: Maybe<StrapiVideosFilterInput>;
+  sort: Maybe<StrapiVideosSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
+type Query_strapiPhotographerArgs = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  name: Maybe<StringQueryOperatorInput>;
+  instagramUrl: Maybe<StringQueryOperatorInput>;
+  createdAt: Maybe<DateQueryOperatorInput>;
+  updatedAt: Maybe<DateQueryOperatorInput>;
+  photo: Maybe<StringQueryOperatorInput>;
+  profileImageUrl: Maybe<StringQueryOperatorInput>;
+  photos: Maybe<StrapiPhotographerPhotosFilterListInput>;
+  strapiId: Maybe<StringQueryOperatorInput>;
+};
+
+
+type Query_allStrapiPhotographerArgs = {
+  filter: Maybe<StrapiPhotographerFilterInput>;
+  sort: Maybe<StrapiPhotographerSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
+type Query_strapiPhotosArgs = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  createdAt: Maybe<DateQueryOperatorInput>;
+  updatedAt: Maybe<DateQueryOperatorInput>;
+  live: Maybe<StrapiPhotosLiveFilterInput>;
+  photographer: Maybe<StrapiPhotosPhotographerFilterInput>;
+  representationImageIndex: Maybe<IntQueryOperatorInput>;
+  slug: Maybe<StringQueryOperatorInput>;
+  photo: Maybe<StrapiPhotosPhotoFilterListInput>;
+  strapiId: Maybe<StringQueryOperatorInput>;
+};
+
+
+type Query_allStrapiPhotosArgs = {
+  filter: Maybe<StrapiPhotosFilterInput>;
+  sort: Maybe<StrapiPhotosSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
 type Query_strapiHomeContentArgs = {
   id: Maybe<StringQueryOperatorInput>;
   parent: Maybe<NodeFilterInput>;
@@ -1576,10 +1653,11 @@ type Query_strapiLivesArgs = {
   club: Maybe<StrapiLivesClubFilterInput>;
   posters: Maybe<StrapiLivesPostersFilterListInput>;
   videos: Maybe<StrapiLivesVideosFilterListInput>;
+  livePhotos: Maybe<StrapiLivesLivePhotosFilterListInput>;
   strapiId: Maybe<StringQueryOperatorInput>;
   ticketLink: Maybe<StringQueryOperatorInput>;
   content: Maybe<StringQueryOperatorInput>;
-  livePhoto: Maybe<StrapiLivesLivePhotoFilterInput>;
+  livePhoto: Maybe<StringQueryOperatorInput>;
   seoDescription: Maybe<StringQueryOperatorInput>;
 };
 
@@ -3333,10 +3411,11 @@ type StrapiLives = Node & {
   readonly club: Maybe<StrapiLivesClub>;
   readonly posters: Maybe<ReadonlyArray<Maybe<StrapiLivesPosters>>>;
   readonly videos: Maybe<ReadonlyArray<Maybe<StrapiLivesVideos>>>;
+  readonly livePhotos: Maybe<ReadonlyArray<Maybe<StrapiLivesLivePhotos>>>;
   readonly strapiId: Maybe<Scalars['String']>;
   readonly ticketLink: Maybe<Scalars['String']>;
   readonly content: Maybe<Scalars['String']>;
-  readonly livePhoto: Maybe<StrapiLivesLivePhoto>;
+  readonly livePhoto: Maybe<Scalars['String']>;
   readonly seoDescription: Maybe<Scalars['String']>;
 };
 
@@ -3646,26 +3725,31 @@ enum StrapiLivesFieldsEnum {
   videos___updatedAt = 'videos.updatedAt',
   videos___live = 'videos.live',
   videos___id = 'videos.id',
+  livePhotos = 'livePhotos',
+  livePhotos___createdAt = 'livePhotos.createdAt',
+  livePhotos___updatedAt = 'livePhotos.updatedAt',
+  livePhotos___live = 'livePhotos.live',
+  livePhotos___photographer = 'livePhotos.photographer',
+  livePhotos___representationImageIndex = 'livePhotos.representationImageIndex',
+  livePhotos___slug = 'livePhotos.slug',
+  livePhotos___photo = 'livePhotos.photo',
+  livePhotos___photo___name = 'livePhotos.photo.name',
+  livePhotos___photo___sha256 = 'livePhotos.photo.sha256',
+  livePhotos___photo___hash = 'livePhotos.photo.hash',
+  livePhotos___photo___ext = 'livePhotos.photo.ext',
+  livePhotos___photo___mime = 'livePhotos.photo.mime',
+  livePhotos___photo___size = 'livePhotos.photo.size',
+  livePhotos___photo___url = 'livePhotos.photo.url',
+  livePhotos___photo___provider = 'livePhotos.photo.provider',
+  livePhotos___photo___related = 'livePhotos.photo.related',
+  livePhotos___photo___createdAt = 'livePhotos.photo.createdAt',
+  livePhotos___photo___updatedAt = 'livePhotos.photo.updatedAt',
+  livePhotos___photo___id = 'livePhotos.photo.id',
+  livePhotos___id = 'livePhotos.id',
   strapiId = 'strapiId',
   ticketLink = 'ticketLink',
   content = 'content',
-  livePhoto___createdAt = 'livePhoto.createdAt',
-  livePhoto___updatedAt = 'livePhoto.updatedAt',
-  livePhoto___live = 'livePhoto.live',
-  livePhoto___photo = 'livePhoto.photo',
-  livePhoto___photo___name = 'livePhoto.photo.name',
-  livePhoto___photo___sha256 = 'livePhoto.photo.sha256',
-  livePhoto___photo___hash = 'livePhoto.photo.hash',
-  livePhoto___photo___ext = 'livePhoto.photo.ext',
-  livePhoto___photo___mime = 'livePhoto.photo.mime',
-  livePhoto___photo___size = 'livePhoto.photo.size',
-  livePhoto___photo___url = 'livePhoto.photo.url',
-  livePhoto___photo___provider = 'livePhoto.photo.provider',
-  livePhoto___photo___related = 'livePhoto.photo.related',
-  livePhoto___photo___createdAt = 'livePhoto.photo.createdAt',
-  livePhoto___photo___updatedAt = 'livePhoto.photo.updatedAt',
-  livePhoto___photo___id = 'livePhoto.photo.id',
-  livePhoto___id = 'livePhoto.id',
+  livePhoto = 'livePhoto',
   seoDescription = 'seoDescription'
 }
 
@@ -3686,10 +3770,11 @@ type StrapiLivesFilterInput = {
   readonly club: Maybe<StrapiLivesClubFilterInput>;
   readonly posters: Maybe<StrapiLivesPostersFilterListInput>;
   readonly videos: Maybe<StrapiLivesVideosFilterListInput>;
+  readonly livePhotos: Maybe<StrapiLivesLivePhotosFilterListInput>;
   readonly strapiId: Maybe<StringQueryOperatorInput>;
   readonly ticketLink: Maybe<StringQueryOperatorInput>;
   readonly content: Maybe<StringQueryOperatorInput>;
-  readonly livePhoto: Maybe<StrapiLivesLivePhotoFilterInput>;
+  readonly livePhoto: Maybe<StringQueryOperatorInput>;
   readonly seoDescription: Maybe<StringQueryOperatorInput>;
 };
 
@@ -3702,16 +3787,19 @@ type StrapiLivesGroupConnection = {
   readonly fieldValue: Maybe<Scalars['String']>;
 };
 
-type StrapiLivesLivePhoto = {
+type StrapiLivesLivePhotos = {
   readonly createdAt: Maybe<Scalars['Date']>;
   readonly updatedAt: Maybe<Scalars['Date']>;
   readonly live: Maybe<Scalars['String']>;
-  readonly photo: Maybe<ReadonlyArray<Maybe<StrapiLivesLivePhotoPhoto>>>;
+  readonly photographer: Maybe<Scalars['String']>;
+  readonly representationImageIndex: Maybe<Scalars['Int']>;
+  readonly slug: Maybe<Scalars['String']>;
+  readonly photo: Maybe<ReadonlyArray<Maybe<StrapiLivesLivePhotosPhoto>>>;
   readonly id: Maybe<Scalars['String']>;
 };
 
 
-type StrapiLivesLivePhoto_createdAtArgs = {
+type StrapiLivesLivePhotos_createdAtArgs = {
   formatString: Maybe<Scalars['String']>;
   fromNow: Maybe<Scalars['Boolean']>;
   difference: Maybe<Scalars['String']>;
@@ -3719,22 +3807,29 @@ type StrapiLivesLivePhoto_createdAtArgs = {
 };
 
 
-type StrapiLivesLivePhoto_updatedAtArgs = {
+type StrapiLivesLivePhotos_updatedAtArgs = {
   formatString: Maybe<Scalars['String']>;
   fromNow: Maybe<Scalars['Boolean']>;
   difference: Maybe<Scalars['String']>;
   locale: Maybe<Scalars['String']>;
 };
 
-type StrapiLivesLivePhotoFilterInput = {
+type StrapiLivesLivePhotosFilterInput = {
   readonly createdAt: Maybe<DateQueryOperatorInput>;
   readonly updatedAt: Maybe<DateQueryOperatorInput>;
   readonly live: Maybe<StringQueryOperatorInput>;
-  readonly photo: Maybe<StrapiLivesLivePhotoPhotoFilterListInput>;
+  readonly photographer: Maybe<StringQueryOperatorInput>;
+  readonly representationImageIndex: Maybe<IntQueryOperatorInput>;
+  readonly slug: Maybe<StringQueryOperatorInput>;
+  readonly photo: Maybe<StrapiLivesLivePhotosPhotoFilterListInput>;
   readonly id: Maybe<StringQueryOperatorInput>;
 };
 
-type StrapiLivesLivePhotoPhoto = {
+type StrapiLivesLivePhotosFilterListInput = {
+  readonly elemMatch: Maybe<StrapiLivesLivePhotosFilterInput>;
+};
+
+type StrapiLivesLivePhotosPhoto = {
   readonly name: Maybe<Scalars['String']>;
   readonly sha256: Maybe<Scalars['String']>;
   readonly hash: Maybe<Scalars['String']>;
@@ -3750,7 +3845,7 @@ type StrapiLivesLivePhotoPhoto = {
 };
 
 
-type StrapiLivesLivePhotoPhoto_createdAtArgs = {
+type StrapiLivesLivePhotosPhoto_createdAtArgs = {
   formatString: Maybe<Scalars['String']>;
   fromNow: Maybe<Scalars['Boolean']>;
   difference: Maybe<Scalars['String']>;
@@ -3758,14 +3853,14 @@ type StrapiLivesLivePhotoPhoto_createdAtArgs = {
 };
 
 
-type StrapiLivesLivePhotoPhoto_updatedAtArgs = {
+type StrapiLivesLivePhotosPhoto_updatedAtArgs = {
   formatString: Maybe<Scalars['String']>;
   fromNow: Maybe<Scalars['Boolean']>;
   difference: Maybe<Scalars['String']>;
   locale: Maybe<Scalars['String']>;
 };
 
-type StrapiLivesLivePhotoPhotoFilterInput = {
+type StrapiLivesLivePhotosPhotoFilterInput = {
   readonly name: Maybe<StringQueryOperatorInput>;
   readonly sha256: Maybe<StringQueryOperatorInput>;
   readonly hash: Maybe<StringQueryOperatorInput>;
@@ -3780,8 +3875,8 @@ type StrapiLivesLivePhotoPhotoFilterInput = {
   readonly id: Maybe<StringQueryOperatorInput>;
 };
 
-type StrapiLivesLivePhotoPhotoFilterListInput = {
-  readonly elemMatch: Maybe<StrapiLivesLivePhotoPhotoFilterInput>;
+type StrapiLivesLivePhotosPhotoFilterListInput = {
+  readonly elemMatch: Maybe<StrapiLivesLivePhotosPhotoFilterInput>;
 };
 
 type StrapiLivesPosters = {
@@ -3881,6 +3976,1099 @@ type StrapiLivesVideosFilterListInput = {
   readonly elemMatch: Maybe<StrapiLivesVideosFilterInput>;
 };
 
+type StrapiPhotographer = Node & {
+  readonly id: Scalars['ID'];
+  readonly parent: Maybe<Node>;
+  readonly children: ReadonlyArray<Node>;
+  readonly internal: Internal;
+  readonly name: Maybe<Scalars['String']>;
+  readonly instagramUrl: Maybe<Scalars['String']>;
+  readonly createdAt: Maybe<Scalars['Date']>;
+  readonly updatedAt: Maybe<Scalars['Date']>;
+  readonly photo: Maybe<Scalars['String']>;
+  readonly profileImageUrl: Maybe<Scalars['String']>;
+  readonly photos: Maybe<ReadonlyArray<Maybe<StrapiPhotographerPhotos>>>;
+  readonly strapiId: Maybe<Scalars['String']>;
+};
+
+
+type StrapiPhotographer_createdAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+type StrapiPhotographer_updatedAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+type StrapiPhotographerConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<StrapiPhotographerEdge>;
+  readonly nodes: ReadonlyArray<StrapiPhotographer>;
+  readonly pageInfo: PageInfo;
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly group: ReadonlyArray<StrapiPhotographerGroupConnection>;
+};
+
+
+type StrapiPhotographerConnection_distinctArgs = {
+  field: StrapiPhotographerFieldsEnum;
+};
+
+
+type StrapiPhotographerConnection_groupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: StrapiPhotographerFieldsEnum;
+};
+
+type StrapiPhotographerEdge = {
+  readonly next: Maybe<StrapiPhotographer>;
+  readonly node: StrapiPhotographer;
+  readonly previous: Maybe<StrapiPhotographer>;
+};
+
+enum StrapiPhotographerFieldsEnum {
+  id = 'id',
+  parent___id = 'parent.id',
+  parent___parent___id = 'parent.parent.id',
+  parent___parent___parent___id = 'parent.parent.parent.id',
+  parent___parent___parent___children = 'parent.parent.parent.children',
+  parent___parent___children = 'parent.parent.children',
+  parent___parent___children___id = 'parent.parent.children.id',
+  parent___parent___children___children = 'parent.parent.children.children',
+  parent___parent___internal___content = 'parent.parent.internal.content',
+  parent___parent___internal___contentDigest = 'parent.parent.internal.contentDigest',
+  parent___parent___internal___description = 'parent.parent.internal.description',
+  parent___parent___internal___fieldOwners = 'parent.parent.internal.fieldOwners',
+  parent___parent___internal___ignoreType = 'parent.parent.internal.ignoreType',
+  parent___parent___internal___mediaType = 'parent.parent.internal.mediaType',
+  parent___parent___internal___owner = 'parent.parent.internal.owner',
+  parent___parent___internal___type = 'parent.parent.internal.type',
+  parent___children = 'parent.children',
+  parent___children___id = 'parent.children.id',
+  parent___children___parent___id = 'parent.children.parent.id',
+  parent___children___parent___children = 'parent.children.parent.children',
+  parent___children___children = 'parent.children.children',
+  parent___children___children___id = 'parent.children.children.id',
+  parent___children___children___children = 'parent.children.children.children',
+  parent___children___internal___content = 'parent.children.internal.content',
+  parent___children___internal___contentDigest = 'parent.children.internal.contentDigest',
+  parent___children___internal___description = 'parent.children.internal.description',
+  parent___children___internal___fieldOwners = 'parent.children.internal.fieldOwners',
+  parent___children___internal___ignoreType = 'parent.children.internal.ignoreType',
+  parent___children___internal___mediaType = 'parent.children.internal.mediaType',
+  parent___children___internal___owner = 'parent.children.internal.owner',
+  parent___children___internal___type = 'parent.children.internal.type',
+  parent___internal___content = 'parent.internal.content',
+  parent___internal___contentDigest = 'parent.internal.contentDigest',
+  parent___internal___description = 'parent.internal.description',
+  parent___internal___fieldOwners = 'parent.internal.fieldOwners',
+  parent___internal___ignoreType = 'parent.internal.ignoreType',
+  parent___internal___mediaType = 'parent.internal.mediaType',
+  parent___internal___owner = 'parent.internal.owner',
+  parent___internal___type = 'parent.internal.type',
+  children = 'children',
+  children___id = 'children.id',
+  children___parent___id = 'children.parent.id',
+  children___parent___parent___id = 'children.parent.parent.id',
+  children___parent___parent___children = 'children.parent.parent.children',
+  children___parent___children = 'children.parent.children',
+  children___parent___children___id = 'children.parent.children.id',
+  children___parent___children___children = 'children.parent.children.children',
+  children___parent___internal___content = 'children.parent.internal.content',
+  children___parent___internal___contentDigest = 'children.parent.internal.contentDigest',
+  children___parent___internal___description = 'children.parent.internal.description',
+  children___parent___internal___fieldOwners = 'children.parent.internal.fieldOwners',
+  children___parent___internal___ignoreType = 'children.parent.internal.ignoreType',
+  children___parent___internal___mediaType = 'children.parent.internal.mediaType',
+  children___parent___internal___owner = 'children.parent.internal.owner',
+  children___parent___internal___type = 'children.parent.internal.type',
+  children___children = 'children.children',
+  children___children___id = 'children.children.id',
+  children___children___parent___id = 'children.children.parent.id',
+  children___children___parent___children = 'children.children.parent.children',
+  children___children___children = 'children.children.children',
+  children___children___children___id = 'children.children.children.id',
+  children___children___children___children = 'children.children.children.children',
+  children___children___internal___content = 'children.children.internal.content',
+  children___children___internal___contentDigest = 'children.children.internal.contentDigest',
+  children___children___internal___description = 'children.children.internal.description',
+  children___children___internal___fieldOwners = 'children.children.internal.fieldOwners',
+  children___children___internal___ignoreType = 'children.children.internal.ignoreType',
+  children___children___internal___mediaType = 'children.children.internal.mediaType',
+  children___children___internal___owner = 'children.children.internal.owner',
+  children___children___internal___type = 'children.children.internal.type',
+  children___internal___content = 'children.internal.content',
+  children___internal___contentDigest = 'children.internal.contentDigest',
+  children___internal___description = 'children.internal.description',
+  children___internal___fieldOwners = 'children.internal.fieldOwners',
+  children___internal___ignoreType = 'children.internal.ignoreType',
+  children___internal___mediaType = 'children.internal.mediaType',
+  children___internal___owner = 'children.internal.owner',
+  children___internal___type = 'children.internal.type',
+  internal___content = 'internal.content',
+  internal___contentDigest = 'internal.contentDigest',
+  internal___description = 'internal.description',
+  internal___fieldOwners = 'internal.fieldOwners',
+  internal___ignoreType = 'internal.ignoreType',
+  internal___mediaType = 'internal.mediaType',
+  internal___owner = 'internal.owner',
+  internal___type = 'internal.type',
+  name = 'name',
+  instagramUrl = 'instagramUrl',
+  createdAt = 'createdAt',
+  updatedAt = 'updatedAt',
+  photo = 'photo',
+  profileImageUrl = 'profileImageUrl',
+  photos = 'photos',
+  photos___slug = 'photos.slug',
+  photos___createdAt = 'photos.createdAt',
+  photos___updatedAt = 'photos.updatedAt',
+  photos___live = 'photos.live',
+  photos___photographer = 'photos.photographer',
+  photos___photo = 'photos.photo',
+  photos___photo___name = 'photos.photo.name',
+  photos___photo___sha256 = 'photos.photo.sha256',
+  photos___photo___hash = 'photos.photo.hash',
+  photos___photo___ext = 'photos.photo.ext',
+  photos___photo___mime = 'photos.photo.mime',
+  photos___photo___size = 'photos.photo.size',
+  photos___photo___url = 'photos.photo.url',
+  photos___photo___provider = 'photos.photo.provider',
+  photos___photo___related = 'photos.photo.related',
+  photos___photo___createdAt = 'photos.photo.createdAt',
+  photos___photo___updatedAt = 'photos.photo.updatedAt',
+  photos___photo___id = 'photos.photo.id',
+  photos___id = 'photos.id',
+  photos___representationImageIndex = 'photos.representationImageIndex',
+  strapiId = 'strapiId'
+}
+
+type StrapiPhotographerFilterInput = {
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly parent: Maybe<NodeFilterInput>;
+  readonly children: Maybe<NodeFilterListInput>;
+  readonly internal: Maybe<InternalFilterInput>;
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly instagramUrl: Maybe<StringQueryOperatorInput>;
+  readonly createdAt: Maybe<DateQueryOperatorInput>;
+  readonly updatedAt: Maybe<DateQueryOperatorInput>;
+  readonly photo: Maybe<StringQueryOperatorInput>;
+  readonly profileImageUrl: Maybe<StringQueryOperatorInput>;
+  readonly photos: Maybe<StrapiPhotographerPhotosFilterListInput>;
+  readonly strapiId: Maybe<StringQueryOperatorInput>;
+};
+
+type StrapiPhotographerGroupConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<StrapiPhotographerEdge>;
+  readonly nodes: ReadonlyArray<StrapiPhotographer>;
+  readonly pageInfo: PageInfo;
+  readonly field: Scalars['String'];
+  readonly fieldValue: Maybe<Scalars['String']>;
+};
+
+type StrapiPhotographerPhotos = {
+  readonly slug: Maybe<Scalars['String']>;
+  readonly createdAt: Maybe<Scalars['Date']>;
+  readonly updatedAt: Maybe<Scalars['Date']>;
+  readonly live: Maybe<Scalars['String']>;
+  readonly photographer: Maybe<Scalars['String']>;
+  readonly photo: Maybe<ReadonlyArray<Maybe<StrapiPhotographerPhotosPhoto>>>;
+  readonly id: Maybe<Scalars['String']>;
+  readonly representationImageIndex: Maybe<Scalars['Int']>;
+};
+
+
+type StrapiPhotographerPhotos_createdAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+type StrapiPhotographerPhotos_updatedAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+type StrapiPhotographerPhotosFilterInput = {
+  readonly slug: Maybe<StringQueryOperatorInput>;
+  readonly createdAt: Maybe<DateQueryOperatorInput>;
+  readonly updatedAt: Maybe<DateQueryOperatorInput>;
+  readonly live: Maybe<StringQueryOperatorInput>;
+  readonly photographer: Maybe<StringQueryOperatorInput>;
+  readonly photo: Maybe<StrapiPhotographerPhotosPhotoFilterListInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly representationImageIndex: Maybe<IntQueryOperatorInput>;
+};
+
+type StrapiPhotographerPhotosFilterListInput = {
+  readonly elemMatch: Maybe<StrapiPhotographerPhotosFilterInput>;
+};
+
+type StrapiPhotographerPhotosPhoto = {
+  readonly name: Maybe<Scalars['String']>;
+  readonly sha256: Maybe<Scalars['String']>;
+  readonly hash: Maybe<Scalars['String']>;
+  readonly ext: Maybe<Scalars['String']>;
+  readonly mime: Maybe<Scalars['String']>;
+  readonly size: Maybe<Scalars['Float']>;
+  readonly url: Maybe<Scalars['String']>;
+  readonly provider: Maybe<Scalars['String']>;
+  readonly related: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly createdAt: Maybe<Scalars['Date']>;
+  readonly updatedAt: Maybe<Scalars['Date']>;
+  readonly id: Maybe<Scalars['String']>;
+};
+
+
+type StrapiPhotographerPhotosPhoto_createdAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+type StrapiPhotographerPhotosPhoto_updatedAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+type StrapiPhotographerPhotosPhotoFilterInput = {
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly sha256: Maybe<StringQueryOperatorInput>;
+  readonly hash: Maybe<StringQueryOperatorInput>;
+  readonly ext: Maybe<StringQueryOperatorInput>;
+  readonly mime: Maybe<StringQueryOperatorInput>;
+  readonly size: Maybe<FloatQueryOperatorInput>;
+  readonly url: Maybe<StringQueryOperatorInput>;
+  readonly provider: Maybe<StringQueryOperatorInput>;
+  readonly related: Maybe<StringQueryOperatorInput>;
+  readonly createdAt: Maybe<DateQueryOperatorInput>;
+  readonly updatedAt: Maybe<DateQueryOperatorInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+};
+
+type StrapiPhotographerPhotosPhotoFilterListInput = {
+  readonly elemMatch: Maybe<StrapiPhotographerPhotosPhotoFilterInput>;
+};
+
+type StrapiPhotographerSortInput = {
+  readonly fields: Maybe<ReadonlyArray<Maybe<StrapiPhotographerFieldsEnum>>>;
+  readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
+};
+
+type StrapiPhotos = Node & {
+  readonly id: Scalars['ID'];
+  readonly parent: Maybe<Node>;
+  readonly children: ReadonlyArray<Node>;
+  readonly internal: Internal;
+  readonly createdAt: Maybe<Scalars['Date']>;
+  readonly updatedAt: Maybe<Scalars['Date']>;
+  readonly live: Maybe<StrapiPhotosLive>;
+  readonly photographer: Maybe<StrapiPhotosPhotographer>;
+  readonly representationImageIndex: Maybe<Scalars['Int']>;
+  readonly slug: Maybe<Scalars['String']>;
+  readonly photo: Maybe<ReadonlyArray<Maybe<StrapiPhotosPhoto>>>;
+  readonly strapiId: Maybe<Scalars['String']>;
+};
+
+
+type StrapiPhotos_createdAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+type StrapiPhotos_updatedAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+type StrapiPhotosConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<StrapiPhotosEdge>;
+  readonly nodes: ReadonlyArray<StrapiPhotos>;
+  readonly pageInfo: PageInfo;
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly group: ReadonlyArray<StrapiPhotosGroupConnection>;
+};
+
+
+type StrapiPhotosConnection_distinctArgs = {
+  field: StrapiPhotosFieldsEnum;
+};
+
+
+type StrapiPhotosConnection_groupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: StrapiPhotosFieldsEnum;
+};
+
+type StrapiPhotosEdge = {
+  readonly next: Maybe<StrapiPhotos>;
+  readonly node: StrapiPhotos;
+  readonly previous: Maybe<StrapiPhotos>;
+};
+
+enum StrapiPhotosFieldsEnum {
+  id = 'id',
+  parent___id = 'parent.id',
+  parent___parent___id = 'parent.parent.id',
+  parent___parent___parent___id = 'parent.parent.parent.id',
+  parent___parent___parent___children = 'parent.parent.parent.children',
+  parent___parent___children = 'parent.parent.children',
+  parent___parent___children___id = 'parent.parent.children.id',
+  parent___parent___children___children = 'parent.parent.children.children',
+  parent___parent___internal___content = 'parent.parent.internal.content',
+  parent___parent___internal___contentDigest = 'parent.parent.internal.contentDigest',
+  parent___parent___internal___description = 'parent.parent.internal.description',
+  parent___parent___internal___fieldOwners = 'parent.parent.internal.fieldOwners',
+  parent___parent___internal___ignoreType = 'parent.parent.internal.ignoreType',
+  parent___parent___internal___mediaType = 'parent.parent.internal.mediaType',
+  parent___parent___internal___owner = 'parent.parent.internal.owner',
+  parent___parent___internal___type = 'parent.parent.internal.type',
+  parent___children = 'parent.children',
+  parent___children___id = 'parent.children.id',
+  parent___children___parent___id = 'parent.children.parent.id',
+  parent___children___parent___children = 'parent.children.parent.children',
+  parent___children___children = 'parent.children.children',
+  parent___children___children___id = 'parent.children.children.id',
+  parent___children___children___children = 'parent.children.children.children',
+  parent___children___internal___content = 'parent.children.internal.content',
+  parent___children___internal___contentDigest = 'parent.children.internal.contentDigest',
+  parent___children___internal___description = 'parent.children.internal.description',
+  parent___children___internal___fieldOwners = 'parent.children.internal.fieldOwners',
+  parent___children___internal___ignoreType = 'parent.children.internal.ignoreType',
+  parent___children___internal___mediaType = 'parent.children.internal.mediaType',
+  parent___children___internal___owner = 'parent.children.internal.owner',
+  parent___children___internal___type = 'parent.children.internal.type',
+  parent___internal___content = 'parent.internal.content',
+  parent___internal___contentDigest = 'parent.internal.contentDigest',
+  parent___internal___description = 'parent.internal.description',
+  parent___internal___fieldOwners = 'parent.internal.fieldOwners',
+  parent___internal___ignoreType = 'parent.internal.ignoreType',
+  parent___internal___mediaType = 'parent.internal.mediaType',
+  parent___internal___owner = 'parent.internal.owner',
+  parent___internal___type = 'parent.internal.type',
+  children = 'children',
+  children___id = 'children.id',
+  children___parent___id = 'children.parent.id',
+  children___parent___parent___id = 'children.parent.parent.id',
+  children___parent___parent___children = 'children.parent.parent.children',
+  children___parent___children = 'children.parent.children',
+  children___parent___children___id = 'children.parent.children.id',
+  children___parent___children___children = 'children.parent.children.children',
+  children___parent___internal___content = 'children.parent.internal.content',
+  children___parent___internal___contentDigest = 'children.parent.internal.contentDigest',
+  children___parent___internal___description = 'children.parent.internal.description',
+  children___parent___internal___fieldOwners = 'children.parent.internal.fieldOwners',
+  children___parent___internal___ignoreType = 'children.parent.internal.ignoreType',
+  children___parent___internal___mediaType = 'children.parent.internal.mediaType',
+  children___parent___internal___owner = 'children.parent.internal.owner',
+  children___parent___internal___type = 'children.parent.internal.type',
+  children___children = 'children.children',
+  children___children___id = 'children.children.id',
+  children___children___parent___id = 'children.children.parent.id',
+  children___children___parent___children = 'children.children.parent.children',
+  children___children___children = 'children.children.children',
+  children___children___children___id = 'children.children.children.id',
+  children___children___children___children = 'children.children.children.children',
+  children___children___internal___content = 'children.children.internal.content',
+  children___children___internal___contentDigest = 'children.children.internal.contentDigest',
+  children___children___internal___description = 'children.children.internal.description',
+  children___children___internal___fieldOwners = 'children.children.internal.fieldOwners',
+  children___children___internal___ignoreType = 'children.children.internal.ignoreType',
+  children___children___internal___mediaType = 'children.children.internal.mediaType',
+  children___children___internal___owner = 'children.children.internal.owner',
+  children___children___internal___type = 'children.children.internal.type',
+  children___internal___content = 'children.internal.content',
+  children___internal___contentDigest = 'children.internal.contentDigest',
+  children___internal___description = 'children.internal.description',
+  children___internal___fieldOwners = 'children.internal.fieldOwners',
+  children___internal___ignoreType = 'children.internal.ignoreType',
+  children___internal___mediaType = 'children.internal.mediaType',
+  children___internal___owner = 'children.internal.owner',
+  children___internal___type = 'children.internal.type',
+  internal___content = 'internal.content',
+  internal___contentDigest = 'internal.contentDigest',
+  internal___description = 'internal.description',
+  internal___fieldOwners = 'internal.fieldOwners',
+  internal___ignoreType = 'internal.ignoreType',
+  internal___mediaType = 'internal.mediaType',
+  internal___owner = 'internal.owner',
+  internal___type = 'internal.type',
+  createdAt = 'createdAt',
+  updatedAt = 'updatedAt',
+  live___bands = 'live.bands',
+  live___ticketLink = 'live.ticketLink',
+  live___place = 'live.place',
+  live___slug = 'live.slug',
+  live___date = 'live.date',
+  live___priceInfo = 'live.priceInfo',
+  live___title = 'live.title',
+  live___content = 'live.content',
+  live___seoDescription = 'live.seoDescription',
+  live___createdAt = 'live.createdAt',
+  live___updatedAt = 'live.updatedAt',
+  live___livePhoto = 'live.livePhoto',
+  live___club = 'live.club',
+  live___posters = 'live.posters',
+  live___posters___name = 'live.posters.name',
+  live___posters___sha256 = 'live.posters.sha256',
+  live___posters___hash = 'live.posters.hash',
+  live___posters___ext = 'live.posters.ext',
+  live___posters___mime = 'live.posters.mime',
+  live___posters___size = 'live.posters.size',
+  live___posters___url = 'live.posters.url',
+  live___posters___provider = 'live.posters.provider',
+  live___posters___related = 'live.posters.related',
+  live___posters___createdAt = 'live.posters.createdAt',
+  live___posters___updatedAt = 'live.posters.updatedAt',
+  live___posters___id = 'live.posters.id',
+  live___id = 'live.id',
+  live___eventLink = 'live.eventLink',
+  photographer___name = 'photographer.name',
+  photographer___instagramUrl = 'photographer.instagramUrl',
+  photographer___createdAt = 'photographer.createdAt',
+  photographer___updatedAt = 'photographer.updatedAt',
+  photographer___photo = 'photographer.photo',
+  photographer___profileImageUrl = 'photographer.profileImageUrl',
+  photographer___id = 'photographer.id',
+  representationImageIndex = 'representationImageIndex',
+  slug = 'slug',
+  photo = 'photo',
+  photo___name = 'photo.name',
+  photo___sha256 = 'photo.sha256',
+  photo___hash = 'photo.hash',
+  photo___ext = 'photo.ext',
+  photo___mime = 'photo.mime',
+  photo___size = 'photo.size',
+  photo___url = 'photo.url',
+  photo___provider = 'photo.provider',
+  photo___related = 'photo.related',
+  photo___createdAt = 'photo.createdAt',
+  photo___updatedAt = 'photo.updatedAt',
+  photo___id = 'photo.id',
+  photo___localFile___sourceInstanceName = 'photo.localFile.sourceInstanceName',
+  photo___localFile___absolutePath = 'photo.localFile.absolutePath',
+  photo___localFile___relativePath = 'photo.localFile.relativePath',
+  photo___localFile___extension = 'photo.localFile.extension',
+  photo___localFile___size = 'photo.localFile.size',
+  photo___localFile___prettySize = 'photo.localFile.prettySize',
+  photo___localFile___modifiedTime = 'photo.localFile.modifiedTime',
+  photo___localFile___accessTime = 'photo.localFile.accessTime',
+  photo___localFile___changeTime = 'photo.localFile.changeTime',
+  photo___localFile___birthTime = 'photo.localFile.birthTime',
+  photo___localFile___root = 'photo.localFile.root',
+  photo___localFile___dir = 'photo.localFile.dir',
+  photo___localFile___base = 'photo.localFile.base',
+  photo___localFile___ext = 'photo.localFile.ext',
+  photo___localFile___name = 'photo.localFile.name',
+  photo___localFile___relativeDirectory = 'photo.localFile.relativeDirectory',
+  photo___localFile___dev = 'photo.localFile.dev',
+  photo___localFile___mode = 'photo.localFile.mode',
+  photo___localFile___nlink = 'photo.localFile.nlink',
+  photo___localFile___uid = 'photo.localFile.uid',
+  photo___localFile___gid = 'photo.localFile.gid',
+  photo___localFile___rdev = 'photo.localFile.rdev',
+  photo___localFile___ino = 'photo.localFile.ino',
+  photo___localFile___atimeMs = 'photo.localFile.atimeMs',
+  photo___localFile___mtimeMs = 'photo.localFile.mtimeMs',
+  photo___localFile___ctimeMs = 'photo.localFile.ctimeMs',
+  photo___localFile___atime = 'photo.localFile.atime',
+  photo___localFile___mtime = 'photo.localFile.mtime',
+  photo___localFile___ctime = 'photo.localFile.ctime',
+  photo___localFile___birthtime = 'photo.localFile.birthtime',
+  photo___localFile___birthtimeMs = 'photo.localFile.birthtimeMs',
+  photo___localFile___blksize = 'photo.localFile.blksize',
+  photo___localFile___blocks = 'photo.localFile.blocks',
+  photo___localFile___url = 'photo.localFile.url',
+  photo___localFile___publicURL = 'photo.localFile.publicURL',
+  photo___localFile___childImageSharp___id = 'photo.localFile.childImageSharp.id',
+  photo___localFile___childImageSharp___children = 'photo.localFile.childImageSharp.children',
+  photo___localFile___id = 'photo.localFile.id',
+  photo___localFile___parent___id = 'photo.localFile.parent.id',
+  photo___localFile___parent___children = 'photo.localFile.parent.children',
+  photo___localFile___children = 'photo.localFile.children',
+  photo___localFile___children___id = 'photo.localFile.children.id',
+  photo___localFile___children___children = 'photo.localFile.children.children',
+  photo___localFile___internal___content = 'photo.localFile.internal.content',
+  photo___localFile___internal___contentDigest = 'photo.localFile.internal.contentDigest',
+  photo___localFile___internal___description = 'photo.localFile.internal.description',
+  photo___localFile___internal___fieldOwners = 'photo.localFile.internal.fieldOwners',
+  photo___localFile___internal___ignoreType = 'photo.localFile.internal.ignoreType',
+  photo___localFile___internal___mediaType = 'photo.localFile.internal.mediaType',
+  photo___localFile___internal___owner = 'photo.localFile.internal.owner',
+  photo___localFile___internal___type = 'photo.localFile.internal.type',
+  strapiId = 'strapiId'
+}
+
+type StrapiPhotosFilterInput = {
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly parent: Maybe<NodeFilterInput>;
+  readonly children: Maybe<NodeFilterListInput>;
+  readonly internal: Maybe<InternalFilterInput>;
+  readonly createdAt: Maybe<DateQueryOperatorInput>;
+  readonly updatedAt: Maybe<DateQueryOperatorInput>;
+  readonly live: Maybe<StrapiPhotosLiveFilterInput>;
+  readonly photographer: Maybe<StrapiPhotosPhotographerFilterInput>;
+  readonly representationImageIndex: Maybe<IntQueryOperatorInput>;
+  readonly slug: Maybe<StringQueryOperatorInput>;
+  readonly photo: Maybe<StrapiPhotosPhotoFilterListInput>;
+  readonly strapiId: Maybe<StringQueryOperatorInput>;
+};
+
+type StrapiPhotosGroupConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<StrapiPhotosEdge>;
+  readonly nodes: ReadonlyArray<StrapiPhotos>;
+  readonly pageInfo: PageInfo;
+  readonly field: Scalars['String'];
+  readonly fieldValue: Maybe<Scalars['String']>;
+};
+
+type StrapiPhotosLive = {
+  readonly bands: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly ticketLink: Maybe<Scalars['String']>;
+  readonly place: Maybe<Scalars['String']>;
+  readonly slug: Maybe<Scalars['String']>;
+  readonly date: Maybe<Scalars['Date']>;
+  readonly priceInfo: Maybe<Scalars['String']>;
+  readonly title: Maybe<Scalars['String']>;
+  readonly content: Maybe<Scalars['String']>;
+  readonly seoDescription: Maybe<Scalars['String']>;
+  readonly createdAt: Maybe<Scalars['Date']>;
+  readonly updatedAt: Maybe<Scalars['Date']>;
+  readonly livePhoto: Maybe<Scalars['String']>;
+  readonly club: Maybe<Scalars['String']>;
+  readonly posters: Maybe<ReadonlyArray<Maybe<StrapiPhotosLivePosters>>>;
+  readonly id: Maybe<Scalars['String']>;
+  readonly eventLink: Maybe<Scalars['String']>;
+};
+
+
+type StrapiPhotosLive_dateArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+type StrapiPhotosLive_createdAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+type StrapiPhotosLive_updatedAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+type StrapiPhotosLiveFilterInput = {
+  readonly bands: Maybe<StringQueryOperatorInput>;
+  readonly ticketLink: Maybe<StringQueryOperatorInput>;
+  readonly place: Maybe<StringQueryOperatorInput>;
+  readonly slug: Maybe<StringQueryOperatorInput>;
+  readonly date: Maybe<DateQueryOperatorInput>;
+  readonly priceInfo: Maybe<StringQueryOperatorInput>;
+  readonly title: Maybe<StringQueryOperatorInput>;
+  readonly content: Maybe<StringQueryOperatorInput>;
+  readonly seoDescription: Maybe<StringQueryOperatorInput>;
+  readonly createdAt: Maybe<DateQueryOperatorInput>;
+  readonly updatedAt: Maybe<DateQueryOperatorInput>;
+  readonly livePhoto: Maybe<StringQueryOperatorInput>;
+  readonly club: Maybe<StringQueryOperatorInput>;
+  readonly posters: Maybe<StrapiPhotosLivePostersFilterListInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly eventLink: Maybe<StringQueryOperatorInput>;
+};
+
+type StrapiPhotosLivePosters = {
+  readonly name: Maybe<Scalars['String']>;
+  readonly sha256: Maybe<Scalars['String']>;
+  readonly hash: Maybe<Scalars['String']>;
+  readonly ext: Maybe<Scalars['String']>;
+  readonly mime: Maybe<Scalars['String']>;
+  readonly size: Maybe<Scalars['Float']>;
+  readonly url: Maybe<Scalars['String']>;
+  readonly provider: Maybe<Scalars['String']>;
+  readonly related: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly createdAt: Maybe<Scalars['Date']>;
+  readonly updatedAt: Maybe<Scalars['Date']>;
+  readonly id: Maybe<Scalars['String']>;
+};
+
+
+type StrapiPhotosLivePosters_createdAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+type StrapiPhotosLivePosters_updatedAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+type StrapiPhotosLivePostersFilterInput = {
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly sha256: Maybe<StringQueryOperatorInput>;
+  readonly hash: Maybe<StringQueryOperatorInput>;
+  readonly ext: Maybe<StringQueryOperatorInput>;
+  readonly mime: Maybe<StringQueryOperatorInput>;
+  readonly size: Maybe<FloatQueryOperatorInput>;
+  readonly url: Maybe<StringQueryOperatorInput>;
+  readonly provider: Maybe<StringQueryOperatorInput>;
+  readonly related: Maybe<StringQueryOperatorInput>;
+  readonly createdAt: Maybe<DateQueryOperatorInput>;
+  readonly updatedAt: Maybe<DateQueryOperatorInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+};
+
+type StrapiPhotosLivePostersFilterListInput = {
+  readonly elemMatch: Maybe<StrapiPhotosLivePostersFilterInput>;
+};
+
+type StrapiPhotosPhoto = {
+  readonly name: Maybe<Scalars['String']>;
+  readonly sha256: Maybe<Scalars['String']>;
+  readonly hash: Maybe<Scalars['String']>;
+  readonly ext: Maybe<Scalars['String']>;
+  readonly mime: Maybe<Scalars['String']>;
+  readonly size: Maybe<Scalars['Float']>;
+  readonly url: Maybe<Scalars['String']>;
+  readonly provider: Maybe<Scalars['String']>;
+  readonly related: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly createdAt: Maybe<Scalars['Date']>;
+  readonly updatedAt: Maybe<Scalars['Date']>;
+  readonly id: Maybe<Scalars['String']>;
+  readonly localFile: Maybe<File>;
+};
+
+
+type StrapiPhotosPhoto_createdAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+type StrapiPhotosPhoto_updatedAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+type StrapiPhotosPhotoFilterInput = {
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly sha256: Maybe<StringQueryOperatorInput>;
+  readonly hash: Maybe<StringQueryOperatorInput>;
+  readonly ext: Maybe<StringQueryOperatorInput>;
+  readonly mime: Maybe<StringQueryOperatorInput>;
+  readonly size: Maybe<FloatQueryOperatorInput>;
+  readonly url: Maybe<StringQueryOperatorInput>;
+  readonly provider: Maybe<StringQueryOperatorInput>;
+  readonly related: Maybe<StringQueryOperatorInput>;
+  readonly createdAt: Maybe<DateQueryOperatorInput>;
+  readonly updatedAt: Maybe<DateQueryOperatorInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly localFile: Maybe<FileFilterInput>;
+};
+
+type StrapiPhotosPhotoFilterListInput = {
+  readonly elemMatch: Maybe<StrapiPhotosPhotoFilterInput>;
+};
+
+type StrapiPhotosPhotographer = {
+  readonly name: Maybe<Scalars['String']>;
+  readonly instagramUrl: Maybe<Scalars['String']>;
+  readonly createdAt: Maybe<Scalars['Date']>;
+  readonly updatedAt: Maybe<Scalars['Date']>;
+  readonly photo: Maybe<Scalars['String']>;
+  readonly profileImageUrl: Maybe<Scalars['String']>;
+  readonly id: Maybe<Scalars['String']>;
+};
+
+
+type StrapiPhotosPhotographer_createdAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+type StrapiPhotosPhotographer_updatedAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+type StrapiPhotosPhotographerFilterInput = {
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly instagramUrl: Maybe<StringQueryOperatorInput>;
+  readonly createdAt: Maybe<DateQueryOperatorInput>;
+  readonly updatedAt: Maybe<DateQueryOperatorInput>;
+  readonly photo: Maybe<StringQueryOperatorInput>;
+  readonly profileImageUrl: Maybe<StringQueryOperatorInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+};
+
+type StrapiPhotosSortInput = {
+  readonly fields: Maybe<ReadonlyArray<Maybe<StrapiPhotosFieldsEnum>>>;
+  readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
+};
+
+type StrapiVideos = Node & {
+  readonly id: Scalars['ID'];
+  readonly parent: Maybe<Node>;
+  readonly children: ReadonlyArray<Node>;
+  readonly internal: Internal;
+  readonly videoType: Maybe<Scalars['String']>;
+  readonly videoUrl: Maybe<Scalars['String']>;
+  readonly title: Maybe<Scalars['String']>;
+  readonly createdAt: Maybe<Scalars['Date']>;
+  readonly updatedAt: Maybe<Scalars['Date']>;
+  readonly live: Maybe<StrapiVideosLive>;
+  readonly strapiId: Maybe<Scalars['String']>;
+};
+
+
+type StrapiVideos_createdAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+type StrapiVideos_updatedAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+type StrapiVideosConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<StrapiVideosEdge>;
+  readonly nodes: ReadonlyArray<StrapiVideos>;
+  readonly pageInfo: PageInfo;
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly group: ReadonlyArray<StrapiVideosGroupConnection>;
+};
+
+
+type StrapiVideosConnection_distinctArgs = {
+  field: StrapiVideosFieldsEnum;
+};
+
+
+type StrapiVideosConnection_groupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: StrapiVideosFieldsEnum;
+};
+
+type StrapiVideosEdge = {
+  readonly next: Maybe<StrapiVideos>;
+  readonly node: StrapiVideos;
+  readonly previous: Maybe<StrapiVideos>;
+};
+
+enum StrapiVideosFieldsEnum {
+  id = 'id',
+  parent___id = 'parent.id',
+  parent___parent___id = 'parent.parent.id',
+  parent___parent___parent___id = 'parent.parent.parent.id',
+  parent___parent___parent___children = 'parent.parent.parent.children',
+  parent___parent___children = 'parent.parent.children',
+  parent___parent___children___id = 'parent.parent.children.id',
+  parent___parent___children___children = 'parent.parent.children.children',
+  parent___parent___internal___content = 'parent.parent.internal.content',
+  parent___parent___internal___contentDigest = 'parent.parent.internal.contentDigest',
+  parent___parent___internal___description = 'parent.parent.internal.description',
+  parent___parent___internal___fieldOwners = 'parent.parent.internal.fieldOwners',
+  parent___parent___internal___ignoreType = 'parent.parent.internal.ignoreType',
+  parent___parent___internal___mediaType = 'parent.parent.internal.mediaType',
+  parent___parent___internal___owner = 'parent.parent.internal.owner',
+  parent___parent___internal___type = 'parent.parent.internal.type',
+  parent___children = 'parent.children',
+  parent___children___id = 'parent.children.id',
+  parent___children___parent___id = 'parent.children.parent.id',
+  parent___children___parent___children = 'parent.children.parent.children',
+  parent___children___children = 'parent.children.children',
+  parent___children___children___id = 'parent.children.children.id',
+  parent___children___children___children = 'parent.children.children.children',
+  parent___children___internal___content = 'parent.children.internal.content',
+  parent___children___internal___contentDigest = 'parent.children.internal.contentDigest',
+  parent___children___internal___description = 'parent.children.internal.description',
+  parent___children___internal___fieldOwners = 'parent.children.internal.fieldOwners',
+  parent___children___internal___ignoreType = 'parent.children.internal.ignoreType',
+  parent___children___internal___mediaType = 'parent.children.internal.mediaType',
+  parent___children___internal___owner = 'parent.children.internal.owner',
+  parent___children___internal___type = 'parent.children.internal.type',
+  parent___internal___content = 'parent.internal.content',
+  parent___internal___contentDigest = 'parent.internal.contentDigest',
+  parent___internal___description = 'parent.internal.description',
+  parent___internal___fieldOwners = 'parent.internal.fieldOwners',
+  parent___internal___ignoreType = 'parent.internal.ignoreType',
+  parent___internal___mediaType = 'parent.internal.mediaType',
+  parent___internal___owner = 'parent.internal.owner',
+  parent___internal___type = 'parent.internal.type',
+  children = 'children',
+  children___id = 'children.id',
+  children___parent___id = 'children.parent.id',
+  children___parent___parent___id = 'children.parent.parent.id',
+  children___parent___parent___children = 'children.parent.parent.children',
+  children___parent___children = 'children.parent.children',
+  children___parent___children___id = 'children.parent.children.id',
+  children___parent___children___children = 'children.parent.children.children',
+  children___parent___internal___content = 'children.parent.internal.content',
+  children___parent___internal___contentDigest = 'children.parent.internal.contentDigest',
+  children___parent___internal___description = 'children.parent.internal.description',
+  children___parent___internal___fieldOwners = 'children.parent.internal.fieldOwners',
+  children___parent___internal___ignoreType = 'children.parent.internal.ignoreType',
+  children___parent___internal___mediaType = 'children.parent.internal.mediaType',
+  children___parent___internal___owner = 'children.parent.internal.owner',
+  children___parent___internal___type = 'children.parent.internal.type',
+  children___children = 'children.children',
+  children___children___id = 'children.children.id',
+  children___children___parent___id = 'children.children.parent.id',
+  children___children___parent___children = 'children.children.parent.children',
+  children___children___children = 'children.children.children',
+  children___children___children___id = 'children.children.children.id',
+  children___children___children___children = 'children.children.children.children',
+  children___children___internal___content = 'children.children.internal.content',
+  children___children___internal___contentDigest = 'children.children.internal.contentDigest',
+  children___children___internal___description = 'children.children.internal.description',
+  children___children___internal___fieldOwners = 'children.children.internal.fieldOwners',
+  children___children___internal___ignoreType = 'children.children.internal.ignoreType',
+  children___children___internal___mediaType = 'children.children.internal.mediaType',
+  children___children___internal___owner = 'children.children.internal.owner',
+  children___children___internal___type = 'children.children.internal.type',
+  children___internal___content = 'children.internal.content',
+  children___internal___contentDigest = 'children.internal.contentDigest',
+  children___internal___description = 'children.internal.description',
+  children___internal___fieldOwners = 'children.internal.fieldOwners',
+  children___internal___ignoreType = 'children.internal.ignoreType',
+  children___internal___mediaType = 'children.internal.mediaType',
+  children___internal___owner = 'children.internal.owner',
+  children___internal___type = 'children.internal.type',
+  internal___content = 'internal.content',
+  internal___contentDigest = 'internal.contentDigest',
+  internal___description = 'internal.description',
+  internal___fieldOwners = 'internal.fieldOwners',
+  internal___ignoreType = 'internal.ignoreType',
+  internal___mediaType = 'internal.mediaType',
+  internal___owner = 'internal.owner',
+  internal___type = 'internal.type',
+  videoType = 'videoType',
+  videoUrl = 'videoUrl',
+  title = 'title',
+  createdAt = 'createdAt',
+  updatedAt = 'updatedAt',
+  live___bands = 'live.bands',
+  live___ticketLink = 'live.ticketLink',
+  live___place = 'live.place',
+  live___slug = 'live.slug',
+  live___date = 'live.date',
+  live___priceInfo = 'live.priceInfo',
+  live___title = 'live.title',
+  live___content = 'live.content',
+  live___seoDescription = 'live.seoDescription',
+  live___createdAt = 'live.createdAt',
+  live___updatedAt = 'live.updatedAt',
+  live___livePhoto = 'live.livePhoto',
+  live___club = 'live.club',
+  live___posters = 'live.posters',
+  live___posters___name = 'live.posters.name',
+  live___posters___sha256 = 'live.posters.sha256',
+  live___posters___hash = 'live.posters.hash',
+  live___posters___ext = 'live.posters.ext',
+  live___posters___mime = 'live.posters.mime',
+  live___posters___size = 'live.posters.size',
+  live___posters___url = 'live.posters.url',
+  live___posters___provider = 'live.posters.provider',
+  live___posters___related = 'live.posters.related',
+  live___posters___createdAt = 'live.posters.createdAt',
+  live___posters___updatedAt = 'live.posters.updatedAt',
+  live___posters___id = 'live.posters.id',
+  live___id = 'live.id',
+  strapiId = 'strapiId'
+}
+
+type StrapiVideosFilterInput = {
+  readonly id: Maybe<StringQueryOperatorInput>;
+  readonly parent: Maybe<NodeFilterInput>;
+  readonly children: Maybe<NodeFilterListInput>;
+  readonly internal: Maybe<InternalFilterInput>;
+  readonly videoType: Maybe<StringQueryOperatorInput>;
+  readonly videoUrl: Maybe<StringQueryOperatorInput>;
+  readonly title: Maybe<StringQueryOperatorInput>;
+  readonly createdAt: Maybe<DateQueryOperatorInput>;
+  readonly updatedAt: Maybe<DateQueryOperatorInput>;
+  readonly live: Maybe<StrapiVideosLiveFilterInput>;
+  readonly strapiId: Maybe<StringQueryOperatorInput>;
+};
+
+type StrapiVideosGroupConnection = {
+  readonly totalCount: Scalars['Int'];
+  readonly edges: ReadonlyArray<StrapiVideosEdge>;
+  readonly nodes: ReadonlyArray<StrapiVideos>;
+  readonly pageInfo: PageInfo;
+  readonly field: Scalars['String'];
+  readonly fieldValue: Maybe<Scalars['String']>;
+};
+
+type StrapiVideosLive = {
+  readonly bands: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly ticketLink: Maybe<Scalars['String']>;
+  readonly place: Maybe<Scalars['String']>;
+  readonly slug: Maybe<Scalars['String']>;
+  readonly date: Maybe<Scalars['Date']>;
+  readonly priceInfo: Maybe<Scalars['String']>;
+  readonly title: Maybe<Scalars['String']>;
+  readonly content: Maybe<Scalars['String']>;
+  readonly seoDescription: Maybe<Scalars['String']>;
+  readonly createdAt: Maybe<Scalars['Date']>;
+  readonly updatedAt: Maybe<Scalars['Date']>;
+  readonly livePhoto: Maybe<Scalars['String']>;
+  readonly club: Maybe<Scalars['String']>;
+  readonly posters: Maybe<ReadonlyArray<Maybe<StrapiVideosLivePosters>>>;
+  readonly id: Maybe<Scalars['String']>;
+};
+
+
+type StrapiVideosLive_dateArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+type StrapiVideosLive_createdAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+type StrapiVideosLive_updatedAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+type StrapiVideosLiveFilterInput = {
+  readonly bands: Maybe<StringQueryOperatorInput>;
+  readonly ticketLink: Maybe<StringQueryOperatorInput>;
+  readonly place: Maybe<StringQueryOperatorInput>;
+  readonly slug: Maybe<StringQueryOperatorInput>;
+  readonly date: Maybe<DateQueryOperatorInput>;
+  readonly priceInfo: Maybe<StringQueryOperatorInput>;
+  readonly title: Maybe<StringQueryOperatorInput>;
+  readonly content: Maybe<StringQueryOperatorInput>;
+  readonly seoDescription: Maybe<StringQueryOperatorInput>;
+  readonly createdAt: Maybe<DateQueryOperatorInput>;
+  readonly updatedAt: Maybe<DateQueryOperatorInput>;
+  readonly livePhoto: Maybe<StringQueryOperatorInput>;
+  readonly club: Maybe<StringQueryOperatorInput>;
+  readonly posters: Maybe<StrapiVideosLivePostersFilterListInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+};
+
+type StrapiVideosLivePosters = {
+  readonly name: Maybe<Scalars['String']>;
+  readonly sha256: Maybe<Scalars['String']>;
+  readonly hash: Maybe<Scalars['String']>;
+  readonly ext: Maybe<Scalars['String']>;
+  readonly mime: Maybe<Scalars['String']>;
+  readonly size: Maybe<Scalars['Float']>;
+  readonly url: Maybe<Scalars['String']>;
+  readonly provider: Maybe<Scalars['String']>;
+  readonly related: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly createdAt: Maybe<Scalars['Date']>;
+  readonly updatedAt: Maybe<Scalars['Date']>;
+  readonly id: Maybe<Scalars['String']>;
+};
+
+
+type StrapiVideosLivePosters_createdAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+type StrapiVideosLivePosters_updatedAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+type StrapiVideosLivePostersFilterInput = {
+  readonly name: Maybe<StringQueryOperatorInput>;
+  readonly sha256: Maybe<StringQueryOperatorInput>;
+  readonly hash: Maybe<StringQueryOperatorInput>;
+  readonly ext: Maybe<StringQueryOperatorInput>;
+  readonly mime: Maybe<StringQueryOperatorInput>;
+  readonly size: Maybe<FloatQueryOperatorInput>;
+  readonly url: Maybe<StringQueryOperatorInput>;
+  readonly provider: Maybe<StringQueryOperatorInput>;
+  readonly related: Maybe<StringQueryOperatorInput>;
+  readonly createdAt: Maybe<DateQueryOperatorInput>;
+  readonly updatedAt: Maybe<DateQueryOperatorInput>;
+  readonly id: Maybe<StringQueryOperatorInput>;
+};
+
+type StrapiVideosLivePostersFilterListInput = {
+  readonly elemMatch: Maybe<StrapiVideosLivePostersFilterInput>;
+};
+
+type StrapiVideosSortInput = {
+  readonly fields: Maybe<ReadonlyArray<Maybe<StrapiVideosFieldsEnum>>>;
+  readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
+};
+
 type StringQueryOperatorInput = {
   readonly eq: Maybe<Scalars['String']>;
   readonly ne: Maybe<Scalars['String']>;
@@ -3889,19 +5077,6 @@ type StringQueryOperatorInput = {
   readonly regex: Maybe<Scalars['String']>;
   readonly glob: Maybe<Scalars['String']>;
 };
-
-type AlbumDetailQueryVariables = {
-  slug: Scalars['String'];
-};
-
-
-type AlbumDetailQuery = { readonly strapiAlbums: Maybe<(
-    Pick<StrapiAlbums, 'slug' | 'title' | 'content' | 'releaseDate' | 'purchaseLink' | 'streamingLinks'>
-    & { readonly covers: Maybe<ReadonlyArray<Maybe<{ readonly localFile: Maybe<(
-        Pick<File, 'url'>
-        & { readonly childImageSharp: Maybe<{ readonly fluid: Maybe<GatsbyImageSharpFluid_withWebp_tracedSVGFragment> }> }
-      )> }>>>, readonly songs: Maybe<ReadonlyArray<Maybe<Pick<StrapiAlbumsSongs, 'track' | 'name'>>>> }
-  )> };
 
 type LiveDetailQueryVariables = {
   slug: Scalars['String'];
@@ -3917,6 +5092,19 @@ type LiveDetailQuery = { readonly strapiLives: Maybe<(
   )> };
 
 type LiveList_livesFragment = { readonly edges: ReadonlyArray<{ readonly node: Pick<StrapiLives, 'id' | 'date' | 'title' | 'slug'> }> };
+
+type AlbumDetailQueryVariables = {
+  slug: Scalars['String'];
+};
+
+
+type AlbumDetailQuery = { readonly strapiAlbums: Maybe<(
+    Pick<StrapiAlbums, 'slug' | 'title' | 'content' | 'releaseDate' | 'purchaseLink' | 'streamingLinks'>
+    & { readonly covers: Maybe<ReadonlyArray<Maybe<{ readonly localFile: Maybe<(
+        Pick<File, 'url'>
+        & { readonly childImageSharp: Maybe<{ readonly fluid: Maybe<GatsbyImageSharpFluid_withWebp_tracedSVGFragment> }> }
+      )> }>>>, readonly songs: Maybe<ReadonlyArray<Maybe<Pick<StrapiAlbumsSongs, 'track' | 'name'>>>> }
+  )> };
 
 type LogoStaticQueryVariables = {};
 
@@ -3994,5 +5182,29 @@ type GatsbyImageSharpSizes_withWebp_tracedSVGFragment = Pick<ImageSharpSizes, 't
 type GatsbyImageSharpSizes_noBase64Fragment = Pick<ImageSharpSizes, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
 
 type GatsbyImageSharpSizes_withWebp_noBase64Fragment = Pick<ImageSharpSizes, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
+
+type PhotoDetailQueryVariables = {
+  slug: Scalars['String'];
+};
+
+
+type PhotoDetailQuery = { readonly strapiPhotos: Maybe<(
+    Pick<StrapiPhotos, 'slug'>
+    & { readonly live: Maybe<Pick<StrapiPhotosLive, 'slug' | 'date' | 'title'>>, readonly photographer: Maybe<Pick<StrapiPhotosPhotographer, 'name' | 'instagramUrl'>>, readonly photo: Maybe<ReadonlyArray<Maybe<{ readonly localFile: Maybe<(
+        Pick<File, 'publicURL'>
+        & { readonly childImageSharp: Maybe<{ readonly fluid: Maybe<GatsbyImageSharpFluid_withWebp_tracedSVGFragment> }> }
+      )> }>>> }
+  )> };
+
+type PhotosPageStaticQueryVariables = {};
+
+
+type PhotosPageStaticQuery = { readonly photographers: { readonly edges: ReadonlyArray<{ readonly node: Pick<StrapiPhotographer, 'name' | 'instagramUrl' | 'profileImageUrl'> }> }, readonly photos: (
+    Pick<StrapiPhotosConnection, 'totalCount'>
+    & { readonly edges: ReadonlyArray<{ readonly node: (
+        Pick<StrapiPhotos, 'id' | 'slug'>
+        & { readonly photo: Maybe<ReadonlyArray<Maybe<{ readonly localFile: Maybe<{ readonly childImageSharp: Maybe<{ readonly fixed: Maybe<GatsbyImageSharpFixedFragment> }> }> }>>>, readonly live: Maybe<Pick<StrapiPhotosLive, 'title' | 'date'>>, readonly photographer: Maybe<Pick<StrapiPhotosPhotographer, 'name'>> }
+      ) }> }
+  ) };
 
 }

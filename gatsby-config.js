@@ -22,6 +22,9 @@ module.exports = {
           'albums',
           'lives',
           'home-content',
+          'photos',
+          'photographer',
+          'videos',
         ],
 
         queryLimit: 1000,
