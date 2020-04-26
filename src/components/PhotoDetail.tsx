@@ -44,6 +44,7 @@ export default function PhotoDetail({ data }: Props) {
     photo,
     live,
     photographer,
+    slug,
   } = data.strapiPhotos as GatsbyTypes.StrapiPhotos
   const [selectedPhotoIndex, setSelectPhotoIndex] = useState<number | null>(
     null
@@ -57,6 +58,7 @@ export default function PhotoDetail({ data }: Props) {
             title={`밴드 이디어츠 - ${live?.title} 사진`}
             description={`${live?.title} 공연의 총 ${photo?.length} 장의 공연 사진. photo by ${photographer?.name}`}
             imageUrl={photo[0]!.localFile?.publicURL}
+            path={`/photos/${slug}`}
           />
           <Container>
             <section className="PhotoDetail__description">
