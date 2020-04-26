@@ -66,7 +66,10 @@ export default function PhotosPage() {
 
   return (
     <Layout className="Photos">
-      <Meta title="밴드 이디어츠 사진" />
+      <Meta
+        title="밴드 이디어츠 사진"
+        description="밴드 이디어츠의 각종 사진을 볼 수 있습니다."
+      />
       <Container>
         <section className="Photos__photorgraphers">
           {data.photographers.edges.map(({ node }, i) => (
