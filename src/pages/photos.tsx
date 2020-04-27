@@ -69,6 +69,7 @@ export default function PhotosPage() {
       <Meta
         title="밴드 이디어츠 사진"
         description="밴드 이디어츠의 각종 사진을 볼 수 있습니다."
+        path="/photos/"
       />
       <Container>
         <section className="Photos__photorgraphers">
