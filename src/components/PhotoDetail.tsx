@@ -1,7 +1,7 @@
 import './PhotoDetail.scss'
 import 'react-image-lightbox/style.css'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { graphql, Link } from 'gatsby'
 import Img from 'gatsby-image'
 import Masonry from 'react-masonry-css'
@@ -10,12 +10,13 @@ import Lightbox from 'react-image-lightbox'
 import Layout from './Layout'
 import Meta from './Meta'
 import Container from './Container'
-import PhotosPage from '../pages/photos'
+import { findIndex, find } from 'lodash'
 
 interface Props {
   data: GatsbyTypes.PhotoDetailQuery
-  context: {
+  pageContext: {
     slug: string
+    photoId?: string
   }
 }
 
@@ -39,27 +40,68 @@ const getNextIndex = (currentIndex: number, maxSize: number) => {
   }
   return currentIndex + 1
 }
-export default function PhotoDetail({ data }: Props) {
+
+const updateUrl = (nextUrl: string) => {
+  history.replaceState(null, '', nextUrl)
+}
+
+export default function PhotoDetail({ pageContext, data }: Props) {
   const {
     photo,
     live,
     photographer,
     slug,
   } = data.strapiPhotos as GatsbyTypes.StrapiPhotos
+
   const [selectedPhotoIndex, setSelectPhotoIndex] = useState<number | null>(
     null
   )
+
+  useEffect(() => {
+    if (pageContext.photoId) {
+      const index = findIndex(data.strapiPhotos.photo, p => {
+        return p.id === pageContext.photoId
+      })
+
+      if (index > -1) {
+        setSelectPhotoIndex(index)
+      }
+    }
+  }, [])
+
+  const renderMeta = () => {
+    if (pageContext.photoId) {
+      const photoItem = find(photo, p => p.id === pageContext.photoId)
+      const index = findIndex(photo, p => p.id === pageContext.photoId)
+
+      if (photoItem && index > -1) {
+        return (
+          <Meta
+            title={`밴드 이디어츠 - ${live?.title} 사진 (${index + 1}/${
+              photo.length
+            })`}
+            description={`공연명 ${live?.title} | 공연일 ${live.date} | photo by ${photographer?.name}`}
+            imageUrl={photoItem.localFile?.publicURL}
+            path={`/photos/${slug}/${pageContext.photoId}/`}
+          />
+        )
+      }
+    }
+    return (
+      <Meta
+        title={`밴드 이디어츠 - ${live?.title} 사진 (1/${photo.length})`}
+        description={`공연명 ${live?.title} | 공연일 ${live.date} | photo by ${photographer?.name}`}
+        imageUrl={photo[0]!.localFile?.publicURL}
+        path={`/photos/${slug}`}
+      />
+    )
+  }
 
   return (
     <Layout className="PhotoDetail">
       {photo && photo.length > 0 && (
         <>
-          <Meta
-            title={`밴드 이디어츠 - ${live?.title} 사진`}
-            description={`${live?.title} 공연의 총 ${photo?.length} 장의 공연 사진. photo by ${photographer?.name}`}
-            imageUrl={photo[0]!.localFile?.publicURL}
-            path={`/photos/${slug}`}
-          />
+          {renderMeta()}
           <Container>
             <section className="PhotoDetail__description">
               <div>
@@ -82,7 +124,10 @@ export default function PhotoDetail({ data }: Props) {
               {photo?.map((photo: any, i: number) => (
                 <article
                   key={`${photo.url}-${i}`}
-                  onClick={() => setSelectPhotoIndex(i)}
+                  onClick={() => {
+                    setSelectPhotoIndex(i)
+                    updateUrl(`/photos/${pageContext.slug}/${photo.id}/`)
+                  }}
                 >
                   <Img
                     fluid={photo?.localFile?.childImageSharp?.fluid}
@@ -106,16 +151,19 @@ export default function PhotoDetail({ data }: Props) {
                 photo[getNextIndex(selectedPhotoIndex, photo.length)]!
                   .localFile!.publicURL!
               }
-              onCloseRequest={() => setSelectPhotoIndex(null)}
+              onCloseRequest={() => {
+                setSelectPhotoIndex(null)
+                updateUrl(`/photos/${pageContext.slug}/`)
+              }}
               onMovePrevRequest={() => {
-                setSelectPhotoIndex(
-                  getPrevIndex(selectedPhotoIndex, photo.length)
-                )
+                const prevIndex = getPrevIndex(selectedPhotoIndex, photo.length)
+                setSelectPhotoIndex(prevIndex)
+                updateUrl(`/photos/${pageContext.slug}/${photo[prevIndex].id}/`)
               }}
               onMoveNextRequest={() => {
-                setSelectPhotoIndex(
-                  getNextIndex(selectedPhotoIndex, photo.length)
-                )
+                const nextIndex = getNextIndex(selectedPhotoIndex, photo.length)
+                setSelectPhotoIndex(nextIndex)
+                updateUrl(`/photos/${pageContext.slug}/${photo[nextIndex].id}/`)
               }}
             />
           )}
@@ -139,6 +187,7 @@ export const query = graphql`
         instagramUrl
       }
       photo {
+        id
         localFile {
           publicURL
           childImageSharp {

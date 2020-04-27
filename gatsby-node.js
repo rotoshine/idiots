@@ -127,6 +127,9 @@ exports.createPages = async ({ actions, graphql }) => {
         edges {
           node {
             slug
+            photo {
+              id
+            }
           }
         }
       }
@@ -136,12 +139,24 @@ exports.createPages = async ({ actions, graphql }) => {
   const { edges: photos } = photosRes.data.allStrapiPhotos
   photos.forEach(({ node }) => {
     createPage({
-      path: `/photos/${node.slug}`,
+      path: `/photos/${node.slug}/`,
       component: path.resolve('./src/components/PhotoDetail.tsx'),
       context: {
         slug: node.slug,
       },
     })
     console.log(`path: /photos/${node.slug}/`)
+
+    node.photo.forEach(({ id }) => {
+      createPage({
+        path: `/photos/${node.slug}/${id}/`,
+        component: path.resolve('./src/components/PhotoDetail.tsx'),
+        context: {
+          slug: node.slug,
+          photoId: id,
+        },
+      })
+      console.log(`path: /photos/${node.slug}/${id}/`)
+    })
   })
 }
