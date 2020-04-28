@@ -1,24 +1,38 @@
-.Movies {
-  .grid-wrapper {
+@import '~include-media/dist/include-media';
+
+.Videos {
+  .Videos__channelInfo {
+    font-size: 4rem;
+  }
+  .Videos__grid {
+    margin-top: 2rem;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;
     grid-auto-rows: minmax(100px, auto);
 
-    > div {
+    @include media('>=tablet', '<desktop') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media('>=phone', '<tablet') {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    > article {
       position: relative;
       border: 1px solid #ccc;
+
+      iframe {
+        position: absolute;
+        top: 0;
+      }
 
       &::before {
         content: '';
         display: inline-block;
         height: 0;
         padding-bottom: 56.25%;
-      }
-
-      iframe {
-        position: absolute;
-        top: 0;
       }
     }
   }
