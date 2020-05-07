@@ -53,10 +53,10 @@ const Description = ({ label, content }: LiveRowProps) => {
 }
 
 const toMetaDescription = (live: Live) => {
-  const { place, bands, priceInfo, seoDescription = '' } = live
+  const { club, bands, priceInfo, seoDescription = '' } = live
   const descriptions = isEmpty(seoDescription)
-    ? [`장소: ${place}`]
-    : [seoDescription, `장소: ${place}`]
+    ? [`장소: ${club.name}`]
+    : [seoDescription, `장소: ${club.name}`]
 
   if (bands.length > 0) {
     descriptions.push(`라인업: ${bands.map(band => band.name).join(', ')}`)
