@@ -8,20 +8,20 @@
   &.Panel__noBorder {
     border: none;
   }
-}
 
-.PanelTitle {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  font-size: 3rem;
-  border-bottom: 1px solid #ccc;
-  font-weight: 500;
+  .PanelTitle {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 3rem;
+    border-bottom: 1px solid #ccc;
+    font-weight: 500;
 
-  &--notitle {
-    border-bottom: none;
+    &--notitle {
+      border-bottom: none;
+    }
   }
-}
 
-.PanelContents {
-  font-size: 2rem;
+  .PanelContents {
+    font-size: 2rem;
+  }
 }
