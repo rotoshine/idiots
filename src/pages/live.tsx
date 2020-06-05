@@ -1,12 +1,13 @@
 import './live.scss'
 
 import React from 'react'
-import { useStaticQuery, graphql } from 'gatsby'
+import { useStaticQuery, graphql, Link } from 'gatsby'
 
 import Meta from '../components/Meta'
 import Layout from '../components/Layout'
 import Container from '../components/Container'
 import LiveList from '../components/LiveList'
+import Panel from '../components/Panel'
 
 export default function LivePage() {
   const data = useStaticQuery<GatsbyTypes.LivePageStaticQuery>(graphql`
@@ -27,6 +28,10 @@ export default function LivePage() {
         imageWidth={1093}
         imageHeight={730}
       />
+      <nav className="sub-menu">
+        <Link to="/statistics">Statistics</Link>
+        <Link to="/live-history">Live History</Link>
+      </nav>
       <Container>
         <section className="live-wrapper">
           <LiveList lives={data.allStrapiLives} />

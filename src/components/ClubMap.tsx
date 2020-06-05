@@ -1,22 +1,7 @@
 import './ClubMap.scss'
 
 import React, { useEffect } from 'react'
-import { IKakaoMaps } from 'tenel-kakao-map'
-
-const KAKAO_API_KEY = process.env.GATSBY_KAKAO_API_KEY
-
-interface KakaoMaps extends IKakaoMaps {
-  load: any
-  services: {
-    Geocoder: any
-    Status: any
-  }
-}
-interface Kakao {
-  maps: KakaoMaps
-}
-
-declare var kakao: Kakao
+import { loadMapScript, Kakao } from '../utils/kakaoMap'
 
 interface Props {
   club: {
@@ -25,13 +10,12 @@ interface Props {
     placeLink: string
   }
 }
+
+declare var kakao: Kakao
+
 export default function ClubMap({ club }: Props) {
   useEffect(() => {
-    const renderStaticMap = () => {
-      if (!kakao) {
-        return
-      }
-
+    loadMapScript().then(() => {
       const geocoder = new kakao.maps.services.Geocoder()
 
       geocoder.addressSearch(club.address, (result: any, status: any) => {
@@ -55,25 +39,7 @@ export default function ClubMap({ club }: Props) {
           }
         }
       })
-    }
-
-    const $sdk = document.querySelector('#kakao-sdk')
-
-    if ($sdk) {
-      renderStaticMap()
-    } else {
-      const $script = document.createElement('script')
-      $script.id = 'kakao-sdk'
-      $script.type = 'text/javascript'
-      $script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_API_KEY}&libraries=services&autoload=false`
-      $script.onload = () => {
-        kakao.maps.load(() => {
-          renderStaticMap()
-        })
-      }
-
-      document.querySelector('head')?.appendChild($script)
-    }
+    })
   }, [])
 
   return (
@@ -83,7 +49,7 @@ export default function ClubMap({ club }: Props) {
           {club.name}
         </a>
       </div>
-      {club && KAKAO_API_KEY && <div className="ClubMap__map"></div>}
+      {club && <div className="ClubMap__map"></div>}
     </div>
   )
 }

@@ -43,4 +43,15 @@
   .team {
     margin-bottom: 0.8rem;
   }
+
+  .sub-menu {
+    max-width: 1366px;
+    margin: 0 auto;
+    font-size: 2rem;
+
+    a {
+      display: inline-block;
+      margin: 10px;
+    }
+  }
 }

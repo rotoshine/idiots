@@ -156,9 +156,9 @@ export default ({ data, context }: Props) => {
             )}
           </div>
         </Panel>
-        <div className="LiveDetail__footer">
+        <footer className="LiveDetail__footer">
           <Link to="/live">Move to List</Link>
-        </div>
+        </footer>
       </Container>
     </Layout>
   )

@@ -32,6 +32,7 @@ exports.onCreateNode = async ({
           store,
           createNode,
           createNodeId,
+          parentNodeId: node.id,
         })
         console.log(`[REMOTE FILE] ${image.url} / ${image.id}loaded.`)
 

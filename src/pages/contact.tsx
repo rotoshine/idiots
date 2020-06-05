@@ -28,7 +28,6 @@ export default function ContactPage() {
                 ROTO's Page
               </a>
             </li>
-            <li></li>
           </ul>
         </Panel>
         <Panel title="섭외 및 각종 밴드 관련 문의">

@@ -1,13 +1,14 @@
 import './statistics.scss'
 
 import React, { useState, useEffect } from 'react'
-import { dropRight, last, isEmpty } from 'lodash'
+import { last, isEmpty } from 'lodash'
 
 import Layout from '../components/Layout'
 import Meta from '../components/Meta'
 import Panel from '../components/Panel'
 import Container from '../components/Container'
 import InstagramProfile from '../components/InstagramProfile'
+import { Link } from 'gatsby'
 
 interface BandWithCount {
   name: string
@@ -92,6 +93,9 @@ export default function StatsticsPage() {
             </section>
           )}
         </Panel>
+        <footer>
+          <Link to="/live">Move to List</Link>
+        </footer>
       </Container>
     </Layout>
   )
