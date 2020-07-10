@@ -24,7 +24,7 @@ export default function PhotosPage() {
           }
         }
       }
-      photos: allStrapiPhotos {
+      photos: allStrapiPhotos(sort: { fields: live___date, order: DESC }) {
         totalCount
         edges {
           node {
