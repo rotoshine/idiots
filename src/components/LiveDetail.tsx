@@ -32,11 +32,16 @@ const Description = ({ label, content }: LiveRowProps) => {
         </div>
       )
     } else if (isString(content)) {
+      // 유니코드 개행문자를 개행 태그로 변경
+      const replacedContent = content
+        .replace(/\u21B5/g, '<br/>')
+        .replace(/\n/g, '<br/>')
+      console.log(replacedContent)
       return (
         <div
           className="LiveDetail__content"
           dangerouslySetInnerHTML={{
-            __html: `<div className="LiveDetail__content__html">${content}</div>`,
+            __html: `<div class="LiveDetail__content__html">${replacedContent}</div>`,
           }}
         ></div>
       )
