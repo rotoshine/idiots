@@ -47,6 +47,10 @@
   .IndexPage__newsList {
     padding: 0;
     list-style: none;
+
+    section img {
+      width: 100%;
+    }
   }
 
   .IndexPage__twitterTimelineWrapper {
@@ -72,4 +76,6 @@
       margin-bottom: 1rem;
     }
   }
+
+  
 }
