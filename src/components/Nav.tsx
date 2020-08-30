@@ -4,11 +4,16 @@ import { Link } from 'gatsby'
 import React, { useState } from 'react'
 import { useSpring, animated } from 'react-spring'
 import classNames from 'classnames'
+import { startsWith } from 'lodash'
 
 const menus = [
   {
     name: 'home',
     path: '/',
+  },
+  {
+    name: 'goods',
+    path: 'https://marpple.shop/kr/band_idiots',
   },
   {
     name: 'live',
@@ -44,15 +49,24 @@ export default function Nav() {
     },
   })
 
-  const renderMenus = () => {
-    return menus.map((menu, i) => {
-      return (
+  const renderMenus = () =>
+    menus.map(menu =>
+      startsWith(menu.path, 'http') ? (
+        <a
+          className="Nav__menu"
+          key={menu.name}
+          href={menu.path}
+          target="_blank"
+          rel="noopener norefferer"
+        >
+          {menu.name}
+        </a>
+      ) : (
         <Link className="Nav__menu" key={menu.name} to={menu.path}>
           {menu.name}
         </Link>
       )
-    })
-  }
+    )
 
   return (
     <>
