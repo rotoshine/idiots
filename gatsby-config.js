@@ -16,7 +16,7 @@ module.exports = {
     {
       resolve: 'gatsby-source-strapi',
       options: {
-        apiURL: 'https://admin.idiots.band',
+        apiURL: 'https://idiots.roto.codes',
         contentTypes: [
           // List of the Content Types you want to be able to request from Gatsby.
           'albums',
