@@ -1,3 +1,8 @@
 .PageNotFoundPage {
-  font-size: 4rem;
+  display: grid;
+  place-items: center;
+  
+  > div {
+    font-size: 10rem;
+  }
 }

@@ -3,6 +3,7 @@ import './AlbumDetail.scss'
 import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import React from 'react'
+
 import Layout from './Layout'
 import Panel from './Panel'
 import Container from './Container'
@@ -32,11 +33,12 @@ export default function AlbumDetail({ data, context }: Props) {
     content = '',
     streamingLinks = '',
     covers,
+    productType
   } = album
 
   const description = `${releaseDate} 발매. 수록곡: ${songs
-    .map(song => `${song!.name}. ${song!.name}`)
-    .join(' ')} | 구입링크: ${purchaseLink}`
+    .map(song => `${song!.name}`)
+    .join(' ')}${productType !== 'ONLY_DIGITAL' ? `| 구입링크: ${purchaseLink}` : ''}`
 
   return (
     <Layout className="AlbumDetail">
@@ -51,7 +53,7 @@ export default function AlbumDetail({ data, context }: Props) {
           <article className="AlbumDetail__content">
             <Img
               className="AlbumDetail__poster"
-              alt={`밴드 이디어츠의 ${title} 앨범 사진`}
+              alt={`밴드 이디어츠의 ${title} 앨범 자켓`}
               fluid={covers?.[0]?.localFile?.childImageSharp?.fluid}
             />
             <section className="AlbumDetail__descriptions">
@@ -63,33 +65,33 @@ export default function AlbumDetail({ data, context }: Props) {
                 dangerouslySetInnerHTML={{ __html: content }}
               />
               <section className="AlbumDetail__description">
-                <h3>발매일</h3>
+                <h2>발매일</h2>
                 {releaseDate}
               </section>
               <section className="AlbumDetail__description">
-                <h3>수록곡</h3>
+                <h2>수록곡</h2>
                 <ol>
                   {songs.map(song => (
-                    <li key={song!.track}>
-                      {song!.track}. {song!.name}
-                    </li>
+                    <li key={song!.track}>{song!.name}</li>
                   ))}
                 </ol>
               </section>
               <section>
-                <h3>스트리밍 링크</h3>
+                <h2>스트리밍 링크</h2>
                 <div dangerouslySetInnerHTML={{ __html: streamingLinks }}></div>
               </section>
-              <section>
-                <h3>구입링크</h3>
-                <ul>
-                  <li>
-                    <a href={purchaseLink} target="_blank">
-                      구입신청서
-                    </a>
-                  </li>
-                </ul>
-              </section>
+              {productType !== 'ONLY_DIGITAL' && (
+                <section>
+                  <h2>구입링크</h2>
+                  <ul>
+                    <li>
+                      <a href={purchaseLink} target="_blank">
+                        구입신청서
+                      </a>
+                    </li>
+                  </ul>
+                </section>
+              )}
             </section>
           </article>
         </Panel>
@@ -121,6 +123,8 @@ export const query = graphql`
         track
         name
       }
+      type,
+      productType
     }
   }
 `

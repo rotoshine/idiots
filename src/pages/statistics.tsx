@@ -36,7 +36,7 @@ export default function StatsticsPage() {
   useEffect(() => {
     const findBandWithCount = async () => {
       setFetching(true)
-      const res = await fetch('https://admin.idiots.band/bands/count-with-live')
+      const res = await fetch('https://idiots.roto.codes/bands/count-with-live')
       const result = (await res.json()) as BandWithCount[]
       setBandWithCounts(result)
       setFetching(false)

@@ -6,7 +6,7 @@ import Layout from '../components/Layout'
 export default function PageNotFoundPage() {
   return (
     <Layout className="PageNotFoundPage">
-      <section>PAGE NOT FOUND</section>
+      <div>PAGE NOT FOUND</div>
     </Layout>
   )
 }

@@ -27,14 +27,14 @@ exports.onCreateNode = async ({
     for (const image of images) {
       try {
         const fileNode = await createRemoteFileNode({
-          url: `https://admin.idiots.band${image.url}`,
+          url: `https://idiots.roto.codes${image.url}`,
           cache,
           store,
           createNode,
           createNodeId,
           parentNodeId: node.id,
         })
-        console.log(`[REMOTE FILE] ${image.url} / ${image.id}loaded.`)
+        console.log(`[REMOTE FILE] ${image.url} / ${image.id} loaded.`)
 
         if (fileNode) {
           image.localFile___NODE = fileNode.id
