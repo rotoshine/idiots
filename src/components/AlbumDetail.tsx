@@ -3,6 +3,7 @@ import './AlbumDetail.scss'
 import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import React from 'react'
+import marked from 'marked'
 
 import Layout from './Layout'
 import Panel from './Panel'
@@ -33,12 +34,14 @@ export default function AlbumDetail({ data, context }: Props) {
     content = '',
     streamingLinks = '',
     covers,
-    productType
+    productType,
   } = album
 
   const description = `${releaseDate} 발매. 수록곡: ${songs
     .map(song => `${song!.name}`)
-    .join(' ')}${productType !== 'ONLY_DIGITAL' ? `| 구입링크: ${purchaseLink}` : ''}`
+    .join(' ')}${
+    productType !== 'ONLY_DIGITAL' ? `| 구입링크: ${purchaseLink}` : ''
+  }`
 
   return (
     <Layout className="AlbumDetail">
@@ -78,7 +81,9 @@ export default function AlbumDetail({ data, context }: Props) {
               </section>
               <section>
                 <h2>스트리밍 링크</h2>
-                <div dangerouslySetInnerHTML={{ __html: streamingLinks }}></div>
+                <div
+                  dangerouslySetInnerHTML={{ __html: marked(streamingLinks) }}
+                ></div>
               </section>
               {productType !== 'ONLY_DIGITAL' && (
                 <section>
@@ -123,7 +128,7 @@ export const query = graphql`
         track
         name
       }
-      type,
+      type
       productType
     }
   }
