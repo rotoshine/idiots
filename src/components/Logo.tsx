@@ -8,14 +8,14 @@ function Logo() {
   const [isMouseEnter, setMouseEnter] = useState(false)
   const data = useStaticQuery<GatsbyTypes.LogoStaticQuery>(graphql`
     query LogoStatic {
-      defaultLogo: file(relativePath: { eq: "logo_simple.png" }) {
+      defaultLogo: file(relativePath: { eq: "logo-en.png" }) {
         childImageSharp {
           fluid(maxWidth: 500) {
             src
           }
         }
       }
-      logo: file(relativePath: { eq: "logo_color.png" }) {
+      logo: file(relativePath: { eq: "logo-kr.png" }) {
         childImageSharp {
           fluid(maxWidth: 500) {
             src

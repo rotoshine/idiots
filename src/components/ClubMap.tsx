@@ -16,29 +16,33 @@ declare var kakao: Kakao
 export default function ClubMap({ club }: Props) {
   useEffect(() => {
     loadMapScript().then(() => {
-      const geocoder = new kakao.maps.services.Geocoder()
+      if (window.kakao) {
+        const geocoder = new kakao.maps.services.Geocoder()
 
-      geocoder.addressSearch(club.address, (result: any, status: any) => {
-        if (status === kakao.maps.services.Status.OK) {
-          const $map = document.querySelector('.ClubMap__map') as HTMLDivElement
+        geocoder.addressSearch(club.address, (result: any, status: any) => {
+          if (status === kakao.maps.services.Status.OK) {
+            const $map = document.querySelector(
+              '.ClubMap__map'
+            ) as HTMLDivElement
 
-          if ($map && result.length > 0) {
-            const { x, y } = result[0]
-            const markerPosition = new kakao.maps.LatLng(y, x)
-            const marker = {
-              position: markerPosition,
+            if ($map && result.length > 0) {
+              const { x, y } = result[0]
+              const markerPosition = new kakao.maps.LatLng(y, x)
+              const marker = {
+                position: markerPosition,
+              }
+
+              const mapOption = {
+                center: markerPosition,
+                level: 3,
+                marker,
+              }
+
+              new kakao.maps.StaticMap($map, mapOption)
             }
-
-            const mapOption = {
-              center: markerPosition,
-              level: 3,
-              marker,
-            }
-
-            new kakao.maps.StaticMap($map, mapOption)
           }
-        }
-      })
+        })
+      }
     })
   }, [])
 

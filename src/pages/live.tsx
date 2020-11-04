@@ -7,7 +7,6 @@ import Meta from '../components/Meta'
 import Layout from '../components/Layout'
 import Container from '../components/Container'
 import LiveList from '../components/LiveList'
-import Panel from '../components/Panel'
 
 export default function LivePage() {
   const data = useStaticQuery<GatsbyTypes.LivePageStaticQuery>(graphql`

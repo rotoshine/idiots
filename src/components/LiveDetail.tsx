@@ -3,9 +3,9 @@ import './LiveDetail.scss'
 import { graphql, Link } from 'gatsby'
 import Img from 'gatsby-image'
 import React, { ReactNode } from 'react'
-import { isEmpty, isArray } from 'lodash'
+import { isEmpty, isArray, isString } from 'lodash'
+import marked from 'marked'
 
-import { isString } from 'util'
 import { Live } from 'types/models'
 
 import Container from './Container'
@@ -36,12 +36,13 @@ const Description = ({ label, content }: LiveRowProps) => {
       const replacedContent = content
         .replace(/\u21B5/g, '<br/>')
         .replace(/\n/g, '<br/>')
-      console.log(replacedContent)
       return (
         <div
           className="LiveDetail__content"
           dangerouslySetInnerHTML={{
-            __html: `<div class="LiveDetail__content__html">${replacedContent}</div>`,
+            __html: `<div class="LiveDetail__content__html">${marked(
+              replacedContent
+            )}</div>`,
           }}
         ></div>
       )
@@ -58,6 +59,10 @@ const Description = ({ label, content }: LiveRowProps) => {
 }
 
 const toMetaDescription = (live: Live) => {
+  if (live.isCanceled) {
+    return '취소된 공연입니다.'
+  }
+
   const { club, bands, priceInfo, seoDescription = '' } = live
   const descriptions = isEmpty(seoDescription)
     ? [`장소: ${club.name}`]
@@ -97,6 +102,7 @@ export default ({ data, context }: Props) => {
     priceInfo,
     ticketLink,
     content,
+    isCanceled,
   } = live
 
   const representImage = posters[0]
@@ -149,7 +155,7 @@ export default ({ data, context }: Props) => {
             {!isEmpty(priceInfo) && (
               <Description label="Price" content={priceInfo} />
             )}
-            {!isEmpty(ticketLink) && (
+            {!isCanceled && !isEmpty(ticketLink) && (
               <Description
                 label="에매링크"
                 content={
@@ -199,6 +205,7 @@ export const query = graphql`
       seoDescription
       ticketLink
       title
+      isCanceled
     }
   }
 `

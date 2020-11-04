@@ -5,22 +5,24 @@
   position: relative;
   height: 120px;
   margin: 0 auto;
+  padding: 2rem 0;
 
   @include media('>=phone', '<tablet') {
     min-height: 100px;
   }
 
-  .Logo__image {
+  .Logo__image {    
     position: absolute;
-    top: 0;
-    left: 50%;
-    width: 100%;
-    max-width: 500px;
+    top: 50%;
+    left: 50%;    
     opacity: 1;
     transition: opacity 1s ease-in-out;
-    transform: translate(-50%, 0);
+    transform: translate(-50%, -50%);
     &--hidden {
       opacity: 0;
-    }
+    }   
+  }
+  img {    
+    height: calc(100% - 2rem);
   }
 }

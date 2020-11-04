@@ -5,12 +5,14 @@ import { Link, graphql } from 'gatsby'
 import { useTrail, animated } from 'react-spring'
 
 import Panel from './Panel'
+import classNames from 'classnames'
 
 interface Props {
   title?: string
   lives: GatsbyTypes.LiveList_livesFragment
 }
 export default function LiveList({ title = 'Live List', lives }: Props) {
+  console.log(lives)
   const trail = useTrail(lives.edges.length, {
     mass: 5,
     tension: 2000,
@@ -39,9 +41,15 @@ export default function LiveList({ title = 'Live List', lives }: Props) {
               }}
             >
               <animated.div>
-                <Link to={`/live/${lives.edges[index].node.slug}/`}>
+                <Link
+                  className={classNames({
+                    LiveList__canceledLive: lives.edges[index].node.isCanceled,
+                  })}
+                  to={`/live/${lives.edges[index].node.slug}/`}
+                >
                   <div>
-                    [{lives.edges[index].node.date}]{' '}
+                    {lives.edges[index].node.isCanceled ? '[취소됨]' : ''}[
+                    {lives.edges[index].node.date}]{' '}
                     {lives.edges[index].node.title}
                   </div>
                 </Link>
@@ -62,6 +70,7 @@ export const fragments = graphql`
         date(formatString: "YYYY-MM-DD")
         title
         slug
+        isCanceled
       }
     }
   }

@@ -42,14 +42,19 @@
     margin-top: 1rem;
     flex-direction: row;
     display: flex;
+
+    img {
+      width: 100%;
+    }    
+
+    > div {
+      flex: 1;
+    }
   }
 
-  .IndexPage__newsList {
-    padding: 0;
-    list-style: none;
-
-    section img {
-      width: 100%;
+  .IndexPage__newsPanels {
+    .Panel:last-child {
+      margin-top: 16px;
     }
   }
 
