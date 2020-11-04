@@ -10,7 +10,7 @@
     }
 
     .AlbumDetail__poster {
-      width: 50%;
+      flex: 1;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -21,6 +21,7 @@
     }
 
     .AlbumDetail__descriptions {
+      flex: 1;
       position: relative;
       padding: 3rem;
       line-height: 25px;

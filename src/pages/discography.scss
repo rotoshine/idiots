@@ -1,33 +1,15 @@
 @import '~include-media/dist/include-media';
 
 .Discography {
-  /*
-  .Discography__list {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    width: 100%;
+  .PanelContents {
+    margin-top: 1rem;
   }
-
-  .Discography__album {
-    width: 25%;
-    padding: 1.5rem;
-    box-sizing: border-box;
-
-    @include media(">=tablet", "<desktop") {
-      width: 50%;
-    }
-
-    @include media(">=phone", "<tablet") {
-      width: 100%;
-    }
-  }*/
 
   .Discography__list {
     display: grid;
     row-gap: 1rem;
-    column-gap: 10rem;
-    grid-template-columns: repeat(4, 1fr);
+    column-gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
 
     @include media('>=tablet', '<desktop') {
       grid-template-columns: repeat(2, 1fr);

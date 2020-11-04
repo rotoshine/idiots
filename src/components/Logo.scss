@@ -3,13 +3,11 @@
 .Logo {
   text-align: center;
   position: relative;
-  height: 120px;
+  height: 10vh;
+  max-height: 200px;
+  min-height: 80px;
   margin: 0 auto;
-  padding: 2rem 0;
-
-  @include media('>=phone', '<tablet') {
-    min-height: 100px;
-  }
+  padding: 2rem;
 
   .Logo__image {    
     position: absolute;
