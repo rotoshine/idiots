@@ -10,6 +10,7 @@ import Container from '../components/Container'
 import Panel from '../components/Panel'
 import LiveList from '../components/LiveList'
 import TwitterTimeline from '../components/TwitterTimeline'
+import Meta from '../components/Meta'
 
 export default function IndexPage() {
   const [coverImageIndex, setCoverImageIndex] = useState(0)
@@ -83,6 +84,14 @@ export default function IndexPage() {
 
   return (
     <Layout className="IndexPage">
+      <Meta
+        description="디지털 싱글 언제나의 발매에 앞서 컨셉
+        일러스트와 새 굿즈들을 소개합니다!
+        프로필 링크 또는 마플샵에서 밴드 이디어츠를 검색해주세요"
+        imageUrl="https://idiots.band/images/eonjena.png"
+        imageWidth={900}
+        imageHeight={900}
+      />
       <section className="cover-image-carousel">
         {transitions.map(({ item, props, key }) => (
           <animated.div key={key} className="cover-image" style={props}>
@@ -101,14 +110,13 @@ export default function IndexPage() {
           <section className="IndexPage__panels">
             <div className="IndexPage__newsPanels">
               <Panel title="News">
-                <h2>💜👻악당출현 티셔츠 판매개시!!👻💜</h2>
-                현재 디지털 싱글 준비중에 앞서
-                악당출현 컨셉 일러스트의 티셔츠를 먼저
-                판매합니다🎵
+                <h2>💜👻언제나 티셔츠 판매개시!!👻💜</h2>
+                안뇽! 디지털 싱글 <code>언제나</code>의 발매에 앞서 컨셉
+                일러스트와 새 굿즈들을 소개합니다!
+                <br /> 프로필 링크 또는 마플샵에서 밴드 이디어츠를 검색해주세요
+                👻💜
                 <h3>🌈색상</h3>
-                <p>
-                  화이트, 오렌지, 로얄블루, 네이비, 블랙
-                </p>
+                <p>블랙, 로얄블루, 오렌지, 화이트, 세이프티 그린</p>
                 <h3>✨주문방법</h3>
                 <p>
                   <a
@@ -128,7 +136,7 @@ export default function IndexPage() {
                   확인해주세요!
                 </p>
                 <p>많은 관심 부탁드립니다 🎵👻</p>
-                <img src="/images/adch.jpg" alt="악당출현! 모델샷" />
+                <img src="/images/eonjena.png" alt="언제나 커버 이미지" />
               </Panel>
               <Panel title="이디어츠 11월 스케쥴">
                 <Img
