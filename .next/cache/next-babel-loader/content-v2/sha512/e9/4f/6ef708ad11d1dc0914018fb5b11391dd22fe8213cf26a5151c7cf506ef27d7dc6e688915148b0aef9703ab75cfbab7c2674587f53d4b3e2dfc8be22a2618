@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { jsx as _jsx } from \"react/jsx-runtime\";\nimport styles from './Container.module.scss';\nimport React from 'react';\nexport default function Container(_ref) {\n  var children = _ref.children;\n  return /*#__PURE__*/_jsx(\"div\", {\n    className: styles.Container,\n    children: children\n  });\n}","map":null,"metadata":{},"sourceType":"module"}

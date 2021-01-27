@@ -1,0 +1,39 @@
+@import '~include-media/dist/include-media';
+
+.Logo {
+  position: relative;
+  height: 10vh;
+  max-height: 200px;
+  min-height: 80px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .Logo__wrapper {
+    width: 454px;
+    height: 153px;
+    position: relative;
+
+    > div {
+      top: 0;
+      position: absolute !important;
+    }
+  }
+
+  .Logo__image {
+    opacity: 1;
+    &--hidden {
+      opacity: 0;
+    }
+
+    transition: opacity 1s ease-in-out;
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

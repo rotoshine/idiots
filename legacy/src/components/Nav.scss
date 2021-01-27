@@ -1,0 +1,91 @@
+@import '~include-media/dist/include-media';
+
+$logo-color: #967155;
+
+.Nav {
+  font-family: 'AHDN', cursive;
+  text-align: center;
+  background-color: #eee;
+  padding: 1rem;
+  min-height: 7rem;
+
+  .Nav__toggleMenu {
+    display: none;
+  }
+
+  .Nav__wrapper {
+    padding-left: 5%;
+    padding-right: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-flow: wrap;
+    padding-top: 1rem;
+    height: auto !important;
+
+    .Nav__menu {
+      font-size: 4.5rem;
+      height: 7rem;
+      text-decoration: none;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      color: #999;
+      font-weight: 700;
+      transition: all ease 0.5s;
+      transform: rotate(-10deg);
+
+      &:visited {
+        color: #999;
+      }
+
+      &:hover {
+        color: $logo-color;
+        transform: rotate(370deg);
+      }
+
+      &[aria-current='page'] {
+        color: $logo-color;
+        transform: rotate(10deg);
+      }
+    }
+  }
+
+  .Nav__hideButton {
+    display: none;
+  }
+}
+
+@include media('<tablet') {
+  .Nav {
+    position: relative;
+    min-height: 4rem;
+    .Nav__wrapper {
+      display: none;
+      top: 67px;
+      left: 0;
+      height: 0;
+      width: 100%;
+      z-index: 2;
+      &--visible {
+        position: absolute;
+        background-color: #eee;
+        flex-direction: column;
+        display: flex;
+        height: 330px;
+      }
+
+      .Nav__menu {
+        flex: 1;
+        font-size: 4em;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .Nav__toggleMenu {
+      display: block;
+      background-color: transparent;
+      border: 0;
+      font-size: 4rem;
+    }
+  }
+}

@@ -1,0 +1,86 @@
+@import '~include-media/dist/include-media';
+
+.IndexPage {
+  .cover-image-carousel {
+    position: relative;
+    width: 100%;
+    height: 800px;
+
+    .cover-image {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      will-change: opacity;
+      pointer-events: none;
+    }
+
+    @include media('<=tablet') {
+      height: 300px;
+
+      .cover-image {
+        background-size: contain;
+      }
+    }
+
+    @include media('<=phone') {
+      height: 200px;
+    }
+  }
+
+  .IndexPage__contents {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .IndexPage__panels {
+    margin-top: 1rem;
+    flex-direction: row;
+    display: flex;
+
+    img {
+      width: 100%;
+    }
+
+    > div {
+      flex: 1;
+    }
+  }
+
+  .IndexPage__newsPanels {
+    .Panel:last-child {
+      margin-top: 16px;
+    }
+  }
+
+  .IndexPage__twitterTimelineWrapper {
+    padding: 1rem;
+    flex: 1;
+    display: center;
+  }
+
+  .IndexPage__live {
+    line-height: 1;
+  }
+
+  @include media('<=tablet') {
+    .IndexPage__panels {
+      flex-direction: column;
+
+      .Panel:first-child {
+        margin-bottom: 1rem;
+      }
+    }
+
+    .IndexPage__contents {
+      margin-bottom: 1rem;
+    }
+  }
+
+
+}

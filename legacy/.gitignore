@@ -1,0 +1,10 @@
+.next
+node_modules
+.env
+.DS_STORE
+public
+.cache
+.vscode
+.env.*
+run.sh
+src/__generated__
