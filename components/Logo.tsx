@@ -24,8 +24,8 @@ function Logo() {
             })}
             src="/images/logo-en.png"
             alt="logo"
-            width={434}
-            height={153}
+            width={434.703}
+            height={153.688}
             layout="fixed"
           />
           <Image
@@ -34,8 +34,8 @@ function Logo() {
             })}
             src="/images/logo-kr.png"
             alt="logo"
-            width={434}
-            height={153}
+            width={434.703}
+            height={153.688}
             layout="fixed"
           />
         </a>
