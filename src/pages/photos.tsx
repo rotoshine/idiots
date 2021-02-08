@@ -36,7 +36,14 @@ export default function PhotosPage() {
               localFile {
                 childImageSharp {
                   fixed(width: 600, height: 400) {
-                    ...GatsbyImageSharpFixed
+                    width
+                    height
+                    src
+                    srcSet
+                    base64
+                    tracedSVG
+                    srcWebp
+                    srcSetWebp
                   }
                 }
               }

@@ -8,3 +8,4 @@ public
 .env.*
 run.sh
 src/__generated__
+.vercel

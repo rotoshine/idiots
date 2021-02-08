@@ -196,7 +196,14 @@ export const query = graphql`
           url
           childImageSharp {
             fluid(maxWidth: 1200) {
-              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+              aspectRatio
+              src
+              srcSet
+              sizes
+              base64
+              tracedSVG
+              srcWebp
+              srcSetWebp
             }
           }
         }

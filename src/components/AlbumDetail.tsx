@@ -1,7 +1,7 @@
 import './AlbumDetail.scss'
 
 import { graphql } from 'gatsby'
-import Img from 'gatsby-image'
+import Img, { FluidObject } from 'gatsby-image'
 import React from 'react'
 import marked from 'marked'
 
@@ -54,11 +54,20 @@ export default function AlbumDetail({ data, context }: Props) {
       <Container>
         <Panel noBorder>
           <article className="AlbumDetail__content">
-            <Img
-              className="AlbumDetail__poster"
-              alt={`밴드 이디어츠의 ${title} 앨범 자켓`}
-              fluid={covers?.[0]?.localFile?.childImageSharp?.fluid}
-            />
+            {covers &&
+              covers.length > 0 &&
+              covers[0] &&
+              covers[0].localFile &&
+              covers[0].localFile.childImageSharp && (
+                <Img
+                  className="AlbumDetail__poster"
+                  alt={`밴드 이디어츠의 ${title} 앨범 자켓`}
+                  fluid={
+                    covers[0].localFile.childImageSharp.fluid as FluidObject
+                  }
+                />
+              )}
+
             <section className="AlbumDetail__descriptions">
               <section className="AlbumDetail__description">
                 <h1>{title}</h1>
@@ -113,7 +122,14 @@ export const query = graphql`
           url
           childImageSharp {
             fluid(maxWidth: 720) {
-              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+              aspectRatio
+              src
+              srcSet
+              sizes
+              base64
+              tracedSVG
+              srcWebp
+              srcSetWebp
             }
           }
         }

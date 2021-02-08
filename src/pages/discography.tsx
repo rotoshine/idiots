@@ -19,7 +19,14 @@ export default function DiscographyPage() {
             localFile {
               childImageSharp {
                 fluid(maxWidth: 720) {
-                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
+                  aspectRatio
+                  src
+                  srcSet
+                  sizes
+                  base64
+                  tracedSVG
+                  srcWebp
+                  srcSetWebp
                 }
               }
             }

@@ -15,9 +15,10 @@ import Meta from '../components/Meta'
 export default function IndexPage() {
   const [coverImageIndex, setCoverImageIndex] = useState(0)
   const indexRef = useRef(coverImageIndex)
-  const { lives, homeContent } = useStaticQuery<
-    GatsbyTypes.IndexPageStaticQuery
-  >(graphql`
+  const {
+    lives,
+    homeContent,
+  } = useStaticQuery<GatsbyTypes.IndexPageStaticQuery>(graphql`
     query IndexPageStatic {
       lives: allStrapiLives(sort: { fields: [date], order: DESC }, limit: 32) {
         ...LiveList_lives
@@ -28,7 +29,14 @@ export default function IndexPage() {
             url
             childImageSharp {
               fluid(maxWidth: 700) {
-                ...GatsbyImageSharpFluid_withWebp_tracedSVG
+                aspectRatio
+                src
+                srcSet
+                sizes
+                base64
+                tracedSVG
+                srcWebp
+                srcSetWebp
               }
             }
           }
@@ -38,7 +46,14 @@ export default function IndexPage() {
             url
             childImageSharp {
               fluid(maxWidth: 1920) {
-                ...GatsbyImageSharpFluid_withWebp_noBase64
+                aspectRatio
+                src
+                srcSet
+                sizes
+                base64
+                tracedSVG
+                srcWebp
+                srcSetWebp
               }
             }
           }
