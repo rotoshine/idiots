@@ -100,12 +100,10 @@ export default function IndexPage() {
   return (
     <Layout className="IndexPage">
       <Meta
-        description="디지털 싱글 언제나의 발매에 앞서 컨셉
-        일러스트와 새 굿즈들을 소개합니다!
-        프로필 링크 또는 마플샵에서 밴드 이디어츠를 검색해주세요"
-        imageUrl="https://idiots.band/images/eonjena.png"
-        imageWidth={900}
-        imageHeight={900}
+        description="👻 멍청이 펑크 밴드 이디어츠! 👻"
+        imageUrl="https://idiots.band/images/logo-default.jpg"
+        imageWidth={1080}
+        imageHeight={567}
       />
       <section className="cover-image-carousel">
         {transitions.map(({ item, props, key }) => (
@@ -152,16 +150,6 @@ export default function IndexPage() {
                 </p>
                 <p>많은 관심 부탁드립니다 🎵👻</p>
                 <img src="/images/eonjena.png" alt="언제나 커버 이미지" />
-              </Panel>
-              <Panel title="이디어츠 11월 스케쥴">
-                <Img
-                  fluid={
-                    homeContent?.schedulePosters?.[0]?.localFile
-                      ?.childImageSharp?.fluid
-                  }
-                  alt="이디어츠 11월 스케쥴"
-                  loading="lazy"
-                />
               </Panel>
             </div>
             <LiveList title="Live" lives={lives} />
