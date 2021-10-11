@@ -1,7 +1,7 @@
 import './index.scss'
 
 import { graphql, useStaticQuery } from 'gatsby'
-import Img from 'gatsby-image'
+import Img, { FluidObject } from 'gatsby-image'
 import React, { useState, useEffect, useRef } from 'react'
 import { animated, config, useTransition } from 'react-spring'
 
@@ -20,10 +20,10 @@ export default function IndexPage() {
     homeContent,
   } = useStaticQuery<GatsbyTypes.IndexPageStaticQuery>(graphql`
     query IndexPageStatic {
-      lives: allStrapiLives(sort: { fields: [date], order: DESC }, limit: 32) {
+      lives: allStrapiLives(sort: { fields: [date], order: DESC }, limit: 40) {
         ...LiveList_lives
       }
-      homeContent: strapiHomeContent(createdAt: { gt: "0" }) {
+      homeContent: strapiHomeContent {
         schedulePosters {
           localFile {
             url
@@ -109,7 +109,7 @@ export default function IndexPage() {
         {transitions.map(({ item, props, key }) => (
           <animated.div key={key} className="cover-image" style={props}>
             <Img
-              fluid={item?.fluid}
+              fluid={item?.fluid as FluidObject}
               style={{
                 width: '100%',
                 height: '100%',
@@ -122,6 +122,21 @@ export default function IndexPage() {
         <section className="IndexPage__contents">
           <section className="IndexPage__panels">
             <div className="IndexPage__newsPanels">
+              {homeContent?.schedulePosters &&
+                homeContent.schedulePosters.length > 0 && (
+                  <Panel title="이디어츠 스케쥴!">
+                    <Img
+                      fluid={
+                        homeContent.schedulePosters[0]?.localFile
+                          ?.childImageSharp.fluid
+                      }
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                      }}
+                    />
+                  </Panel>
+                )}
               <Panel title="News">
                 <h2>💜👻언제나 티셔츠 판매개시!!👻💜</h2>
                 안뇽! 디지털 싱글 <code>언제나</code>의 발매에 앞서 컨셉
