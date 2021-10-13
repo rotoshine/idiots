@@ -46,21 +46,17 @@ const updateUrl = (nextUrl: string) => {
 }
 
 export default function PhotoDetail({ pageContext, data }: Props) {
-  const {
-    photo,
-    live,
-    photographer,
-    slug,
-  } = data.strapiPhotos as GatsbyTypes.StrapiPhotos
+  const { photo, live, photographer, slug } =
+    data.strapiPhotos as GatsbyTypes.StrapiPhotos
 
   const [selectedPhotoIndex, setSelectPhotoIndex] = useState<number | null>(
     null
   )
 
   useEffect(() => {
-    if (pageContext.photoId) {
+    if (pageContext.photoId && data.strapiPhotos) {
       const index = findIndex(data.strapiPhotos.photo, p => {
-        return p.id === pageContext.photoId
+        return p?.id === pageContext.photoId
       })
 
       if (index > -1) {
@@ -71,10 +67,10 @@ export default function PhotoDetail({ pageContext, data }: Props) {
 
   const renderMeta = () => {
     if (pageContext.photoId) {
-      const photoItem = find(photo, p => p.id === pageContext.photoId)
-      const index = findIndex(photo, p => p.id === pageContext.photoId)
+      const photoItem = find(photo, p => p?.id === pageContext.photoId)
+      const index = findIndex(photo, p => p?.id === pageContext.photoId)
 
-      if (photoItem && index > -1) {
+      if (photoItem && index > -1 && photo && photo.length > 0) {
         return (
           <Meta
             title={`밴드 이디어츠 - ${live?.title} 사진 (${index + 1}/${

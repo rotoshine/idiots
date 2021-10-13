@@ -69,11 +69,11 @@ exports.createPages = async ({ actions, graphql }) => {
   const livesRes = await makeRequest(
     graphql,
     `
-    {
+    query {
       allStrapiLives {
         edges {
           node {
-            slug           
+            slug
           }
         }
       }
@@ -81,6 +81,7 @@ exports.createPages = async ({ actions, graphql }) => {
     `
   )
 
+  console.log(livesRes)
   const { edges: lives } = livesRes.data.allStrapiLives
   lives.forEach(({ node }) => {
     createPage({
@@ -96,11 +97,11 @@ exports.createPages = async ({ actions, graphql }) => {
   const albumsRes = await makeRequest(
     graphql,
     `
-    {
+    query {
       allStrapiAlbums {
         edges {
           node {
-            slug            
+            slug
           }
         }
       }
@@ -123,7 +124,7 @@ exports.createPages = async ({ actions, graphql }) => {
   const photosRes = await makeRequest(
     graphql,
     `
-    {
+    query{
       allStrapiPhotos {
         edges {
           node {

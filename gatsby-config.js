@@ -10,14 +10,19 @@ module.exports = {
     {
       resolve: `gatsby-plugin-sass`,
       options: {
-        implementation: require('sass'),
+        cssLoaderOptions: {
+          esModule: false,
+          modules: {
+            namedExport: false,
+          },
+        },
       },
     },
     {
       resolve: 'gatsby-source-strapi',
       options: {
         apiURL: 'https://admin.idiots.band',
-        contentTypes: [
+        collectionTypes: [
           // List of the Content Types you want to be able to request from Gatsby.
           'albums',
           'lives',

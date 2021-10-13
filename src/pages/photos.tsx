@@ -20,9 +20,7 @@ export default function PhotosPage() {
           node {
             name
             instagramUrl
-            profileImage {
-              publicURL
-            }
+            profileImageUrl
           }
         }
       }
@@ -93,7 +91,7 @@ export default function PhotosPage() {
               }
             >
               <img
-                src={node.profileImage?.publicURL}
+                src={node.profileImageUrl}
                 alt={`photographer ${node.name} profile`}
               />
               <div className="Photos__name">{node.name}</div>

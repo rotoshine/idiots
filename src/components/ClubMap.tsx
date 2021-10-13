@@ -13,6 +13,10 @@ interface Props {
 
 declare var kakao: Kakao
 
+declare var window: Window & {
+  kakao: Kakao
+}
+
 export default function ClubMap({ club }: Props) {
   useEffect(() => {
     loadMapScript().then(() => {
