@@ -12,7 +12,6 @@ interface Props {
   lives: GatsbyTypes.LiveList_livesFragment
 }
 export default function LiveList({ title = 'Live List', lives }: Props) {
-  console.log(lives)
   const trail = useTrail(lives.edges.length, {
     mass: 5,
     tension: 2000,
@@ -37,7 +36,7 @@ export default function LiveList({ title = 'Live List', lives }: Props) {
               className="LiveList__live"
               style={{
                 ...rest,
-                transform: x.interpolate(x => `translate3d(0,${x}px,0)`),
+                transform: x.to(x => `translate3d(0,${x}px,0)`),
               }}
             >
               <animated.div>

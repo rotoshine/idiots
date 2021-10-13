@@ -15,52 +15,53 @@ import Meta from '../components/Meta'
 export default function IndexPage() {
   const [coverImageIndex, setCoverImageIndex] = useState(0)
   const indexRef = useRef(coverImageIndex)
-  const {
-    lives,
-    homeContent,
-  } = useStaticQuery<GatsbyTypes.IndexPageStaticQuery>(graphql`
-    query IndexPageStatic {
-      lives: allStrapiLives(sort: { fields: [date], order: DESC }, limit: 40) {
-        ...LiveList_lives
-      }
-      homeContent: strapiHomeContent {
-        schedulePosters {
-          localFile {
-            url
-            childImageSharp {
-              fluid(maxWidth: 700) {
-                aspectRatio
-                src
-                srcSet
-                sizes
-                base64
-                tracedSVG
-                srcWebp
-                srcSetWebp
+  const { lives, homeContent } =
+    useStaticQuery<GatsbyTypes.IndexPageStaticQuery>(graphql`
+      query IndexPageStatic {
+        lives: allStrapiLives(
+          sort: { fields: [date], order: DESC }
+          limit: 40
+        ) {
+          ...LiveList_lives
+        }
+        homeContent: strapiHomeContent {
+          schedulePosters {
+            localFile {
+              url
+              childImageSharp {
+                fluid(maxWidth: 700) {
+                  aspectRatio
+                  src
+                  srcSet
+                  sizes
+                  base64
+                  tracedSVG
+                  srcWebp
+                  srcSetWebp
+                }
+              }
+            }
+          }
+          carouselImages {
+            localFile {
+              url
+              childImageSharp {
+                fluid(maxWidth: 1920) {
+                  aspectRatio
+                  src
+                  srcSet
+                  sizes
+                  base64
+                  tracedSVG
+                  srcWebp
+                  srcSetWebp
+                }
               }
             }
           }
         }
-        carouselImages {
-          localFile {
-            url
-            childImageSharp {
-              fluid(maxWidth: 1920) {
-                aspectRatio
-                src
-                srcSet
-                sizes
-                base64
-                tracedSVG
-                srcWebp
-                srcSetWebp
-              }
-            }
-          }
-        }
       }
-    }
-  `)
+    `)
 
   const coverImages = homeContent?.carouselImages?.map(carouselImage => ({
     id: carouselImage?.localFile?.url,
@@ -68,16 +69,12 @@ export default function IndexPage() {
     fluid: carouselImage?.localFile?.childImageSharp?.fluid,
   }))
 
-  const transitions = useTransition(
-    coverImages?.[coverImageIndex],
-    item => item?.id || '',
-    {
-      from: { opacity: 0 },
-      enter: { opacity: 1 },
-      leave: { opacity: 0 },
-      config: config.molasses,
-    }
-  )
+  const transitions = useTransition(coverImages[coverImageIndex], {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    config: config.molasses,
+  })
 
   useEffect(() => {
     const MAX_INDEX = (coverImages?.length ?? 1) - 1
@@ -106,8 +103,14 @@ export default function IndexPage() {
         imageHeight={567}
       />
       <section className="cover-image-carousel">
-        {transitions.map(({ item, props, key }) => (
-          <animated.div key={key} className="cover-image" style={props}>
+        {transitions(({ opacity }, item) => (
+          <animated.div
+            className="cover-image"
+            key={item.id}
+            style={{
+              opacity: opacity.to({ range: [0.0, 1.0], output: [0, 1] }),
+            }}
+          >
             <Img
               fluid={item?.fluid as FluidObject}
               style={{
@@ -128,7 +131,7 @@ export default function IndexPage() {
                     <Img
                       fluid={
                         homeContent.schedulePosters[0]?.localFile
-                          ?.childImageSharp.fluid
+                          ?.childImageSharp?.fluid
                       }
                       style={{
                         width: '100%',

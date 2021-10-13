@@ -16,7 +16,7 @@ export interface Kakao {
 
 declare var kakao: Kakao
 
-export const loadMapScript = () => {
+export const loadMapScript = (): Promise<void> => {
   return new Promise(resolve => {
     const $sdk = document.querySelector('#kakao-sdk')
 
