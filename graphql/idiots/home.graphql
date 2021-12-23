@@ -1,0 +1,15 @@
+query mainCarouselImage {
+  mainCarouselImage {
+    images {
+      formats
+    }
+  }
+}
+
+query mainImage {
+  mainImage {
+    images {
+      formats
+    }
+  }
+}
