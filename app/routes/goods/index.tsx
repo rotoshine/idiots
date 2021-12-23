@@ -5,6 +5,7 @@ import GoodsImage from '~/components/GoodsImage'
 import { FindProductsByMusicianDocument, ProductItemFragment } from '~/types/generated-indistreet'
 import { StrapiImage } from '~/types/types'
 import { requestToIndistreet } from '~/utils/api'
+import { generateMeta } from '~/utils/meta'
 
 export let loader: LoaderFunction = async () => {
   const data = await requestToIndistreet(FindProductsByMusicianDocument, {
@@ -15,21 +16,14 @@ export let loader: LoaderFunction = async () => {
 }
 
 export let meta: MetaFunction = () => {
-  const imageUrl = 'https://lipimoon.world/images/logo.png'
-  const title = `리피문 굿즈`
-  const description = '리피문의 굿즈를 확인해보세요.'
+  const title = `이디어츠 굿즈`
+  const description = '이디어츠의 굿즈를 확인해보세요.'
 
-  return {
+  return generateMeta({
     title,
     description,
-    'og:title': title,
-    'og:description': description,
-    'og:image': imageUrl,
-    'og:url': 'https://lipimoon.world.com/goods',
-    'twitter:card': 'summary',
-    'twitter:site': '_LIPIMOON_',
-    'twitter:creator': '_LIPIMOON_',
-  }
+    path: '/goods',
+  })
 }
 
 export default function GoodsPage() {

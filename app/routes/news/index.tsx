@@ -1,49 +1,34 @@
 import { Box, Button, Heading, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { MetaFunction, LoaderFunction } from 'remix'
 import { useLoaderData, useNavigate } from 'remix'
-import { Article } from '~/types'
-import { fetchLipimoonApi } from '~/utils/api'
+
 import { toSimpleDateFormat } from '~/utils/date'
+import { generateMeta } from '~/utils/meta'
 
 export let loader: LoaderFunction = async () => {
-  const data = await fetchLipimoonApi('/articles', {
-    sort: 'publishDate:DESC',
-    populate: 'images',
-    'filters[publishDate][$lte]': new Date().toISOString(),
-  })
-
-  return data
+  return []
 }
 
 export let meta: MetaFunction = () => {
-  const imageUrl = 'https://lipimoon.world/images/logo.png'
-  const title = `리피문 소식`
-  const description = '리피문의 여러가지 소식들을 확인할 수 있어요.'
+  const title = `이디어츠 소식`
+  const description = '이디어츠의 여러가지 소식들을 확인할 수 있어요.'
 
-  return {
+  return generateMeta({
     title,
     description,
-    'og:title': title,
-    'og:description': description,
-    'og:image': imageUrl,
-    'og:url': 'https://lipimoon.world.com/news',
-    'twitter:card': 'summary',
-    'twitter:site': '_LIPIMOON_',
-    'twitter:creator': '_LIPIMOON_',
-  }
+    path: '/news',
+  })
 }
 
 export default function NewsPage() {
-  const articles = useLoaderData<{
-    data: Article[]
-  }>()
   const navigate = useNavigate()
 
   return (
     <Box margin="0 auto" maxW="900px">
-      <Heading fontFamily="KOTRAHOPE">리피문 소식</Heading>
+      <Heading>이디어츠 소식</Heading>
       <Box minW="440px" marginTop="40px">
-        {articles?.data?.length === 0 && <Box>새로 올라온 소식이 없습니다. 조금만 기다려주세요!</Box>}
+        <Box>새로 올라온 소식이 없습니다. 조금만 기다려주세요!</Box>
+        {/*
         <Table>
           <Tbody>
             {articles?.data?.map(article => (
@@ -69,7 +54,7 @@ export default function NewsPage() {
               </Tr>
             ))}
           </Tbody>
-        </Table>
+        </Table>*/}
       </Box>
     </Box>
   )
