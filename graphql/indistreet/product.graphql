@@ -1,0 +1,23 @@
+fragment ProductItem on Product {
+  id
+  name
+  productType
+  purchaseLink
+  description
+  price
+  isSoldOut
+  image {
+    id
+    formats
+  }
+}
+
+query FindProductsByMusician($musicianId: ID!) {
+  musician(id: $musicianId) {
+    id
+    name
+    products(where: { isRemoved: false }) {
+      ...ProductItem
+    }
+  }
+}

@@ -1,0 +1,51 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url(//unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css);
+
+@font-face {
+  font-family: 'xtryme';
+  src: url('/fonts/xtryme.woff2') format('woff2'), url('/fonts/xtryme.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AHDN';
+  src: url('/fonts/AHDN.woff2') format('woff2'), url('/fonts/AHDN.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Spire NBP';
+  src: url('/fonts/Spire-NBP.woff2') format('woff2'), url('/fonts/Spire-NBP.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html,
+body,
+main {
+  height: 100%;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+* {
+  font-family: 'Spire NBP', 'Noto Sans KR';
+}
+
+h1 {
+  font-family: 'Spire NBP', 'Noto Sans KR' !important;
+}

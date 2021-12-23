@@ -8,5 +8,6 @@
   "htmlWhitespaceSensitivity": "css",
   "proseWrap": "preserve",
   "quoteProps": "as-needed",
-  "tabWidth": 2
+  "tabWidth": 2,
+  "printWidth": 120
 }

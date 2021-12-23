@@ -1,0 +1,4 @@
+fragment AlbumsSong on Song {
+  id
+  name
+}

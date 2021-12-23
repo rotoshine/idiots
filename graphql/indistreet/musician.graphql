@@ -1,0 +1,64 @@
+fragment MusicianListItem on Musician {
+  id
+  name
+  nameEn
+  nameJp
+  isSolo
+  profileImage {
+    id
+    formats
+  }
+  members {
+    id
+    name
+    profileImage {
+      id
+      formats
+    }
+  }
+  youtubeChannelLink
+  twitterLink
+}
+
+fragment MusicianDetail on Musician {
+  id
+  name
+  nameEn
+  nameJp
+  isSolo
+  bio
+  profileImage {
+    id
+    formats
+  }
+  headerImage {
+    id
+    formats
+  }
+  members {
+    name
+    instagramLink
+    twitterLink
+  }
+  twitterLink
+  instagramLink
+  spotifyLink
+  melonLink
+  appleMusicLink
+  soundcloudLink
+  facebookLink
+  bandcampLink
+  youtubeChannelLink
+}
+
+query findOneMusician($id: ID!) {
+  musician(id: $id) {
+    ...MusicianDetail
+  }
+}
+
+query findOneMusicianBySlug($slug: String!) {
+  musician: musicianBySlug(slug: $slug) {
+    ...MusicianDetail
+  }
+}

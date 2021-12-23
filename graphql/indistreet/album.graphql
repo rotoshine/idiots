@@ -1,0 +1,80 @@
+fragment AlbumDetail on Album {
+  id
+  name
+  description
+  buyLink
+  melonLink
+  appleMusicLink
+  vibeLink
+  bugsLink
+  spotifyLink
+  youtubeMusicLink
+  releaseDate
+  images {
+    formats
+  }
+}
+
+fragment MusiciansAlbum on Album {
+  id
+  name
+  description
+  albumType
+  buyLink
+  images {
+    id
+    formats
+  }
+  songs(where: { isRemoved: false }) {
+    ...AlbumsSong
+  }
+  melonLink
+  vibeLink
+  bugsLink
+  appleMusicLink
+  youtubeMusicLink
+  spotifyLink
+  releaseDate
+}
+
+fragment AlbumListItem on Album {
+  id
+  name
+  musician {
+    name
+  }
+  images {
+    formats
+  }
+}
+
+query albumList($sort: String, $where: JSON) {
+  albums(sort: $sort, where: $where) {
+    ...AlbumListItem
+  }
+}
+
+query FindOneAlbum($id: ID!) {
+  album(id: $id) {
+    ...AlbumDetail
+    songs {
+      id
+      name
+    }
+    musician {
+      id
+      name
+      profileImage {
+        formats
+      }
+
+      albums(where: { isRemoved: false }) {
+        id
+        name
+        images {
+          formats
+        }
+      }
+    }
+  }
+}

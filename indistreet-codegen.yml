@@ -1,0 +1,9 @@
+overwrite: true
+schema: '${SCHEMA_PATH:'https://indistreet-api.roto.codes/graphql'}'
+documents: './graphql/indistreet/*.graphql'
+generates:
+  ./app/types/generated-indistreet.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-graphql-request'

@@ -1,0 +1,91 @@
+fragment LivePoster on Live {
+  title
+  posters {
+    id
+    formats
+    mime
+    url
+  }
+  isCanceled
+}
+
+fragment LiveListItem on Live {
+  id
+  title
+  startDate
+  endDate
+  description
+  priceInfo
+  stage {
+    id
+    name
+    youtubeChannelLink
+  }
+  musicians {
+    id
+    name
+    profileImage {
+      formats
+    }
+  }
+  liveStreaming {
+    id
+    videoId
+    streamingLink
+    streamingType
+  }
+  ...LivePoster
+  relatedLives(sort: "startDate") {
+    id
+    title
+    startDate
+    endDate
+    musicians {
+      id
+      name
+    }
+    posters {
+      id
+      formats
+      mime
+      url
+    }
+  }
+  priceInfo
+  purchaseTicketLink
+  isCanceled
+  eventPageLink
+}
+
+fragment LiveDetail on Live {
+  ...LiveListItem
+  stage {
+    id
+    name
+    address
+    placeLink
+    youtubeChannelLink
+  }
+  musicians {
+    ...MusicianListItem
+  }
+  ...LivePoster
+  liveStreaming {
+    id
+    videoId
+    streamingType
+    streamingLink
+  }
+}
+
+query liveList($sort: String, $where: JSON, $start: Int, $limit: Int!) {
+  lives(sort: $sort, where: $where, start: $start, limit: $limit) {
+    ...LiveListItem
+  }
+}
+
+query FindOneLive($id: ID!) {
+  live(id: $id) {
+    ...LiveDetail
+  }
+}

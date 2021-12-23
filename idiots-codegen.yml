@@ -1,0 +1,9 @@
+overwrite: true
+schema: '${SCHEMA_PATH:'https://admin.idiots.band/graphql'}'
+documents: './graphql/idiots/*.graphql'
+generates:
+  ./app/types/generated-idiots.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-graphql-request'
