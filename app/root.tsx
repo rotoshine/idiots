@@ -1,8 +1,21 @@
 import { useEffect, useState } from 'react'
-import { Link, Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useCatch, useLocation } from 'remix'
+import {
+  Link,
+  Links,
+  LiveReload,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useCatch,
+  useLocation,
+  useTransition,
+} from 'remix'
 import type { LinksFunction } from 'remix'
 import { Box, ChakraProvider, Collapse, ColorModeScript, Divider, Flex, Heading, IconButton } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
+import Nprogress from 'nprogress'
+import nprogressStyles from 'nprogress/nprogress.css'
 import * as gtag from '~/utils/gtag'
 import globalStylesUrl from '~/styles/global.css'
 import theme from '~/theme'
@@ -10,19 +23,31 @@ import NavMenu from './components/NavMenu'
 
 // https://remix.run/api/app#links
 export let links: LinksFunction = () => {
-  return [{ rel: 'stylesheet', href: globalStylesUrl }]
+  return [
+    { rel: 'stylesheet', href: nprogressStyles },
+    { rel: 'stylesheet', href: globalStylesUrl },
+  ]
 }
 
 // https://remix.run/api/conventions#default-export
 // https://remix.run/api/conventions#route-filenames
 export default function App() {
   const location = useLocation()
+  const transition = useTransition()
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       gtag.pageview(window.location.pathname + window.location.search)
     }
   }, [location])
+
+  useEffect(() => {
+    if (transition.state === 'loading' || transition.state === 'submitting') {
+      Nprogress.start()
+    } else {
+      Nprogress.done()
+    }
+  }, [transition.state])
 
   return (
     <Document>
@@ -140,23 +165,18 @@ const menus = [
     text: 'LIVE',
   },
   {
-    link: '/biography',
-    title: '리피문 멤버 정보',
-    text: 'BIOGRAPHY',
-  },
-  {
     link: '/discography',
-    title: '리피문 앨범 정보',
+    title: '이디어츠 앨범 정보',
     text: 'DISCOGRAPHY',
   },
   {
-    link: 'https://www.youtube.com/channel/UCHXdxHSEy18SOfHBoO8OwwQ',
-    title: '리피문 영상들',
+    link: 'https://www.youtube.com/c/%EB%B0%B4%EB%93%9C%EC%9D%B4%EB%94%94%EC%96%B4%EC%B8%A0',
+    title: '이디어츠 영상들',
     text: 'MOVIE',
   },
   {
     link: '/goods',
-    title: '리피문의 굿즈들',
+    title: '이디어츠 굿즈들',
     text: 'GOODS',
   },
 ]
@@ -191,7 +211,7 @@ function Layout({ children }: { children: React.ReactNode }) {
             {menus.map(({ ...props }) => (
               <NavMenu {...props} key={`nav-${props.link}`} />
             ))}
-            <a href="mailto:hyegyo98@naver.com">
+            <a href="mailto:yeonrock@idiots.band">
               <Box marginLeft="12px" marginRight="30px">
                 CONTACT
               </Box>
@@ -214,7 +234,7 @@ function Layout({ children }: { children: React.ReactNode }) {
                 <Divider colorScheme="white" w="100%" marginTop="10px" marginBottom="10px" />
               </Box>
             ))}
-            <a href="mailto:hyegyo98@naver.com">
+            <a href="mailto:yeonrock@idiots.band">
               <Box marginLeft="12px" marginRight="12px">
                 CONTACT
               </Box>

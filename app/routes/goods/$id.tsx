@@ -1,10 +1,10 @@
 import { Box, Button, Divider, Flex } from '@chakra-ui/react'
 import { LoaderFunction, MetaFunction, useLoaderData, Link } from 'remix'
-import type { Goods } from '~/types'
 import GoodsImage from '~/components/GoodsImage'
 import { isEmpty } from 'lodash'
 import { formatsToUrl } from '~/utils/image'
 import { fetchIndistreetApi } from '~/utils/api'
+import { generateMeta } from '~/utils/meta'
 
 export let loader: LoaderFunction = async ({ params }) => {
   const { id } = params
@@ -26,31 +26,28 @@ const priceFormat = new Intl.NumberFormat('ko', {
   currency: 'KRW',
 })
 
-const productTypeText = {
+const productTypeText: {
+  [key: string]: string
+} = {
   ALBUM: '음반',
   GOODS: '굿즈',
 }
 
 export let meta: MetaFunction = ({ data }) => {
   const imageUrl = formatsToUrl(data?.image?.formats)
-  const title = `리피문 굿즈 - ${data?.name}`
+  const title = `이디어츠 굿즈 - ${data?.name}`
   const description = !isEmpty(data?.description) ? `${data?.description?.slice(0, 100)}...` : `리피문의 굿즈`
 
-  return {
+  return generateMeta({
     title,
     description,
-    'og:title': title,
-    'og:description': description,
-    'og:image': imageUrl,
-    'og:url': `https://lipimoon.world/goods/${data?.id}`,
-    'twitter:card': 'summary',
-    'twitter:site': '_LIPIMOON_',
-    'twitter:creator': '_LIPIMOON_',
-  }
+    imageUrl,
+    path: `/goods/${data?.id}`,
+  })
 }
 
 export default function GoodsItemDetail() {
-  const data = useLoaderData<Goods>()
+  const data = useLoaderData()
   return (
     <Flex flexDir={['column', null, 'row']}>
       <Box flex="1">

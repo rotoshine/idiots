@@ -1,29 +1,21 @@
 import { Box, Heading } from '@chakra-ui/react'
+import { generateMeta } from '~/utils/meta'
 
 export let meta: MetaFunction = () => {
-  const imageUrl = 'https://lipimoon.world/images/logo.png'
-  const title = `리피문 음원 정보`
-  const description = '리피문의 음원 정보를 확인해보세요.'
+  const title = `이디어츠 음원 정보`
+  const description = '이디어츠의 음원 정보를 확인해보세요.'
 
-  return {
+  return generateMeta({
     title,
     description,
-    'og:title': title,
-    'og:description': description,
-    'og:image': imageUrl,
-    'og:url': 'https://lipimoon.world.com/discography',
-    'twitter:card': 'summary',
-    'twitter:site': '_LIPIMOON_',
-    'twitter:creator': '_LIPIMOON_',
-  }
+    path: '/discography',
+  })
 }
 
 export default function DiscographyPage() {
   return (
     <Box maxw="800px" margin="0 auto" textAlign="center">
-      <Heading fontFamily="KOTRAHOPE" marginTop="32px">
-        Release Soon...?
-      </Heading>
+      <Heading marginTop="32px">Release Soon...?</Heading>
     </Box>
   )
 }
