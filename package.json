@@ -28,6 +28,7 @@
     "nprogress": "^0.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
     "react-responsive-carousel": "^3.2.22",
     "remix": "^1.1.1"
   },

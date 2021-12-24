@@ -6,7 +6,7 @@ import { formatsToUrl } from '~/utils/image'
 import { fetchIndistreetApi } from '~/utils/api'
 import { generateMeta } from '~/utils/meta'
 
-export let loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ params }) => {
   const { id } = params
 
   try {
