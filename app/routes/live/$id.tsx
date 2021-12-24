@@ -55,7 +55,7 @@ export default function LiveDetailPage() {
     <PageContent>
       <Box margin="0 auto" maxW="1366px" display="flex" flexDirection="column">
         <Box display="flex" flexDirection={['column', null, null, 'row']}>
-          <Box flex="1" marginRi ght={[0, 0, 0, '24px']}>
+          <Box flex="1" marginRight={[0, 0, 0, '24px']}>
             <Carousel showThumbs={false}>
               {live.posters?.map((poster, i) => (
                 <Box key={`poster-${i}`} bgColor="gray.400">

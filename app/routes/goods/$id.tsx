@@ -5,6 +5,7 @@ import { isEmpty } from 'lodash'
 import { formatsToUrl } from '~/utils/image'
 import { fetchIndistreetApi } from '~/utils/api'
 import { generateMeta } from '~/utils/meta'
+import PageContent from '~/components/PageContent'
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { id } = params
@@ -49,51 +50,53 @@ export let meta: MetaFunction = ({ data }) => {
 export default function GoodsItemDetail() {
   const data = useLoaderData()
   return (
-    <Flex flexDir={['column', null, 'row']}>
-      <Box flex="1">
-        <GoodsImage image={data.image} isSoldOut={data.isSoldOut} alt={`굿즈 ${data.name} 이미지`} />
-      </Box>
-      <Box
-        flex="1"
-        display="flex"
-        flexDir="column"
-        marginLeft={[null, null, '24px', '48px']}
-        maxW={['100%', null, '500px']}
-      >
-        <Box flex="1" bgColor="gray.800" display="flex" flexDir="column">
-          <Box padding="24px">
-            <Box fontSize="1.5rem" marginBottom="16px">
-              {data.name}
-            </Box>
-            <Divider />
-            <Box>상품 종류: {productTypeText[data.productType]}</Box>
-            <Box textAlign="right">{priceFormat.format(data.price)}</Box>
-          </Box>
-          {data.description && (
-            <Box
-              maxH="500px"
-              marginTop="8px"
-              overflowY="scroll"
-              padding="24px"
-              dangerouslySetInnerHTML={{ __html: data.description.replace(/\n/g, '<br />') }}
-            />
-          )}
+    <PageContent>
+      <Flex flexDir={['column', null, 'row']}>
+        <Box flex="1">
+          <GoodsImage image={data.image} isSoldOut={data.isSoldOut} alt={`굿즈 ${data.name} 이미지`} />
         </Box>
-        {!data.isSoldOut && (
-          <Box justifySelf="flex-end">
-            <a href={data.purchaseLink} target="_blank" rel="noopener noreferrer">
-              <Button w="100%" colorScheme="red">
-                구입하러가기
-              </Button>
-            </a>
+        <Box
+          flex="1"
+          display="flex"
+          flexDir="column"
+          marginLeft={[null, null, '24px', '48px']}
+          maxW={['100%', null, '500px']}
+        >
+          <Box flex="1" bgColor="blackAlpha.50" display="flex" flexDir="column">
+            <Box padding="24px">
+              <Box fontSize="1.5rem" marginBottom="16px">
+                {data.name}
+              </Box>
+              <Divider />
+              <Box>상품 종류: {productTypeText[data.productType]}</Box>
+              <Box textAlign="right">{priceFormat.format(data.price)}</Box>
+            </Box>
+            {data.description && (
+              <Box
+                maxH="500px"
+                marginTop="8px"
+                overflowY="scroll"
+                padding="24px"
+                dangerouslySetInnerHTML={{ __html: data.description.replace(/\n/g, '<br />') }}
+              />
+            )}
           </Box>
-        )}
-        <Link to="/">
-          <Button marginTop="24px" w="100%">
-            목록으로 돌아가기
-          </Button>
-        </Link>
-      </Box>
-    </Flex>
+          {!data.isSoldOut && (
+            <Box justifySelf="flex-end">
+              <a href={data.purchaseLink} target="_blank" rel="noopener noreferrer">
+                <Button w="100%" colorScheme="blue">
+                  구입하러가기
+                </Button>
+              </a>
+            </Box>
+          )}
+          <Link to="/goods">
+            <Button marginTop="24px" w="100%">
+              목록으로 돌아가기
+            </Button>
+          </Link>
+        </Box>
+      </Flex>
+    </PageContent>
   )
 }

@@ -68,7 +68,7 @@ export default function AlbumDetailPage() {
     <PageContent>
       <Box margin="0 auto" maxW="1366px" display="flex" flexDirection="column">
         <Box display="flex" flexDirection={['column', null, null, 'row']}>
-          <Box flex="1" marginRi ght={[0, 0, 0, '24px']}>
+          <Box flex="1" marginRight={[0, 0, 0, '24px']}>
             <Carousel showThumbs={false}>
               {album.images?.map((albumImage, i) => (
                 <Box key={`poster-${i}`} bgColor="gray.400">
@@ -93,7 +93,6 @@ export default function AlbumDetailPage() {
             display="flex"
             flexDir="column"
             justifyContent="space-between"
-            marginLeft={[0, 0, 0, '16px']}
           >
             <Box>
               <Box marginBottom="24px">
