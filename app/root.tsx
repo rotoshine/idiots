@@ -126,17 +126,15 @@ function Document({ children, title }: { children: React.ReactNode; title?: stri
         <Scripts />
         {process.env.NODE_ENV === 'production' && (
           <>
-            <script async src="https://www.googletagmanager.com/gtag/js?id=G-78DV821V3Y"></script>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-H8SBL17V28"></script>
             <script
               dangerouslySetInnerHTML={{
                 __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
 
-            gtag('config', 'G-78DV821V3Y', {
-              page_path: window.location.pathname,
-            });
+              gtag('config', 'G-H8SBL17V28');
           `,
               }}
             ></script>
@@ -179,6 +177,11 @@ const menus = [
     title: '이디어츠 굿즈들',
     text: 'GOODS',
   },
+  {
+    link: 'mailto:yeonrock@idiots.band',
+    title: '이디어츠 이메일',
+    text: 'CONTACT',
+  },
 ]
 function Layout({ children }: { children: React.ReactNode }) {
   const [visibleMobileMenu, setVisibleMobileMenu] = useState(false)
@@ -191,11 +194,27 @@ function Layout({ children }: { children: React.ReactNode }) {
   return (
     <ChakraProvider>
       <Box display="flex" flexDirection="column" h="100%">
-        <Box as="header" w="100%" display="flex" margin="0 auto" justifyContent="center">
-          <Box w={['200px', null, '300px', '400px']} marginTop="8px">
+        <Box
+          as="header"
+          w="100%"
+          display="flex"
+          margin="0 auto"
+          justifyContent={['space-between', null, null, 'center']}
+        >
+          <Box w={['200px', null, '300px', '400px']} marginTop="8px" flex={['1', null, null, 'none']}>
             <Link to="/" title="밴드 이디어츠 로고">
               <img width="100%" src="/images/logo-en.png" alt="밴드 이디어츠 로고" />
             </Link>
+          </Box>
+          <Box display={['flex', null, null, 'none']} justifyContent="center" alignItems="center" padding="8px">
+            <IconButton
+              aria-label="menu icon"
+              w="60px"
+              h="60px"
+              backgroundColor="transparent"
+              icon={visibleMobileMenu ? <CloseIcon fontSize="60px" /> : <HamburgerIcon fontSize="60px" />}
+              onClick={() => setVisibleMobileMenu(!visibleMobileMenu)}
+            />
           </Box>
         </Box>
         <Box>
@@ -205,25 +224,15 @@ function Layout({ children }: { children: React.ReactNode }) {
             as="nav"
             justifyContent="center"
             alignItems="center"
-            fontFamily="AHDN,cursive"
-            fontSize={['40px']}
+            fontFamily="AHDN"
+            fontSize={['24px', '30px', null, '40px']}
+            padding="36px 0"
+            marginTop={[null, null, null, '24px']}
+            bgColor="gray.100"
           >
             {menus.map(({ ...props }) => (
               <NavMenu {...props} key={`nav-${props.link}`} />
             ))}
-            <a href="mailto:yeonrock@idiots.band">
-              <Box marginLeft="12px" marginRight="30px">
-                CONTACT
-              </Box>
-            </a>
-          </Box>
-          <Box display={['flex', 'flex', 'flex', 'none']} marginTop="24px" marginRight="24px">
-            <IconButton
-              aria-label="menu icon"
-              size="lg"
-              icon={visibleMobileMenu ? <CloseIcon /> : <HamburgerIcon />}
-              onClick={() => setVisibleMobileMenu(!visibleMobileMenu)}
-            />
           </Box>
         </Box>
         <Collapse in={visibleMobileMenu} animateOpacity>
@@ -231,14 +240,9 @@ function Layout({ children }: { children: React.ReactNode }) {
             {menus.map(({ ...props }) => (
               <Box key={`nav-mobile${props.link}`} w="100%" textAlign="center">
                 <NavMenu {...props} key={`nav-${props.link}`} fontSize="1.2rem" padding="8px 4px" />
-                <Divider colorScheme="white" w="100%" marginTop="10px" marginBottom="10px" />
+                <Divider colorScheme="blue" w="100%" marginTop="10px" marginBottom="10px" />
               </Box>
             ))}
-            <a href="mailto:yeonrock@idiots.band">
-              <Box marginLeft="12px" marginRight="12px">
-                CONTACT
-              </Box>
-            </a>
           </Flex>
         </Collapse>
         <Box

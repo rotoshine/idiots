@@ -26,7 +26,7 @@ export const findImage = (formats: any) => {
   }
 }
 
-export const formatsToUrl = (formats: any, imageServer = NEXT_PUBLIC_IMAGE_PATH) => {
+export const formatsToUrl = (formats?: any, imageServer = NEXT_PUBLIC_IMAGE_PATH) => {
   const image = findImage(formats)
 
   if (image) {
