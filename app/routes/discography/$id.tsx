@@ -24,10 +24,10 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 export let meta: MetaFunction = ({ data: { album } }) => {
   const imageUrl = formatsToUrl(album?.images[0]?.formats)
-  const title = `이디어츠 - ${album?.title}`
+  const title = `이디어츠 - ${album?.name}`
   const description = !isEmpty(album?.description)
     ? `${album?.description?.slice(0, 100)}...`
-    : `${album?.title} 앨범 정보`
+    : `${album?.name} 앨범 정보`
 
   return generateMeta({
     title,
