@@ -137,7 +137,11 @@ export default function LiveDetailPage() {
               <Box marginBottom="24px">
                 <Box color="black">공연 설명</Box>
                 <ScrollDescription backgroundColor="blackAlpha.100">
-                  <Box padding="24px" dangerouslySetInnerHTML={{ __html: strapiTextToHTML(live.description ?? '') }} />
+                  <Box
+                    padding="24px"
+                    wordBreak="keep-all"
+                    dangerouslySetInnerHTML={{ __html: strapiTextToHTML(live.description ?? '') }}
+                  />
                 </ScrollDescription>
               </Box>
             </Box>
