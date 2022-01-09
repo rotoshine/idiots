@@ -37,7 +37,7 @@ const productTypeText: {
 export let meta: MetaFunction = ({ data }) => {
   const imageUrl = formatsToUrl(data?.image?.formats)
   const title = `이디어츠 굿즈 - ${data?.name}`
-  const description = !isEmpty(data?.description) ? `${data?.description?.slice(0, 100)}...` : `리피문의 굿즈`
+  const description = !isEmpty(data?.description) ? `${data?.description?.slice(0, 100)}...` : `이디어츠의 굿즈`
 
   return generateMeta({
     title,

@@ -26,7 +26,7 @@ export let loader: LoaderFunction = async ({ params }) => {
 export let meta: MetaFunction = ({ data: { live } }) => {
   const imageUrl = formatsToUrl(live?.posters[0]?.formats)
   const title = `이디어츠 - ${live?.title}`
-  const description = !isEmpty(live?.description) ? `${live?.description?.slice(0, 100)}...` : '리피문 공연 정보'
+  const description = !isEmpty(live?.description) ? `${live?.description?.slice(0, 100)}...` : '이디어츠 공연 정보'
 
   return generateMeta({
     title,

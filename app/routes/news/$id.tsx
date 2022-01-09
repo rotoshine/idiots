@@ -31,10 +31,10 @@ export let meta: MetaFunction = ({ data }) => {
   const imageUrl = attributes?.images.data
     ? formatsToLipimoonImageUrl(attributes?.images.data[0]?.attributes.formats)
     : 'https://lipimoon.world/images/logo.png'
-  const title = `리피문 소식 - ${attributes?.title}`
+  const title = `이디어츠 소식 - ${attributes?.title}`
   const description = !isEmpty(attributes?.description)
     ? `${attributes?.description.slice(0, 100)}...`
-    : '리피문의 새로운 소식을 확인할 수 있어요.'
+    : '이디어츠의 새로운 소식을 확인할 수 있어요.'
 
   return {
     title,
