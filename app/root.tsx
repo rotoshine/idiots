@@ -121,7 +121,7 @@ function Document({ children, title }: { children: React.ReactNode; title?: stri
       </head>
       <body>
         {children}
-        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <ColorModeScript initialColorMode="light" />
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === 'production' && (
