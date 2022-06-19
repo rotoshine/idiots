@@ -237,7 +237,7 @@ function Layout({ children }: { children: React.ReactNode }) {
             fontSize={['24px', '30px', null, '40px']}
             padding="36px 0"
             marginTop={[null, null, null, '24px']}
-            bgColor="blackAlpha.100"
+            bgColor="blackAlpha.600"
           >
             {menus.map(({ ...props }) => (
               <NavMenu {...props} key={`nav-${props.link}`} />
