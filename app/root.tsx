@@ -1,18 +1,15 @@
 import { useEffect, useState } from 'react'
 import {
+  Box,
+  ChakraProvider,
+  Collapse,
+  ColorModeScript,
+  Divider,
+  Flex,
+  Heading,
+  IconButton,
   Link,
-  Links,
-  LiveReload,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-  useCatch,
-  useLocation,
-  useTransition,
-} from 'remix'
-import type { LinksFunction } from 'remix'
-import { Box, ChakraProvider, Collapse, ColorModeScript, Divider, Flex, Heading, IconButton } from '@chakra-ui/react'
+} from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 import Nprogress from 'nprogress'
 import nprogressStyles from 'nprogress/nprogress.css'
@@ -20,6 +17,18 @@ import * as gtag from '~/utils/gtag'
 import globalStylesUrl from '~/styles/global.css'
 import theme from '~/theme'
 import NavMenu from './components/NavMenu'
+import {
+  useLocation,
+  useTransition,
+  Outlet,
+  useCatch,
+  Meta,
+  Links,
+  ScrollRestoration,
+  Scripts,
+  LiveReload,
+} from '@remix-run/react'
+import { LinksFunction } from '@remix-run/react/routeModules'
 
 // https://remix.run/api/app#links
 export let links: LinksFunction = () => {
@@ -203,7 +212,7 @@ function Layout({ children }: { children: React.ReactNode }) {
         >
           <Box w={['200px', null, '300px', '400px']} marginTop="8px" flex={['1', null, null, 'none']}>
             <Link to="/" title="밴드 이디어츠 로고">
-              <img width="100%" src="/images/logo-en.png" alt="밴드 이디어츠 로고" />
+              <img width="100%" src="/images/new-logo.svg" alt="밴드 이디어츠 로고" />
             </Link>
           </Box>
           <Box display={['flex', null, null, 'none']} justifyContent="center" alignItems="center" padding="8px">
@@ -228,7 +237,7 @@ function Layout({ children }: { children: React.ReactNode }) {
             fontSize={['24px', '30px', null, '40px']}
             padding="36px 0"
             marginTop={[null, null, null, '24px']}
-            bgColor="gray.100"
+            bgColor="blackAlpha.100"
           >
             {menus.map(({ ...props }) => (
               <NavMenu {...props} key={`nav-${props.link}`} />

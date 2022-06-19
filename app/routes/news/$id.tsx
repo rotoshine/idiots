@@ -1,11 +1,12 @@
-import { Box, Button, Heading, Image } from '@chakra-ui/react'
-import { MetaFunction, LoaderFunction, Link } from 'remix'
-import { useLoaderData } from 'remix'
+import { Box, Button, Heading, Image, Link } from '@chakra-ui/react'
 import { isEmpty } from 'lodash'
-import { APIResponse, Article } from '~/types'
+import { APIResponse, Article } from '~/types/types'
 import { formatsToLipimoonImageUrl } from '~/utils/image'
 import { strapiTextToHTML } from '~/utils/text'
 import { fetchLipimoonApi } from '~/utils/api'
+import type { LoaderFunction } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
+import { MetaFunction } from '@remix-run/react/routeModules'
 
 export let loader: LoaderFunction = async ({ params }) => {
   const { id } = params

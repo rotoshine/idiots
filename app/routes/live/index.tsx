@@ -1,11 +1,12 @@
 import { Box, Heading, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
-import { useLoaderData, useNavigate } from 'remix'
-import type { LoaderFunction, MetaFunction } from 'remix'
 import { toSimpleDateFormat } from '~/utils/date'
 import { requestToIndistreet } from '~/utils/api'
 import { LiveListDocument, LiveListQuery } from '~/types/generated-indistreet'
 import { generateMeta } from '~/utils/meta'
 import PageContent from '~/components/PageContent'
+import type { LoaderFunction } from '@remix-run/node'
+import { useLoaderData, useNavigate } from '@remix-run/react'
+import { MetaFunction } from '@remix-run/react/routeModules'
 
 export let loader: LoaderFunction = async () => {
   const data = await requestToIndistreet(LiveListDocument, {
@@ -54,7 +55,7 @@ export default function LivePage() {
                 transition="all .2s ease-in-out"
                 _hover={{
                   transform: 'translate(0, -3px)',
-                  backgroundColor: 'whiteAlpha.900',
+                  backgroundColor: 'blackAlpha.900',
                   cursor: 'pointer',
                 }}
                 onClick={() => {

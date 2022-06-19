@@ -1,5 +1,6 @@
 import { AspectRatio, Box, Image, SimpleGrid } from '@chakra-ui/react'
-import { Link, MetaFunction, useLoaderData } from 'remix'
+import { Link, useLoaderData } from '@remix-run/react'
+import { MetaFunction } from '@remix-run/react/routeModules'
 import PageContent from '~/components/PageContent'
 import { AlbumListDocument, AlbumListQuery } from '~/types/generated-indistreet'
 import { StrapiImage } from '~/types/types'
@@ -54,7 +55,7 @@ export default function DiscographyPage() {
               <AspectRatio ratio={1}>
                 <Image
                   w="100%"
-                  src={formatsToUrl((album?.images[0] as StrapiImage).formats)}
+                  src={formatsToUrl((album?.images?.[0] as StrapiImage).formats)}
                   alt={`${album?.name} 앨범 커버`}
                 />
               </AspectRatio>

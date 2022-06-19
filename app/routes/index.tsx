@@ -1,17 +1,16 @@
-import { AspectRatio, Box, Circle, Heading, Image } from '@chakra-ui/react'
+import { AspectRatio, Box, Circle, Image } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { Carousel } from 'react-responsive-carousel'
-import { LinksFunction, MetaFunction, LoaderFunction, useLoaderData } from 'remix'
 import carouselStyles from 'react-responsive-carousel/lib/styles/carousel.min.css'
 import styles from '~/styles/index.css'
 import { formatsToUrl } from '~/utils/image'
-import { strapiTextToHTML } from '~/utils/text'
-import { AnimationHandlerResponse } from 'react-responsive-carousel/lib/ts/components/Carousel/types'
 import { request } from 'graphql-request'
 import { MainImageDocument, MainCarouselImageDocument } from '~/types/generated-idiots'
 import { StrapiImage } from '~/types/types'
+import { LinksFunction, MetaFunction } from '@remix-run/react/routeModules'
+import { useLoaderData } from '@remix-run/react'
 
-export let loader: LoaderFunction = async () => {
+export let loader = async () => {
   const { mainImage } = await request('https://admin.idiots.band/graphql', MainImageDocument)
   const { mainCarouselImage } = await request('https://admin.idiots.band/graphql', MainCarouselImageDocument)
 
@@ -43,7 +42,7 @@ export let meta: MetaFunction = () => {
     'og:title': title,
     'og:description': description,
     'og:url': `https://idiots.band`,
-    'og:image': 'https://idiots.band/images/logo-default.jpg',
+    'og:image': 'https://idiots.band/images/new-logo-square.jpeg',
     'twitter:card': 'summary',
     'twitter:site': 'band_idiots',
     'twitter:creator': 'band_idiots',
@@ -53,6 +52,7 @@ export let meta: MetaFunction = () => {
 export default function Index() {
   const { mainImage, carouselImages } = useLoaderData()
 
+  console.log(mainImage)
   useEffect(() => {
     const scriptSrc = 'https://platform.twitter.com/widgets.js'
     const script = document.createElement('script')
@@ -73,7 +73,7 @@ export default function Index() {
       <Carousel autoPlay showThumbs={false} showStatus={false} showIndicators={false} showArrows={false}>
         {carouselImages?.map((image: StrapiImage, index: number) => (
           <Box key={`home-image-${index}`}>
-            <AspectRatio ratio={4 / 3}>
+            <AspectRatio ratio={16 / 9}>
               <Image
                 w="100%"
                 src={formatsToUrl(image?.formats, 'https://admin.idiots.band')}
@@ -93,6 +93,7 @@ export default function Index() {
           data-width="100%"
           data-chrome="nofooter noborders transparent"
           data-tweet-limit="3"
+          data-theme="dark"
         >
           <Circle size="24px" /> 이디어츠의 트윗을 불러오고 있습니다.
         </Box>

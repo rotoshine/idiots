@@ -8,7 +8,7 @@ interface Props extends BoxProps {
 export default function ScrollDescription({ children, ...boxProps }: Props) {
   return (
     <Box
-      bgColor="whiteAlpha.100"
+      bgColor="blackAlpha.100"
       maxH="300px"
       overflowY="auto"
       css={{

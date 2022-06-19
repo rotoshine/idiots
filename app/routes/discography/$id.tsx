@@ -1,7 +1,6 @@
-import { AspectRatio, Box, Button, Image, List, ListItem, HStack, HStack } from '@chakra-ui/react'
+import { AspectRatio, Box, Button, Image, List, ListItem, HStack } from '@chakra-ui/react'
 import { isEmpty } from 'lodash'
 import { Carousel } from 'react-responsive-carousel'
-import { Link, LinksFunction, LoaderFunction, MetaFunction, useLoaderData } from 'remix'
 import carouselStyles from 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { FindOneAlbumDocument, FindOneAlbumQuery } from '~/types/generated-indistreet'
 import { requestToIndistreet } from '~/utils/api'
@@ -12,6 +11,9 @@ import { toDateFormat } from '~/utils/date'
 import { strapiTextToHTML } from '~/utils/text'
 import PageContent from '~/components/PageContent'
 import { SiApplemusic, SiSpotify, SiYoutubemusic } from 'react-icons/si'
+import { LinksFunction, MetaFunction } from '@remix-run/react/routeModules'
+import { Link, useLoaderData } from '@remix-run/react'
+import type { LoaderFunction } from '@remix-run/node'
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { id } = params

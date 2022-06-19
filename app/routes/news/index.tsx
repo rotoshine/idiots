@@ -1,7 +1,7 @@
 import { Box, Button, Heading, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
-import { MetaFunction, LoaderFunction } from 'remix'
-import { useLoaderData, useNavigate } from 'remix'
-
+import type { LoaderFunction } from '@remix-run/node'
+import { useNavigate } from '@remix-run/react'
+import { MetaFunction } from '@remix-run/react/routeModules'
 import { toSimpleDateFormat } from '~/utils/date'
 import { generateMeta } from '~/utils/meta'
 

@@ -1,12 +1,14 @@
-import { Box, Heading, SimpleGrid } from '@chakra-ui/react'
-import { Link, LoaderFunction, MetaFunction } from 'remix'
-import { useLoaderData } from 'remix'
+import { Box, Heading, Link, SimpleGrid } from '@chakra-ui/react'
+
 import GoodsImage from '~/components/GoodsImage'
 import PageContent from '~/components/PageContent'
 import { FindProductsByMusicianDocument, ProductItemFragment } from '~/types/generated-indistreet'
 import { StrapiImage } from '~/types/types'
 import { requestToIndistreet } from '~/utils/api'
 import { generateMeta } from '~/utils/meta'
+import type { LoaderFunction } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
+import { MetaFunction } from '@remix-run/react/routeModules'
 
 export let loader: LoaderFunction = async () => {
   const data = await requestToIndistreet(FindProductsByMusicianDocument, {

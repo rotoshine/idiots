@@ -1,11 +1,13 @@
-import { Box, Button, Divider, Flex } from '@chakra-ui/react'
-import { LoaderFunction, MetaFunction, useLoaderData, Link } from 'remix'
+import { Box, Button, Divider, Flex, Link } from '@chakra-ui/react'
 import GoodsImage from '~/components/GoodsImage'
 import { isEmpty } from 'lodash'
 import { formatsToUrl } from '~/utils/image'
 import { fetchIndistreetApi } from '~/utils/api'
 import { generateMeta } from '~/utils/meta'
 import PageContent from '~/components/PageContent'
+import { useLoaderData } from '@remix-run/react'
+import { MetaFunction } from '@remix-run/react/routeModules'
+import type { LoaderFunction } from '@remix-run/node'
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { id } = params
