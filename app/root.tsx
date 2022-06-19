@@ -102,12 +102,6 @@ export function CatchBoundary() {
   )
 }
 
-export function headers() {
-  return {
-    'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
-  }
-}
-
 function Document({ children, title }: { children: React.ReactNode; title?: string }) {
   return (
     <html lang="ko">

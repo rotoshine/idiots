@@ -1,12 +1,17 @@
-import { Box, Button, Heading, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { Box, Heading } from '@chakra-ui/react'
 import type { LoaderFunction } from '@remix-run/node'
 import { useNavigate } from '@remix-run/react'
 import { MetaFunction } from '@remix-run/react/routeModules'
-import { toSimpleDateFormat } from '~/utils/date'
 import { generateMeta } from '~/utils/meta'
 
 export let loader: LoaderFunction = async () => {
   return []
+}
+
+export function headers() {
+  return {
+    'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
+  }
 }
 
 export let meta: MetaFunction = () => {

@@ -8,6 +8,12 @@ import { requestToIndistreet } from '~/utils/api'
 import { formatsToUrl } from '~/utils/image'
 import { generateMeta } from '~/utils/meta'
 
+export function headers() {
+  return {
+    'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
+  }
+}
+
 export const loader = async () => {
   const data = await requestToIndistreet(AlbumListDocument, {
     where: {

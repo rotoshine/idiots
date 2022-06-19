@@ -8,6 +8,12 @@ import type { LoaderFunction } from '@remix-run/node'
 import { useLoaderData, useNavigate } from '@remix-run/react'
 import { MetaFunction } from '@remix-run/react/routeModules'
 
+export function headers() {
+  return {
+    'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
+  }
+}
+
 export let loader: LoaderFunction = async () => {
   const data = await requestToIndistreet(LiveListDocument, {
     where: {

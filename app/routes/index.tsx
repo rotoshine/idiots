@@ -10,6 +10,12 @@ import { StrapiImage } from '~/types/types'
 import { LinksFunction, MetaFunction } from '@remix-run/react/routeModules'
 import { useLoaderData } from '@remix-run/react'
 
+export function headers() {
+  return {
+    'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
+  }
+}
+
 export let loader = async () => {
   const { mainImage } = await request('https://admin.idiots.band/graphql', MainImageDocument)
   const { mainCarouselImage } = await request('https://admin.idiots.band/graphql', MainCarouselImageDocument)

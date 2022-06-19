@@ -9,6 +9,12 @@ import { useLoaderData } from '@remix-run/react'
 import { MetaFunction } from '@remix-run/react/routeModules'
 import type { LoaderFunction } from '@remix-run/node'
 
+export function headers() {
+  return {
+    'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
+  }
+}
+
 export const loader: LoaderFunction = async ({ params }) => {
   const { id } = params
 
