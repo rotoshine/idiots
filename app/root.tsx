@@ -130,7 +130,7 @@ function Document({ children, title }: { children: React.ReactNode; title?: stri
       </head>
       <body>
         {children}
-        <ColorModeScript initialColorMode="light" />
+        <ColorModeScript initialColorMode="dark" />
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === 'production' && (
