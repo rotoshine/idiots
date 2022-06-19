@@ -8,15 +8,14 @@ import {
   Flex,
   Heading,
   IconButton,
-  Link,
+  Image,
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 import Nprogress from 'nprogress'
 import nprogressStyles from 'nprogress/nprogress.css'
 import * as gtag from '~/utils/gtag'
 import globalStylesUrl from '~/styles/global.css'
-import theme from '~/theme'
-import NavMenu from './components/NavMenu'
+import NavMenu from '~/components/NavMenu'
 import {
   useLocation,
   useTransition,
@@ -27,8 +26,10 @@ import {
   ScrollRestoration,
   Scripts,
   LiveReload,
+  Link,
 } from '@remix-run/react'
 import { LinksFunction } from '@remix-run/react/routeModules'
+import theme from '~/theme'
 
 // https://remix.run/api/app#links
 export let links: LinksFunction = () => {
@@ -201,7 +202,7 @@ function Layout({ children }: { children: React.ReactNode }) {
   }, [location])
 
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Box display="flex" flexDirection="column" h="100%">
         <Box
           as="header"
@@ -210,9 +211,13 @@ function Layout({ children }: { children: React.ReactNode }) {
           margin="0 auto"
           justifyContent={['space-between', null, null, 'center']}
         >
-          <Box w={['200px', null, '300px', '400px']} marginTop="8px" flex={['1', null, null, 'none']}>
+          <Box
+            w={['200px', null, '300px', '400px']}
+            margin={['16px', null, null, '8px']}
+            flex={['1', null, null, 'none']}
+          >
             <Link to="/" title="밴드 이디어츠 로고">
-              <img width="100%" src="/images/new-logo.svg" alt="밴드 이디어츠 로고" />
+              <Image width="100%" src="/images/new-logo.svg" alt="밴드 이디어츠 로고" />
             </Link>
           </Box>
           <Box display={['flex', null, null, 'none']} justifyContent="center" alignItems="center" padding="8px">
@@ -236,7 +241,6 @@ function Layout({ children }: { children: React.ReactNode }) {
             fontFamily="AHDN"
             fontSize={['24px', '30px', null, '40px']}
             padding="36px 0"
-            marginTop={[null, null, null, '24px']}
             bgColor="blackAlpha.600"
           >
             {menus.map(({ ...props }) => (
