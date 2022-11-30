@@ -1,5 +1,4 @@
 import { Box, Heading, Link, SimpleGrid } from '@chakra-ui/react'
-
 import GoodsImage from '~/components/GoodsImage'
 import PageContent from '~/components/PageContent'
 import { FindProductsByMusicianDocument, ProductItemFragment } from '~/types/generated-indistreet'
