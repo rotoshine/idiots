@@ -188,8 +188,8 @@ const menus = [
     text: 'GOODS',
   },
   {
-    link: 'mailto:yeonrock@idiots.band',
-    title: '이디어츠 이메일',
+    link: '/contact',
+    title: '이디어츠 SNS 및 이메일',
     text: 'CONTACT',
   },
 ]
