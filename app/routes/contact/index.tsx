@@ -21,6 +21,21 @@ export const meta: MetaFunction = () => {
 }
 
 export default function ContactPage() {
+  const links = [
+    {
+      link: 'https://www.instagram.com/idiots.band/',
+      imageUrl: '/images/Instagram_icon.png',
+      alt: '인스타그램 링크',
+    },
+    { link: 'https://twitter.com/band_idiots', imageUrl: '/images/twitter_icon.png', alt: '트위터 링크' },
+    {
+      link: 'https://ko-kr.facebook.com/bandidiots/',
+      imageUrl: '/images/Facebook_logo.png',
+      alt: '페이스북 링크',
+    },
+    { link: 'mailto:yeonrock@idiots.band', imageUrl: '/images/email_icon.png', alt: '메일 링크' },
+  ]
+
   return (
     <PageContent>
       <Box maxW="1080px" margin="0 auto">
@@ -29,53 +44,20 @@ export default function ContactPage() {
         </Heading>
         <Box>
           <SimpleGrid columns={[1, 2, 3, 4]} display="flex" justifyContent="center" marginTop="40px">
-            <Box
-              position="relative"
-              transition="all .2s ease-in-out"
-              marginRight="40px"
-              _hover={{
-                transform: 'translate(0, -10px)',
-              }}
-            >
-              <a href="https://www.instagram.com/idiots.band/" target="_blank" rel="noreferrer">
-                <Image w="100px" h="100px" src="/images/Instagram_icon.png" alt="인스타그램 링크" />
-              </a>
-            </Box>
-            <Box
-              position="relative"
-              transition="all .2s ease-in-out"
-              marginRight="40px"
-              _hover={{
-                transform: 'translate(0, -10px)',
-              }}
-            >
-              <a href="https://twitter.com/band_idiots" target="_blank" rel="noreferrer">
-                <Image w="100px" h="100px" src="/images/twitter_icon.png" alt="트위터 링크" />
-              </a>
-            </Box>
-            <Box
-              position="relative"
-              transition="all .2s ease-in-out"
-              marginRight="40px"
-              _hover={{
-                transform: 'translate(0, -10px)',
-              }}
-            >
-              <a href="https://ko-kr.facebook.com/bandidiots/" target="_blank" rel="noreferrer">
-                <Image w="100px" h="100px" src="/images/Facebook_logo.png" alt="페이스북 링크" />
-              </a>
-            </Box>
-            <Box
-              position="relative"
-              transition="all .2s ease-in-out"
-              _hover={{
-                transform: 'translate(0, -10px)',
-              }}
-            >
-              <a href="mailto:yeonrock@idiots.band" target="_blank" rel="noreferrer">
-                <Image w="120px" h="120px" src="/images/gmail_logo.png" alt="Gmail 링크" />
-              </a>
-            </Box>
+            {links.map(link => (
+              <Box
+                position="relative"
+                transition="all .2s ease-in-out"
+                margin="20px"
+                _hover={{
+                  transform: 'translate(0, -10px)',
+                }}
+              >
+                <a href={link.link} target="_blank" rel="noreferrer">
+                  <Image w="100px" h="100px" src={link.imageUrl} alt={link.alt} />
+                </a>
+              </Box>
+            ))}
           </SimpleGrid>
         </Box>
       </Box>
