@@ -43,7 +43,7 @@ export default function ContactPage() {
           이디어츠 연락처
         </Heading>
         <Box>
-          <SimpleGrid columns={[1, 2, 3, 4]} display="flex" justifyContent="center" marginTop="40px">
+          <SimpleGrid columns={[1, 2, 3, 4]} display="flex" justifyContent="center" marginTop="40px" flexFlow="wrap">
             {links.map(link => (
               <Box
                 position="relative"
