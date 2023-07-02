@@ -1,15 +1,31 @@
 query mainCarouselImage {
   mainCarouselImage {
-    images {
-      formats
+    data {
+      attributes {
+        images {
+          data {
+            attributes {
+              formats
+            }
+          }
+        }
+      }
     }
   }
 }
 
 query mainImage {
   mainImage {
-    images {
-      formats
+    data {
+      attributes {
+        images {
+          data {
+            attributes {
+              formats
+            }
+          }
+        }
+      }
     }
   }
 }

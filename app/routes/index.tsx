@@ -5,8 +5,7 @@ import carouselStyles from 'react-responsive-carousel/lib/styles/carousel.min.cs
 import styles from '~/styles/index.css'
 import { formatsToUrl } from '~/utils/image'
 import { request } from 'graphql-request'
-import { MainImageDocument, MainCarouselImageDocument } from '~/types/generated-idiots'
-import { StrapiImage } from '~/types/types'
+import { MainCarouselImageDocument, MainCarouselImageQuery } from '~/types/generated-idiots'
 import { LinksFunction, MetaFunction } from '@remix-run/react/routeModules'
 import { useLoaderData } from '@remix-run/react'
 
@@ -17,13 +16,9 @@ export function headers() {
 }
 
 export let loader = async () => {
-  const { mainImage } = await request('https://admin.idiots.band/graphql', MainImageDocument)
-  const { mainCarouselImage } = await request('https://admin.idiots.band/graphql', MainCarouselImageDocument)
+  const result = await request<MainCarouselImageQuery>('https://admin.idiots.band/graphql', MainCarouselImageDocument)
 
-  return {
-    mainImage: mainImage,
-    carouselImages: mainCarouselImage?.images,
-  }
+  return result
 }
 
 export let links: LinksFunction = () => {
@@ -56,9 +51,8 @@ export let meta: MetaFunction = () => {
 }
 
 export default function Index() {
-  const { mainImage, carouselImages } = useLoaderData()
+  const { mainCarouselImage } = useLoaderData<MainCarouselImageQuery>()
 
-  console.log(mainImage)
   useEffect(() => {
     const scriptSrc = 'https://platform.twitter.com/widgets.js'
     const script = document.createElement('script')
@@ -77,12 +71,12 @@ export default function Index() {
   return (
     <main>
       <Carousel autoPlay showThumbs={false} showStatus={false} showIndicators={false} showArrows={false}>
-        {carouselImages?.map((image: StrapiImage, index: number) => (
+        {mainCarouselImage?.data?.attributes?.images?.data.map((image, index: number) => (
           <Box key={`home-image-${index}`}>
             <AspectRatio ratio={16 / 9}>
               <Image
                 w="100%"
-                src={formatsToUrl(image?.formats, 'https://admin.idiots.band')}
+                src={formatsToUrl(image!.attributes!.formats, 'https://admin.idiots.band')}
                 objectFit="cover"
                 objectPosition="center"
               />
