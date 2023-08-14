@@ -1,5 +1,4 @@
 import { AspectRatio, Box, Circle, Image } from '@chakra-ui/react'
-import { useEffect } from 'react'
 import { Carousel } from 'react-responsive-carousel'
 import carouselStyles from 'react-responsive-carousel/lib/styles/carousel.min.css'
 import styles from '~/styles/index.css'
@@ -53,21 +52,6 @@ export let meta: MetaFunction = () => {
 export default function Index() {
   const { mainCarouselImage } = useLoaderData<MainCarouselImageQuery>()
 
-  useEffect(() => {
-    const scriptSrc = 'https://platform.twitter.com/widgets.js'
-    const script = document.createElement('script')
-    script.id = 'twitter'
-    script.src = scriptSrc
-    script.async = true
-    script.defer = true
-    script.crossOrigin = 'anonymous'
-    document.body.append(script)
-
-    return () => {
-      document.querySelector('script#twitter')?.remove()
-    }
-  }, [])
-
   return (
     <main>
       <Carousel autoPlay showThumbs={false} showStatus={false} showIndicators={false} showArrows={false}>
@@ -84,20 +68,6 @@ export default function Index() {
           </Box>
         ))}
       </Carousel>
-
-      <Box marginTop="24px" maxWidth="800" margin="0 auto">
-        <Box
-          as="a"
-          className="twitter-timeline"
-          href="https://twitter.com/band_idiots"
-          data-width="100%"
-          data-chrome="nofooter noborders transparent"
-          data-tweet-limit="3"
-          data-theme="dark"
-        >
-          <Circle size="24px" /> 이디어츠의 트윗을 불러오고 있습니다.
-        </Box>
-      </Box>
     </main>
   )
 }
