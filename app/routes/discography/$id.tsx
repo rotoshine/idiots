@@ -103,26 +103,26 @@ export default function AlbumDetailPage() {
           >
             <Box>
               <Box marginBottom="24px">
-                <Box color="black">앨범 이름</Box>
+                <Box color="gray.500">앨범 이름</Box>
                 <Box backgroundColor="blackAlpha.100" padding="8px">
                   {album.name}
                 </Box>
               </Box>
               <Box marginBottom="24px">
-                <Box color="black">발매일</Box>
+                <Box color="gray.500">발매일</Box>
                 <Box backgroundColor="blackAlpha.100" padding="8px">
                   {toDateFormat(album.releaseDate)}
                 </Box>
               </Box>
               <Box marginBottom="24px">
-                <Box color="black">앨범 설명</Box>
+                <Box color="gray.500">앨범 설명</Box>
                 <ScrollDescription backgroundColor="blackAlpha.100">
                   <Box padding="24px" dangerouslySetInnerHTML={{ __html: strapiTextToHTML(album.description ?? '') }} />
                 </ScrollDescription>
               </Box>
             </Box>
             <Box marginBottom="24px">
-              <Box color="black">스트리밍 링크</Box>
+              <Box color="gray.500">스트리밍 링크</Box>
               <Box backgroundColor="blackAlpha.100" padding="8px">
                 <List>
                   <StreamingLink link={album.bugsLink}>
